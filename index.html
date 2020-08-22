@@ -1,0 +1,90 @@
+<html>
+<head>
+	<style>
+		body {
+			background: black;
+			padding: 0;
+			margin: 0;
+			display: flex;
+		}
+
+		iframe {
+			flex: 1;
+			border: 0;
+		}
+
+		nav {
+			padding-right: 8px;
+    		border-right: 1px solid white;
+		}
+
+		nav > div {
+			margin: 10px 0;
+			border: 1px solid white;
+			border-radius: 10px;
+
+			width: 50px;
+			height: 50px;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			background: #171717;
+			box-shadow: 1px 1px 3px 1px rgba(255 255 255 / 55%);
+
+			cursor: pointer;
+		}
+
+		nav > div > a {
+		    color: white;
+	    	text-decoration: none;
+		}
+
+		nav > div > a > span { 
+			word-break: break-all;
+
+			display: inline-flex;
+			align-items: center;
+	 	}
+
+		nav > div:active,
+		nav > div.active {
+			background: #868686;
+			box-shadow: none;
+		}
+
+		nav > div:active > a,
+		nav > div.active > a{
+			color: black;
+		}
+	</style>
+	<script>
+		function markActive(element) {
+			document.querySelector('.active')?.classList.remove('active');
+			element.classList.add('active');
+		}
+	</script>
+</head>
+<body>
+
+	<nav>
+		<div onclick="markActive(this)">
+			<a href="https://chores.t-animal.de" target="main">
+				<span>
+					Chores
+				</span>
+			</a>
+		</div>
+		<div onclick="markActive(this)">
+			<a href="http://james.fritz.box" target="main">
+				<span>
+					James
+				</span>
+			</a>
+		</div>
+	</nav>
+
+	<iframe name="main" src=""></iframe>
+</body>
+</html>
