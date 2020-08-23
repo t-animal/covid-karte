@@ -19,6 +19,7 @@
    crossorigin=""></script>
    <script src="data.js"></script>
    <script src="laender.js"></script>
+   <script src="RKI_Corona_Landkreise.json"></script>
 </head>
 <body>
 
@@ -26,19 +27,90 @@
 
 	</div>
 	<script>
+		function color(sevenDaysInfectionsPer100k) {
+			if(sevenDaysInfectionsPer100k ==   0) return '#d2d2d2';
+			if(sevenDaysInfectionsPer100k <=   5) return '#d7d3af';
+			if(sevenDaysInfectionsPer100k <=  25) return '#d7d288';
+			if(sevenDaysInfectionsPer100k <=  50) return '#cd9406';
+			if(sevenDaysInfectionsPer100k <= 250) return '#af2632';
+			if(sevenDaysInfectionsPer100k <= 500) return '#8c0619';
+			return '#fff';
+		}
+
+		function mapIdToRkiObjectId(mapId) {
+			switch(mapId) {
+				case  92: return 268; //"SK Bamberg",
+				case  94: return 269; //"SK Bayreuth",
+				case  96: return 270; //"SK Coburg",
+				case  99: return 271; //"SK Hof",
+				case  93: return 272; //"LK Bamberg",
+				case  95: return 273; //"LK Bayreuth",
+				case  97: return 274; //"LK Coburg",
+				case  98: return 275; //"LK Forchheim",
+				case 100: return 276; //"LK Hof",
+				case 101: return 277; //"LK Kronach",
+				case 102: return 278; //"LK Kulmbach",
+				case 103: return 279; //"LK Lichtenfels",
+				case 104: return 280; //"LK Wunsiedel i.Fichtelgebirge",
+				case  45: return 281; //"SK Ansbach",
+				case  48: return 282; //"SK Erlangen",
+				case  49: return 283; //"SK Fürth",
+				case  52: return 284; //"SK Nürnberg",
+				case  55: return 285; //"SK Schwabach",
+				case  46: return 286; //"LK Ansbach",
+				case  47: return 287; //"LK Erlangen-Höchstadt",
+				case  50: return 288; //"LK Fürth",
+				case  53: return 289; //"LK Nürnberger Land",
+				case  51: return 290; //"LK Neustadt a.d.Aisch-Bad Windsheim",
+				case  54: return 291; //"LK Roth",
+				case  56: return 292; //"LK Weißenburg-Gunzenhausen",
+				default: return null;
+			}
+		}
+
+		function rkiFeatureByMapId(mapId) {
+			const rkiId = mapIdToRkiObjectId(mapId);
+			return rkiData().features
+				.map(feature => feature.attributes)
+				.find(attribute => attribute.OBJECTID == rkiId) || null;
+		}
+
 		const map = L.map(document.querySelector('div'))
 		.setView([51.163361, 10.447683], 6);
 
 		L.geoJSON(data(), {
 		    style: function (feature) {
+		    	const data = rkiFeatureByMapId(feature.properties.ID_3);
 		        return {
-		        	color: '#333',
+		        	color: '#888',
+		        	weight: 0.5,
+		        	fillColor: color(data?.cases7_per_100k),
+		        	fillOpacity: 1,
 		        	stroke: true,
-		        	weight: 1
 		        };
 		    }
 		}).bindPopup(function (layer) {
-		    return layer.feature.properties.NAME_3;
+		    const data = rkiFeatureByMapId(layer.feature.properties.ID_3);
+		    if(data == null){
+		    	const prop = layer.feature.properties;
+		    	return `<b>${prop.NAME_3}, ${prop.NAME_2}</b><br>
+		    	Noch nicht den RKI Daten zugeordnet<br><br>
+
+		    	<b>Mithelfen?</b> Bitte finde in den RKI Daten den passenden Datensatz.<br>
+		    	Bitte teile mir die ID des RKI Datensatzes und die Zahl <b>'${prop.ID_3}'</b> mit.`;
+		    }
+		    return data.county;
+		}).bindTooltip(function (layer) {
+		    const data = rkiFeatureByMapId(layer.feature.properties.ID_3);
+		    if(data == null){
+		    	const prop = layer.feature.properties;
+		    	return `<b>${prop.NAME_3}, ${prop.NAME_2}</b><br>
+		    	Noch nicht den RKI Daten zugeordnet<br><br>
+
+		    	<b>Mithelfen?</b> Bitte finde in den RKI Daten den passenden Datensatz.<br>
+		    	Bitte teile mir die ID des RKI Datensatzes und die Zahl <b>'${prop.ID_3}'</b> mit.`;
+		    }
+		    return data.county;
 		}).addTo(map);
 
 		L.geoJSON(states(), {
