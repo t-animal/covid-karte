@@ -20,20 +20,22 @@
 
 		nav > div {
 			margin: 10px 0;
-			border: 1px solid white;
-			border-radius: 10px;
+			padding: 10px;
 
-			width: 7ex;
-			height: 7ex;
+			border: 2px solid #c3c3c3;
+			border-radius: 999px;
 
 			display: flex;
 			justify-content: center;
 			align-items: center;
 
-			background: #171717;
-			box-shadow: 1px 1px 3px 1px rgba(255 255 255 / 55%);
+			background: linear-gradient(130deg, rgb(58 58 58) 0%, rgb(49 49 49) 80%);
+			box-shadow: 0px 1px 2px 1px rgba(255 255 255 / 55%);
 
 			cursor: pointer;
+
+			font-family: sans-serif;
+			font-weight: bold;
 		}
 
 		nav > div > a {
@@ -50,13 +52,14 @@
 
 		nav > div:active,
 		nav > div.active {
-			background: #868686;
-			box-shadow: none;
+		    box-shadow: inset 1px 1px 3px 0px black;
+			background: linear-gradient(130deg, rgb(132 132 132) 0%, rgb(200 200 200) 100%);
+
 		}
 
 		nav > div:active > a,
 		nav > div.active > a{
-			color: black;
+			color: #222;
 		}
 	</style>
 	<script>
