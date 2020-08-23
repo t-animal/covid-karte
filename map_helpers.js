@@ -33,12 +33,14 @@ function mapIdToRkiObjectId(mapId) {
 		case 89: return 243; //"LK Starnberg",
 		case 90: return 244; //"LK Traunstein",
 		case 91: return 245; //"LK Weilheim-Schongau",
+
 		case 61: return 246; //"SK Landshut",
 		case 63: return 247; //"SK Passau",
 		case 68: return 248; //"SK Straubing",
 		case 57: return 249; //"LK Deggendorf",
 		case 59: return 250; //"LK Freyung-Grafenau",
 		case 60: return 251; //"LK Kelheim",
+
 		case 61:  return 246; //"SK Landshut",
 		case 63:  return 247; //"SK Passau",
 		case 68:  return 248; //"SK Straubing",
@@ -61,6 +63,7 @@ function mapIdToRkiObjectId(mapId) {
 		case 111: return 265; //"LK Regensburg",
 		case 112: return 266; //"LK Schwandorf",
 		case 113: return 267; //"LK Tirschenreuth",
+
 		case  92: return 268; //"SK Bamberg",
 		case  94: return 269; //"SK Bayreuth",
 		case  96: return 270; //"SK Coburg",
@@ -74,6 +77,7 @@ function mapIdToRkiObjectId(mapId) {
 		case 102: return 278; //"LK Kulmbach",
 		case 103: return 279; //"LK Lichtenfels",
 		case 104: return 280; //"LK Wunsiedel i.Fichtelgebirge",
+
 		case  45: return 281; //"SK Ansbach",
 		case  48: return 282; //"SK Erlangen",
 		case  49: return 283; //"SK Fürth",
@@ -85,7 +89,35 @@ function mapIdToRkiObjectId(mapId) {
 		case  53: return 289; //"LK Nürnberger Land",
 		case  51: return 290; //"LK Neustadt a.d.Aisch-Bad Windsheim",
 		case  54: return 291; //"LK Roth",
+
 		case  56: return 292; //"LK Weißenburg-Gunzenhausen",
+		case 129: return 293; //"SK Aschaffenburg",
+		case 137: return 294; //"SK Schweinfurt",
+		case 139: return 295; //"SK Würzburg",
+		case 130: return 296; //"LK Aschaffenburg",
+		case 131: return 297; //"LK Bad Kissingen",
+		case 136: return 298; //"LK Rhön-Grabfeld",
+		case 132: return 299; //"LK Haßberge",
+		case 133: return 300; //"LK Kitzingen",
+		case 135: return 301; //"LK Miltenberg",
+		case 134: return 302; //"LK Main-Spessart",
+		case 138: return 303; //"LK Schweinfurt",
+		case 140: return 304; //"LK Würzburg",
+
+		case 116: return 305; //"SK Augsburg",
+		case 121: return 306; //"SK Kaufbeuren",
+		case 122: return 307; //"SK Kempten",
+		case 124: return 308; //"SK Memmingen",
+		case 115: return 309; //"LK Aichach-Friedberg",
+		case 117: return 310; //"LK Augsburg",
+		case 118: return 311; //"LK Dillingen a.d.Donau",
+		case 120: return 312; //"LK Günzburg",
+		case 125: return 313; //"LK Neu-Ulm",
+		case 123: return 314; //"LK Lindau",
+		case 127: return 315; //"LK Ostallgäu",
+		case 128: return 316; //"LK Unterallgäu",
+		case 119: return 317; //"LK Donau-Ries",
+		case 126: return 318; //"LK Oberallgäu",
 		default: return null;
 	}
 }
