@@ -1,4 +1,4 @@
-const rkiData = () => ({
+{
   "objectIdFieldName": "OBJECTID",
   "uniqueIdField": {
     "name": "OBJECTID",
@@ -18070,4 +18070,4 @@ const rkiData = () => ({
       }
     }
   ]
-});
+}

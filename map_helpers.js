@@ -122,9 +122,9 @@ function mapIdToRkiObjectId(mapId) {
 	}
 }
 
-function rkiFeatureByMapId(mapId) {
+function rkiFeatureByMapId(rkiData, mapId) {
 	const rkiId = mapIdToRkiObjectId(mapId);
-	return rkiData().features
+	return rkiData.features
 		.map(feature => feature.attributes)
 		.find(attribute => attribute.OBJECTID == rkiId) || null;
 }
