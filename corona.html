@@ -1,0 +1,44 @@
+<html>
+<head>
+	 <meta charset="utf-8" />
+	<style>
+		body {
+			background: black;
+			padding: 0;
+			margin: 0;
+			display: flex;
+		}
+
+	</style>
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+   <script src="data.js"></script>
+</head>
+<body>
+
+	<div style="height: 800px; width: 1200px;">
+
+	</div>
+	<script>
+		const map = L.map(document.querySelector('div'))
+		.setView([51.163361, 10.447683], 6);
+
+		L.geoJSON(data(), {
+		    style: function (feature) {
+		        return {
+		        	color: '#333',
+		        	stroke: true,
+		        	weight: 1
+		        };
+		    }
+		}).bindPopup(function (layer) {
+		    return layer.feature.properties.NAME_3;
+		}).addTo(map);
+	</script>
+</body>
+</html>
