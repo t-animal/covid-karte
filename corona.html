@@ -1,34 +1,30 @@
 <html>
 <head>
-	 <meta charset="utf-8" />
-	<style>
-		body {
-			background: black;
-			padding: 0;
-			margin: 0;
-			display: flex;
-
-			height: 100%;
-			width: 100%;
-		}
-
-	</style>
+	<meta charset="utf-8" />
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
 	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
+	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	   crossorigin=""/>
+	  <link rel="stylesheet" href="./style.css"/>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+		integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+		crossorigin=""></script>
    <script src="data.js"></script>
    <script src="laender.js"></script>
    <script src="RKI_Corona_Landkreise.json"></script>
 </head>
 <body>
+	<header>
+		<h1>Ein performantes COVID-19-Dashboard</h1>
+		Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4/page/page_1/">RKI-Dashboard</a>, aber schneller.
+	</header>
 
-	<div style="height: 100%; width: 100%; background: rgb(56, 57, 57);">
+	<section class="map-section">
+		<h2>COVID-19-Fälle der letzten 7 Tage/100.000 Einwohner</h2>
+		<div class="map"></div>
+	</section>
 
-	</div>
 	<script src="map_helpers.js"></script>
 	<script src="map.js"></script>
 </body>

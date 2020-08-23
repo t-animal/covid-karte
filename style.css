@@ -1,0 +1,62 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	color: white;
+	font-family: "Rubik", "Avenir Next", "Helvetica Neue", sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+body {
+	background: rgb(5,5,5);
+	padding: 0;
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	width: 100%;
+}
+
+header, section {
+	padding: 5px;
+	margin: 5px;
+
+	border: 1px solid rgb(58 58 58);
+	background: rgb(34, 34, 34);
+}
+
+h1 {
+	font-size: 1.8rem;
+    line-height: 1.3875;
+    margin: 0;
+    font-weight: 300;
+}
+
+h2 {
+	margin: 0px;
+	margin-bottom: 8px;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+section.map-section {
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.map {
+	flex: 1;
+
+	background: none;
+}
+
+a {
+	color: rgb(0, 132, 168);
+	text-decoration: none;
+}
