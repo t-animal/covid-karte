@@ -18,6 +18,7 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
    <script src="data.js"></script>
+   <script src="laender.js"></script>
 </head>
 <body>
 
@@ -38,6 +39,14 @@
 		    }
 		}).bindPopup(function (layer) {
 		    return layer.feature.properties.NAME_3;
+		}).addTo(map);
+
+		L.geoJSON(states(), {
+			style: {
+				color: '#888',
+				weight: 2,
+				fill: false
+			}
 		}).addTo(map);
 	</script>
 </body>
