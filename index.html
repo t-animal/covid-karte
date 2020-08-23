@@ -61,7 +61,11 @@
 	</style>
 	<script>
 		function markActive(element) {
-			document.querySelector('.active')?.classList.remove('active');
+			const existing = document.querySelector('.active');
+			if(existing !== null){
+				existing.classList.remove('active');
+			}
+
 			element.classList.add('active');
 		}
 	</script>
