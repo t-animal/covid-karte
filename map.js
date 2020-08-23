@@ -14,6 +14,10 @@ async function loadStateMap() {
 	return (await fetch('./state-map.json')).json();
 }
 
+async function loadEuMap() {
+	return (await fetch('./eu-map.json')).json();
+}
+
 async function loadAndDisplayMap() {
 	const rkiDataResponse = loadRkiData();
 	const countiesResponse = loadCountyMap();
@@ -56,4 +60,15 @@ async function loadAndDisplayMap() {
 			fill: false
 		}
 	}).addTo(map);
+
+	L.geoJSON(await loadEuMap(), {
+		style: {
+			color: '#313232',
+			fillColor: '#393a3a',
+			fillOpacity: 1,
+			weight: 2,
+		}
+	}).addTo(map);
+
+	document.querySelector('div.map').style.background='1d2224';
 }
