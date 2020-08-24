@@ -21,6 +21,14 @@ body {
 	width: 100%;
 }
 
+main {
+	flex:  1;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-template-rows: auto min-content;
+}
+
+
 header, section {
 	padding: 5px;
 	margin: 5px;
@@ -44,10 +52,18 @@ h2 {
 }
 
 section.map-section {
-	flex: 1;
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-end: 3;
 
 	display: flex;
 	flex-direction: column;
+}
+
+section.data-age {
+    grid-column: 1;
+    height: fit-content;
 }
 
 .map {
