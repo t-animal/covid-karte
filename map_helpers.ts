@@ -1,4 +1,52 @@
-export function color(sevenDaysInfectionsPer100k) {
+type RkiCountyFeatureAttributes = {
+	"OBJECTID": number,
+	"ADE": number,
+	"GF": number,
+	"BSG": number,
+	"RS": string,
+	"AGS": string,
+	"SDV_RS": string,
+	"GEN": string,
+	"BEZ": string,
+	"IBZ": number,
+	"BEM": string,
+	"NBD": string,
+	"SN_L": string,
+	"SN_R": string,
+	"SN_K": string,
+	"SN_V1": string,
+	"SN_V2": string,
+	"SN_G": string,
+	"FK_S3": string,
+	"NUTS": string,
+	"RS_0": string,
+	"AGS_0": string,
+	"WSK": string,
+	"EWZ": number,
+	"KFL": number,
+	"DEBKG_ID": string,
+	"Shape__Area": number,
+	"Shape__Length": number,
+	"death_rate": number,
+	"cases": number,
+	"deaths": number,
+	"cases_per_100k": number,
+	"cases_per_population": number,
+	"BL": string,
+	"BL_ID": string,
+	"county": string,
+	"last_update": string,
+	"cases7_per_100k": number,
+	"recovered": null
+}
+
+type RkiData = {
+	features: [{ attributes: RkiCountyFeatureAttributes }]
+}
+
+export function color(sevenDaysInfectionsPer100k: number | undefined) {
+	if(sevenDaysInfectionsPer100k == undefined) return '#fff';
+
 	if(sevenDaysInfectionsPer100k ==   0) return '#d2d2d2';
 	if(sevenDaysInfectionsPer100k <=   5) return '#d7d3af';
 	if(sevenDaysInfectionsPer100k <=  25) return '#d7d288';
@@ -9,14 +57,14 @@ export function color(sevenDaysInfectionsPer100k) {
 }
 
 
-export function rkiFeatureByMapId(rkiData, mapId) {
+export function rkiFeatureByMapId(rkiData: RkiData, mapId: number) {
 	const rkiId = mapIdToRkiObjectId(mapId);
 	return rkiData.features
 		.map(feature => feature.attributes)
 		.find(attribute => attribute.OBJECTID == rkiId) || null;
 }
 
-function mapIdToRkiObjectId(mapId) {
+function mapIdToRkiObjectId(mapId: number) {
 	switch(mapId) {
 		case 79: return 223; //"SK Ingolstadt",
 		case 84: return 224; //"SK München",

@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "dependencies": {
+    "@types/leaflet": "^1.5.17",
     "leaflet": "^1.6.0"
   },
   "devDependencies": {

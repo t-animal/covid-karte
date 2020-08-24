@@ -2,9 +2,36 @@ import { color, rkiFeatureByMapId } from "./map_helpers";
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet';
 
+
+type CountyMapInfo = {
+	"ID_0": number,
+	"ISO": string,
+	"NAME_0": string,
+	"ID_1": number,
+	"NAME_1": string,
+	"ID_2": number,
+	"NAME_2": string,
+	"ID_3": number,
+	"NAME_3": string,
+	"NL_NAME_3": null,
+	"VARNAME_3": null,
+	"TYPE_3": string,
+	"ENGTYPE_3": string
+};
+
+type CountyMapFeature = GeoJSON.Feature<GeoJSON.Polygon, CountyMapInfo>;
+
 const map = L
-	.map(document.querySelector('div.map'))
+	.map(getMapElement())
 	.setView([51.163361, 10.447683], 6);
+
+function getMapElement() {
+	const elem = document.querySelector<HTMLDivElement>('div.map');
+	if(elem === null){ 
+		throw Error('Could not find map element');
+	}
+	return elem;
+}
 
 async function loadRkiData() {
 	return (await fetch('./RKI_Corona_Landkreise.json')).json();
@@ -29,7 +56,10 @@ export async function loadAndDisplayMap() {
 
 	const rkiData = await rkiDataResponse;
 
-	function getCountyPopup(layer) {
+	function getCountyPopup(layer: L.Layer & {feature?: CountyMapFeature}): string {
+		if(layer?.feature?.properties == undefined) {
+			return '';
+		}
 		const data = rkiFeatureByMapId(rkiData, layer.feature.properties.ID_3);
 		if(data == null){
 			const prop = layer.feature.properties;
@@ -42,9 +72,12 @@ export async function loadAndDisplayMap() {
 		return data.county;
 	}
 
-	L.geoJSON(await countiesResponse, {
+	L.geoJSON<CountyMapInfo>(await countiesResponse, {
 		style: function (feature) {
-			const data = rkiFeatureByMapId(rkiData, feature.properties.ID_3);
+			if(feature?.properties == undefined) {
+				return {};
+			}
+			const data = rkiFeatureByMapId(rkiData, feature?.properties.ID_3);
 			return {
 				color: '#888',
 				weight: 0.5,
@@ -74,5 +107,5 @@ export async function loadAndDisplayMap() {
 		}
 	}).addTo(map);
 
-	document.querySelector('div.map').style.background='1d2224';
+	getMapElement().style.background = '1d2224';
 }
