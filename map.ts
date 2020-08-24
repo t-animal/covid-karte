@@ -2,6 +2,7 @@ import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap } from
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet';
 import { loadRkiData } from './data-loading';
+import { getElementOrThrow } from './helpers';
 
 
 type CountyMapInfo = {
@@ -27,11 +28,7 @@ const map = L
 	.setView([51.163361, 10.447683], 6);
 
 function getMapElement() {
-	const elem = document.querySelector<HTMLDivElement>('div.map');
-	if(elem === null){ 
-		throw Error('Could not find map element');
-	}
-	return elem;
+	return getElementOrThrow<HTMLDivElement>('div.map');
 }
 
 export async function loadAndDisplayMap() {

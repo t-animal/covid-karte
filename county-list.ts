@@ -1,11 +1,8 @@
 import { loadRkiData, RkiCountyFeatureAttributes } from './data-loading';
+import { getElementOrThrow } from './helpers';
 
-function getTableElement(): HTMLTableElement {
-    const elem = document.querySelector<HTMLTableElement>('.county-list');
-    if(elem === null) {
-        throw Error('Could not find county-list element');
-    }
-    return elem;
+function getTableElement() {
+    return getElementOrThrow<HTMLTableElement>('.county-list');
 }
 
 export async function loadAndDisplayCountyList() {
