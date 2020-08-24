@@ -63,7 +63,9 @@ section.map-section {
 
 section.data-age {
     grid-column: 1;
-    height: fit-content;
+	height: fit-content;
+	
+	text-align: center;
 }
 
 section.counties {
