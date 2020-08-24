@@ -1,0 +1,17 @@
+{
+  "name": "performant-corona-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2",
+    "http-server": "^0.12.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL v3"
+}
