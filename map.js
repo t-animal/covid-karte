@@ -1,4 +1,6 @@
 import { color, rkiFeatureByMapId } from "./map_helpers";
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet';
 
 const map = L
 	.map(document.querySelector('div.map'))

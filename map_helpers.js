@@ -1,4 +1,4 @@
-function color(sevenDaysInfectionsPer100k) {
+export function color(sevenDaysInfectionsPer100k) {
 	if(sevenDaysInfectionsPer100k ==   0) return '#d2d2d2';
 	if(sevenDaysInfectionsPer100k <=   5) return '#d7d3af';
 	if(sevenDaysInfectionsPer100k <=  25) return '#d7d288';
@@ -6,6 +6,14 @@ function color(sevenDaysInfectionsPer100k) {
 	if(sevenDaysInfectionsPer100k <= 250) return '#af2632';
 	if(sevenDaysInfectionsPer100k <= 500) return '#8c0619';
 	return '#fff';
+}
+
+
+export function rkiFeatureByMapId(rkiData, mapId) {
+	const rkiId = mapIdToRkiObjectId(mapId);
+	return rkiData.features
+		.map(feature => feature.attributes)
+		.find(attribute => attribute.OBJECTID == rkiId) || null;
 }
 
 function mapIdToRkiObjectId(mapId) {
@@ -120,11 +128,4 @@ function mapIdToRkiObjectId(mapId) {
 		case 126: return 318; //"LK Oberallgäu",
 		default: return null;
 	}
-}
-
-function rkiFeatureByMapId(rkiData, mapId) {
-	const rkiId = mapIdToRkiObjectId(mapId);
-	return rkiData.features
-		.map(feature => feature.attributes)
-		.find(attribute => attribute.OBJECTID == rkiId) || null;
 }
