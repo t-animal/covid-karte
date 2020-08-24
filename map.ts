@@ -1,4 +1,4 @@
-import { color, rkiFeatureByMapId } from "./map_helpers";
+import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap } from "./map_helpers";
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet';
 
@@ -35,18 +35,6 @@ function getMapElement() {
 
 async function loadRkiData() {
 	return (await fetch('./RKI_Corona_Landkreise.json')).json();
-}
-
-async function loadCountyMap() {
-	return (await fetch('./map-data/county-map.json')).json();
-}
-
-async function loadStateMap() {
-	return (await fetch('./map-data/state-map.json')).json();
-}
-
-async function loadEuMap() {
-	return (await fetch('./map-data/eu-map.json')).json();
 }
 
 export async function loadAndDisplayMap() {

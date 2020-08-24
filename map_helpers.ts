@@ -44,6 +44,18 @@ type RkiData = {
 	features: [{ attributes: RkiCountyFeatureAttributes }]
 }
 
+export async function loadCountyMap() {
+	return (await fetch('./map-data/county-map.json')).json();
+}
+
+export async function loadStateMap() {
+	return (await fetch('./map-data/state-map.json')).json();
+}
+
+export async function loadEuMap() {
+	return (await fetch('./map-data/eu-map.json')).json();
+}
+
 export function color(sevenDaysInfectionsPer100k: number | undefined) {
 	if(sevenDaysInfectionsPer100k == undefined) return '#fff';
 
