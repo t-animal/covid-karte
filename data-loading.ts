@@ -47,6 +47,7 @@ export type RkiData = {
 }
 
 let rkiData: RkiData;
+let loading = false;
 let dataListeners: ResolveAndReject[] = [];
 type ResolveAndReject = [(arg: RkiData)=>void, (arg: any)=>void];
 
@@ -63,6 +64,10 @@ export function loadRkiData(): Promise<RkiData> {
 }
 
 async function loadDataOnce() {
+	if(loading){
+		return;
+	}
+	loading= true;
     try {
         rkiData = await (await fetch(DATA_URL)).json();
 
