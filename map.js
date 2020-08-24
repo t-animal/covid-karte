@@ -1,3 +1,5 @@
+import { color, rkiFeatureByMapId } from "./map_helpers";
+
 const map = L
 	.map(document.querySelector('div.map'))
 	.setView([51.163361, 10.447683], 6);
@@ -18,7 +20,7 @@ async function loadEuMap() {
 	return (await fetch('./map-data/eu-map.json')).json();
 }
 
-async function loadAndDisplayMap() {
+export async function loadAndDisplayMap() {
 	const rkiDataResponse = loadRkiData();
 	const countiesResponse = loadCountyMap();
 	const statesResponse = loadStateMap();
