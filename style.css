@@ -22,9 +22,9 @@ body {
 }
 
 main {
-	flex:  1;
+	flex: 1;
 	display: grid;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: 350px auto auto;
 	grid-template-rows: auto min-content;
 }
 
@@ -64,6 +64,44 @@ section.map-section {
 section.data-age {
     grid-column: 1;
     height: fit-content;
+}
+
+section.counties {
+    display: flex;
+    flex-direction: column;
+}
+
+section.counties .label {
+	text-align: center;
+	font-size: 1rem;
+}
+
+section.counties .scroll-container {
+	flex: 1;
+	overflow-y: scroll;
+	position: relative;
+}
+
+section.counties .scroll-container table {
+	position: absolute;
+    font-size: 1.2rem;
+	text-align: left;
+	border-collapse: collapse;
+	margin-top: 1rem;
+}
+
+section.counties .scroll-container table td,
+section.counties .scroll-container table th {
+	padding: 5px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.cases {
+    color:#00c5ff
+}
+
+.deaths {
+    color: #5c5c5c;
 }
 
 .map {
