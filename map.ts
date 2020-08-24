@@ -92,5 +92,5 @@ export async function loadAndDisplayMap() {
 		}
 	}).addTo(map);
 
-	getMapElement().style.background = '1d2224';
+	getMapElement().style.background = '#1d2224';
 }
