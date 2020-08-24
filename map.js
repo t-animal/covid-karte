@@ -7,15 +7,15 @@ async function loadRkiData() {
 }
 
 async function loadCountyMap() {
-	return (await fetch('./county-map.json')).json();
+	return (await fetch('./map-data/county-map.json')).json();
 }
 
 async function loadStateMap() {
-	return (await fetch('./state-map.json')).json();
+	return (await fetch('./map-data/state-map.json')).json();
 }
 
 async function loadEuMap() {
-	return (await fetch('./eu-map.json')).json();
+	return (await fetch('./map-data/eu-map.json')).json();
 }
 
 async function loadAndDisplayMap() {
