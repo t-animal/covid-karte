@@ -1,6 +1,10 @@
 :root {
 	--highlight-blue: #00c5ff;
 	--highlight-grey: #5c5c5c;
+	--highlight-orange: rgb(230, 152, 0);
+
+	--strong-border: 1px solid rgba(255, 255, 255, 0.4);
+	--light-border: 1px solid rgb(58 58 58);
 }
 
 * {
@@ -38,7 +42,7 @@ header, section {
 	padding: 5px;
 	margin: 5px;
 
-	border: 1px solid rgb(58 58 58);
+	border: var(--light-border);
 	background: rgb(34, 34, 34);
 }
 
@@ -100,7 +104,7 @@ section.counties .scroll-container table {
 section.counties .scroll-container table td,
 section.counties .scroll-container table th {
 	padding: 5px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+	border-bottom: var(--strong-border);
 }
 
 section.cases-section, 
@@ -108,6 +112,9 @@ section.deaths-section,
 section.info-section {
 	grid-row: 1;
 	text-align: center;
+	
+	display: flex;
+	flex-direction: column;
 }
 
 section.cases-section h2, 
@@ -116,9 +123,14 @@ section.info-section h2 {
 	white-space: nowrap;
 }
 
-.daily-sum {
+.daily-sum,
+.daily-diff {
 	font-size: 2.5rem;
 	font-weight: 500;
+}
+
+.daily-diff {
+	border-top: var(--light-border);
 }
 
 .cases {
@@ -127,6 +139,10 @@ section.info-section h2 {
 
 .deaths {
     color: var(--highlight-grey);
+}
+
+.highlight {
+	color: var(--highlight-orange);
 }
 
 .map {
