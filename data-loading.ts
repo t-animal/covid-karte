@@ -1,4 +1,5 @@
-const DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&outSR=4326&f=json';
+const COUNTY_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&outSR=4326&f=json';
+const TODAYS_SUMMED_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?f=json&where=1=1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=[{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22cases%22,%22outStatisticFieldName%22:%22totalCases%22},{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22deaths%22,%22outStatisticFieldName%22:%22totalDeaths%22}]&resultType=standard&cacheHint=true';
 
 export type RkiCountyFeatureAttributes = {
 	"OBJECTID": number,
@@ -41,6 +42,8 @@ export type RkiCountyFeatureAttributes = {
 	"cases7_per_100k": number,
 	"recovered": null
 }
+
+export type RkiSummedDayData =  {"totalCases":number, "totalDeaths":number};
 
 export type RkiFeatureData<T> = {
 	features: [{ attributes: T }]
@@ -88,7 +91,14 @@ class DataLoader<T> {
 	}
 }
 
-let countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(DATA_URL);
+
+
+let countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(COUNTY_DATA_URL);
 export function loadCountyData(): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> {
 	return countyDataLoader.load();
+}
+
+let todaysSummedDataLoader = new DataLoader<RkiFeatureData<RkiSummedDayData>>(TODAYS_SUMMED_DATA_URL);
+export function loadTodaysSummedData(): Promise<RkiFeatureData<RkiSummedDayData>> {
+	return todaysSummedDataLoader.load();
 }
