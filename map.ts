@@ -1,7 +1,7 @@
 import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap } from "./map_helpers";
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet';
-import { loadRkiData } from './data-loading';
+import { loadCountyData } from './data-loading';
 import { getElementOrThrow } from './helpers';
 
 
@@ -32,7 +32,7 @@ function getMapElement() {
 }
 
 export async function loadAndDisplayMap() {
-	const rkiDataResponse = loadRkiData();
+	const rkiDataResponse = loadCountyData();
 	const countiesResponse = loadCountyMap();
 	const statesResponse = loadStateMap();
 

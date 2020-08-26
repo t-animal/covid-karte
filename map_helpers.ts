@@ -1,4 +1,4 @@
-import { RkiData } from './data-loading';
+import {  RkiCountyFeatureAttributes, RkiFeatureData } from "./data-loading";
 
 export async function loadCountyMap() {
 	return (await fetch('./map-data/county-map.json')).json();
@@ -25,7 +25,7 @@ export function color(sevenDaysInfectionsPer100k: number | undefined) {
 }
 
 
-export function rkiFeatureByMapId(rkiData: RkiData, mapId: number) {
+export function rkiFeatureByMapId(rkiData: RkiFeatureData<RkiCountyFeatureAttributes>, mapId: number) {
 	const rkiId = mapIdToRkiObjectId(mapId);
 	return rkiData.features
 		.map(feature => feature.attributes)

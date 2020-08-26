@@ -1,4 +1,4 @@
-const DATA_URL = './RKI_Corona_Landkreise.json';
+const DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&outSR=4326&f=json';
 
 export type RkiCountyFeatureAttributes = {
 	"OBJECTID": number,
@@ -42,37 +42,53 @@ export type RkiCountyFeatureAttributes = {
 	"recovered": null
 }
 
-export type RkiData = {
-	features: [{ attributes: RkiCountyFeatureAttributes }]
+export type RkiFeatureData<T> = {
+	features: [{ attributes: T }]
 }
 
-let rkiData: RkiData;
-let loading = false;
-let dataListeners: ResolveAndReject[] = [];
-type ResolveAndReject = [(arg: RkiData)=>void, (arg: any)=>void];
 
-export function loadRkiData(): Promise<RkiData> {
-    if(rkiData !== undefined) {
-        return Promise.resolve(rkiData);
-    }
+type ResolveAndReject<T> = [(arg: T)=>void, (arg: any)=>void];
 
-    loadDataOnce();
+class DataLoader<T> {
 
-    return new Promise<RkiData>((resolve, reject) => {
-        dataListeners.push([resolve, reject]);
-    });
-}
+	private isLoading = false;
+	private listeners: ResolveAndReject<T>[] = []
 
-async function loadDataOnce() {
-	if(loading){
-		return;
+	private loadedData: T | null = null;
+
+	constructor(
+		private url: string
+	){}
+
+	load() {
+		if(this.loadedData !== null) {
+			return Promise.resolve(this.loadedData);
+		}
+
+		this.loadDataOnce();
+
+		return new Promise<T>((resolve, reject) => {
+			this.listeners.push([resolve, reject]);
+		});
 	}
-	loading= true;
-    try {
-        rkiData = await (await fetch(DATA_URL)).json();
 
-        dataListeners.forEach(([resolve, reject]) => resolve(rkiData));
-    }catch(e) {
-        dataListeners.forEach(([resolve, reject]) => reject(e));
-    }
+	private async loadDataOnce() {
+		if(this.isLoading){
+			return;
+		}
+		this.isLoading = true;
+
+		try {
+			this.loadedData = await (await fetch(this.url)).json() as T;
+			
+			this.listeners.forEach(([resolve, reject]) => resolve(this.loadedData!));
+		}catch(e) {
+			this.listeners.forEach(([resolve, reject]) => reject(e));
+		}
+	}
+}
+
+let countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(DATA_URL);
+export function loadCountyData(): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> {
+	return countyDataLoader.load();
 }

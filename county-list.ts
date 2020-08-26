@@ -1,4 +1,4 @@
-import { loadRkiData, RkiCountyFeatureAttributes } from './data-loading';
+import { loadCountyData, RkiCountyFeatureAttributes } from './data-loading';
 import { getElementOrThrow } from './helpers';
 
 function getTableElement() {
@@ -6,7 +6,7 @@ function getTableElement() {
 }
 
 export async function loadAndDisplayCountyList() {
-    const counties = await loadRkiData();
+    const counties = await loadCountyData();
     const sortedCounties = [...counties.features].map(elem => elem.attributes);
     sortedCounties.sort((a,b) => b.cases - a.cases)
 
