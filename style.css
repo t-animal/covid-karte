@@ -108,8 +108,7 @@ section.counties .scroll-container table th {
 }
 
 section.cases-section, 
-section.deaths-section, 
-section.info-section {
+section.deaths-section {
 	grid-row: 1;
 	text-align: center;
 	
@@ -121,6 +120,12 @@ section.cases-section h2,
 section.deaths-section h2, 
 section.info-section h2 {
 	white-space: nowrap;
+}
+
+
+section.info-section {
+	grid-row: 1;
+	min-width: 200px;
 }
 
 .daily-sum,
