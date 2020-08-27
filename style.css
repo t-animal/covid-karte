@@ -151,6 +151,31 @@ section.info-section {
 	flex: 1;
 }
 
+.new-cases-per-day-section .chart-labels {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.new-cases-per-day-section .chart-label {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 5px 0 15;
+}
+
+.new-cases-per-day-section .chart-label.by-first-sickday {
+    background: var(--highlight-blue);
+}
+
+.new-cases-per-day-section .chart-label.by-notificationday {
+    background: var(--highlight-orange);
+}
+
+.label {
+	font-size: 0.9rem;
+}
+
 .cases {
     color:var(--highlight-cyan);
 }
