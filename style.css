@@ -1,7 +1,8 @@
 :root {
-	--highlight-blue: #00c5ff;
+	--highlight-cyan: #00c5ff;
+	--highlight-blue: #2f52a0;
 	--highlight-grey: #5c5c5c;
-	--highlight-orange: rgb(230, 152, 0);
+	--highlight-orange: #e69800;
 
 	--strong-border: 1px solid rgba(255, 255, 255, 0.4);
 	--light-border: 1px solid rgb(58 58 58);
@@ -151,7 +152,7 @@ section.info-section {
 }
 
 .cases {
-    color:var(--highlight-blue);
+    color:var(--highlight-cyan);
 }
 
 .deaths {
@@ -169,6 +170,6 @@ section.info-section {
 }
 
 a {
-	color: rgb(0, 132, 168);
+	color: var(--highlight-cyan);
 	text-decoration: none;
 }

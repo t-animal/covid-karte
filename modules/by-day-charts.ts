@@ -50,12 +50,12 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
                 {
                     label: 'Erkrankungsdatum ',
                     data: values.casesByFirstSickday,
-                    backgroundColor: '#004da8',
+                    backgroundColor: '#2f52a0',
                     ...commonDatasetSettings
                 },{
                     label: 'Meldedatum ',
                     data: values.casesByNotificationday,
-                    backgroundColor: '#f5bd45',
+                    backgroundColor: '#e69800',
                     ...commonDatasetSettings
                 }
             ]
