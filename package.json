@@ -4,7 +4,10 @@
   "description": "",
   "main": "",
   "dependencies": {
+    "@types/chart.js": "^2.9.24",
     "@types/leaflet": "^1.5.17",
+    "chart.js": "^2.9.3",
+    "chartjs": "^0.3.24",
     "leaflet": "^1.6.0"
   },
   "devDependencies": {
