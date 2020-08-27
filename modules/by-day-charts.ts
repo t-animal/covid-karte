@@ -98,7 +98,15 @@ export function loadAndDisplayDailyInfections() {
                 zoom: {
                     pan: {
                         enabled: true,
-                        mode: 'x'
+                        mode: 'x',
+
+                        rangeMin: {
+                            x: new Date(2020, 2)
+                        },
+
+                        rangeMax: {
+                            x: new Date()
+                        },
                     },
                     zoom: {
                         enabled: true,
