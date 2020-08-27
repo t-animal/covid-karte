@@ -98,6 +98,27 @@ const data =
                     }
                     
                 }]
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'x'
+                    },
+                    zoom: {
+                        enabled: true,
+
+                        rangeMin: {
+                            x: new Date(2020, 2)
+                        },
+
+                        rangeMax: {
+                            x: new Date()
+                        },
+
+                        mode: 'x'
+                    }
+                }
             }
-        }
+        },
     });
