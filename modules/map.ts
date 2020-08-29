@@ -6,7 +6,8 @@ import { getElementOrThrow } from './helpers';
 import { selectOrToggleCounty, observeCountyChanges, getDataOfSelectedCounty, selectedCountyRkiId } from './county-selection';
 
 
-type CountyMapFeature = GeoJSON.Feature<GeoJSON.Polygon, CountyMapInfo>;
+type CountyFeature = GeoJSON.Feature<GeoJSON.Polygon, CountyMapInfo>;
+type CountyMap = GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>;
 
 const map = L
 	.map(getMapElement())
@@ -25,24 +26,16 @@ export async function loadAndDisplayMap() {
 	const preloadedEurope = loadEuMap();
 
 	const rkiData = await rkiDataResponse;
-
-	function getCountyTooltip(layer: L.Layer & {feature?: CountyMapFeature}): string {
-		if(layer?.feature?.properties == undefined) {
-			return '';
-		}
-		const data = rkiFeatureByMapId(rkiData, layer.feature.properties.ID_3);
-		if(data == null){
-			const prop = layer.feature.properties;
-			return `<b>${prop.NAME_3}, ${prop.NAME_2}</b><br>
-			Noch nicht den RKI Daten zugeordnet<br><br>
-
-			<b>Mithelfen?</b> Bitte finde in den RKI Daten den passenden Datensatz.<br>
-			Bitte teile mir die ID des RKI Datensatzes und die Zahl <b>'${prop.ID_3}'</b> mit.`;
-		}
-		return data.county;
-	}
-
 	const countiesGeoJson = await countiesResponse;
+
+	addCountiesToMap(rkiData, countiesGeoJson)
+	highlightCountyWhenSelected(rkiData, countiesGeoJson);
+
+	addStateBoundaries(await preloadedStates);
+	addEuropeanMap(await preloadedEurope);
+}
+
+function addCountiesToMap(rkiData: RkiFeatureData<RkiCountyFeatureAttributes>, countiesGeoJson: CountyMap) {
 	L.geoJSON<CountyMapInfo>(countiesGeoJson, {
 		style: function (feature) {
 			if(feature?.properties == undefined) {
@@ -68,15 +61,27 @@ export async function loadAndDisplayMap() {
 	}).bindTooltip(getCountyTooltip, {direction: 'top'})
 	  .addTo(map);
 
-	highlightCountyWhenSelected(rkiData, countiesGeoJson);
 
-	addStateBoundaries(await preloadedStates);
-	addEuropeanMap(await preloadedEurope);
+	function getCountyTooltip(layer: L.Layer & {feature?: CountyFeature}): string {
+		if(layer?.feature?.properties == undefined) {
+			return '';
+		}
+		const data = rkiFeatureByMapId(rkiData, layer.feature.properties.ID_3);
+		if(data == null){
+			const prop = layer.feature.properties;
+			return `<b>${prop.NAME_3}, ${prop.NAME_2}</b><br>
+			Noch nicht den RKI Daten zugeordnet<br><br>
+
+			<b>Mithelfen?</b> Bitte finde in den RKI Daten den passenden Datensatz.<br>
+			Bitte teile mir die ID des RKI Datensatzes und die Zahl <b>'${prop.ID_3}'</b> mit.`;
+		}
+		return data.county;
+	}
 }
 
 function highlightCountyWhenSelected(
 	rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
-	counties: GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>
+	counties: CountyMap
 ) {
 	let highlightLayer: L.GeoJSON | null = null;
 	observeCountyChanges(() => {
