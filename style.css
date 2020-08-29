@@ -147,8 +147,13 @@ section.info-section {
 	flex-direction: column;
 }
 
-.new-cases-per-day-section canvas {
+.daily-new-cases-canvas-resize-container {
+	position: relative;
 	flex: 1;
+}
+
+.new-cases-per-day-section canvas {
+	height: 100%!important;
 }
 
 .new-cases-per-day-section .chart-labels {
