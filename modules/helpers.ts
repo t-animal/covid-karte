@@ -1,7 +1,7 @@
-export function getElementOrThrow<E extends Element = Element>(selector: string): E {
-    const elem = document.querySelector<E>(selector);
+export function getElementOrThrow<E extends Element = Element>(selector: string, baseElement?: Element): E {
+    const elem = (baseElement ?? document).querySelector<E>(selector);
     if(elem === null) {
-        throw Error('Could not find county-list element');
+        throw Error(`Could not find element "${selector}" on "${baseElement?.localName ?? 'document'}"`);
     }
     return elem;
 }

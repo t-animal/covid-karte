@@ -3,6 +3,7 @@ import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap } from
 import L from 'leaflet';
 import { loadCountyData } from './data-loading';
 import { getElementOrThrow } from './helpers';
+import { selectOrToggleCounty } from './county-selection';
 
 
 type CountyMapInfo = {
@@ -40,7 +41,7 @@ export async function loadAndDisplayMap() {
 
 	const rkiData = await rkiDataResponse;
 
-	function getCountyPopup(layer: L.Layer & {feature?: CountyMapFeature}): string {
+	function getCountyTooltip(layer: L.Layer & {feature?: CountyMapFeature}): string {
 		if(layer?.feature?.properties == undefined) {
 			return '';
 		}
@@ -69,9 +70,16 @@ export async function loadAndDisplayMap() {
 				fillOpacity: 1,
 				stroke: true,
 			};
+		},
+		onEachFeature: function(feature, layer) {
+			const rkiId = rkiFeatureByMapId(rkiData, feature?.properties.ID_3)?.OBJECTID;
+			layer.on('click', () => {
+				if(rkiId) {
+					selectOrToggleCounty(rkiId);
+				}
+			});
 		}
-	}).bindPopup(getCountyPopup)
-	  .bindTooltip(getCountyPopup)
+	}).bindTooltip(getCountyTooltip, {direction: 'top'})
 	  .addTo(map);
 
 	L.geoJSON(await statesResponse, {

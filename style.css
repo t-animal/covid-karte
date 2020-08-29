@@ -109,10 +109,28 @@ section.map-section .county-info {
     position: absolute;
     background: var(--background-darker);
     z-index: 999;
-    width: 30%;
     min-width: 200px;
     top: 2.5em;
-    border: var(--strong-border);
+	border: var(--strong-border);
+	
+	height: 0px;
+	width: 0px;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity 300ms, width 0ms 300ms, height 0ms 300ms;
+}
+
+section.map-section .county-info .close-icon::before {
+    content: '✖';
+    cursor: pointer;
+}
+
+section.map-section .county-info.displayed {
+	opacity: 1;
+	transition: opacity 300ms 10ms;
+
+	width: 30%;
+	height: auto;
 }
 
 section.map-section .county-info > header {
@@ -130,6 +148,12 @@ section.map-section .county-info > div {
 section.map-section .county-info table {
     font-size: 1rem;
     text-align: left;
+}
+
+section.map-section .county-info td,
+section.map-section .county-info th {
+    border-bottom: var(--light-border);
+	padding: 0.3em 0;
 }
 
 section.map-section .map {
@@ -254,4 +278,16 @@ section.new-cases-per-day-section .new-cases-per-day-section .chart-label.by-fir
 
 section.new-cases-per-day-section .new-cases-per-day-section .chart-label.by-notificationday {
     background: var(--highlight-orange);
+}
+
+/*
+ * Leaflet overrides
+ */
+.map .leaflet-tooltip-pane {
+	opacity: 0.7;
+}
+
+.map .leaflet-tooltip {
+    background-color: black;
+	color: white;
 }
