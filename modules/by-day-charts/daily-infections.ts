@@ -1,10 +1,9 @@
-import { getElementOrThrow } from './helpers';
+import { getElementOrThrow } from '../helpers';
 
 import 'moment';
 import 'chartjs-plugin-zoom';
 import chartjs from 'chart.js';
-import { loadDailyInfections, RkiFeatureData, RkiDailyNewCasesData } from './data-loading';
-import { loadAndDisplayDataAge } from './data-age';
+import { loadDailyInfections, RkiFeatureData, RkiDailyNewCasesData } from '../data-loading';
 
 type PreprocessedData = {
     casesByFirstSickday: {x: number, y: number}[],

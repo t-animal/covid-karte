@@ -1,9 +1,9 @@
+import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap, CountyMapInfo } from './map-helpers';
 // import 'leaflet/dist/leaflet.css'
-import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap, CountyMapInfo } from './map_helpers';
-import L, { LayerGroup, PathOptions, FeatureGroup, Polygon } from 'leaflet';
-import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from './data-loading';
-import { getElementOrThrow } from './helpers';
-import { selectOrToggleCounty, observeCountyChanges, getDataOfSelectedCounty, selectedCountyRkiId } from './county-selection';
+import L from 'leaflet';
+import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
+import { getElementOrThrow } from '../helpers';
+import { selectOrToggleCounty, observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 
 
 type CountyFeature = GeoJSON.Feature<GeoJSON.Polygon, CountyMapInfo>;

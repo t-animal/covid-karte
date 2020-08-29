@@ -1,4 +1,4 @@
-import { loadAndDisplayDailyInfections } from "./by-day-charts";
+import { loadAndDisplayDailyInfections } from "./daily-infections";
 import { loadAndDisplayTotalReportedCasesPerDay } from "./total-cases-per-day";
 
 export function initNavigation() {

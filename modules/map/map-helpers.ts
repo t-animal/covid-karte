@@ -1,4 +1,4 @@
-import {  RkiCountyFeatureAttributes, RkiFeatureData } from "./data-loading";
+import {  RkiCountyFeatureAttributes, RkiFeatureData } from "../data-loading";
 
 export type CountyMapInfo = {
 	"ID_0": number,

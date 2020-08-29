@@ -1,5 +1,5 @@
-import { loadTotalCasesReportedPerDay, RkiTotalCasesPerDay } from './data-loading';
-import { getElementOrThrow } from './helpers';
+import { loadTotalCasesReportedPerDay, RkiTotalCasesPerDay } from '../data-loading';
+import { getElementOrThrow } from '../helpers';
 import chartjs from 'chart.js';
 
 export async function loadAndDisplayTotalReportedCasesPerDay() {
