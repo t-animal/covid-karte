@@ -1,5 +1,6 @@
 import { loadAndDisplayDailyInfections } from "./daily-infections";
 import { loadAndDisplayTotalReportedCasesPerDay } from "./total-cases-per-day";
+import { loadAndDisplayDailyReportedInfections } from "./daily-reported-infections";
 
 export function initNavigation() {
     const navElements = Array.from(document.querySelectorAll('.section-nav [data-nav-target]'));
@@ -34,6 +35,7 @@ function initiationFunction(navTarget: string) {
     switch(navTarget) {
         case 'new-cases-per-day-section': return loadAndDisplayDailyInfections;
         case 'total-reported-cases-per-day-section': return loadAndDisplayTotalReportedCasesPerDay;
+        case 'newly-reported-cases-per-day-section': return loadAndDisplayDailyReportedInfections;
         default: return null;
     }
 }
