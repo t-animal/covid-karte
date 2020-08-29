@@ -67,21 +67,31 @@
 			Keine Garantien für Richtigkeit der hier dargestellten Daten.
 		</section>
 
-		<section class="new-cases-per-day-section">
-			<h2>COVID-19-Fälle/Tag nach Erkrankungsbeginn, ersatzweise Meldedatum*</h2>
-			<div class="daily-new-cases-canvas-resize-container">
-				<canvas></canvas>
-			</div>
+		<div class="development-graphs">
+			<section class="new-cases-per-day-section">
+				<h2>COVID-19-Fälle/Tag nach Erkrankungsbeginn, ersatzweise Meldedatum*</h2>
+				<div class="daily-new-cases-canvas-resize-container">
+					<canvas></canvas>
+				</div>
 
-			<div class="chart-labels">
-				<div class="chart-label by-first-sickday"></div><span class="label">Erkrankungsbeginn</span>
-				<div class="chart-label by-notificationday"></div><span class="label">Meldedatum</span>
-			</div>
+				<div class="chart-labels">
+					<div class="chart-label by-first-sickday"></div><span class="label">Erkrankungsbeginn</span>
+					<div class="chart-label by-notificationday"></div><span class="label">Meldedatum</span>
+				</div>
 
-			<span class="label">* Bei Fällen ohne Angaben zum Erkrankungsbeginn (Erkrankungsbeginn unbekannt bzw. Fälle ohne Symptome)
-			wird ersatzweise das Meldedatum verwendet.
-			Die abnehmende Fallzahl über die letzten Tage kann durch den Melde- und Übermittlungsverzug bedingt sein.</span>
-		</section>
+				<span class="label">* Bei Fällen ohne Angaben zum Erkrankungsbeginn (Erkrankungsbeginn unbekannt bzw. Fälle ohne Symptome)
+				wird ersatzweise das Meldedatum verwendet.
+				Die abnehmende Fallzahl über die letzten Tage kann durch den Melde- und Übermittlungsverzug bedingt sein.</span>
+			</section>
+			
+			<nav class="section-nav">
+				<div class="active">Fälle/Tag (Erkrankung)</div>
+				<div>Fälle/Tag (Meldung)</div>
+				<div>Fälle kumuliert</div>
+				<div>Fälle/100.000 Einwohner</div>
+				<div>Disclaimer</div>
+			</nav>
+		</div>
 	</main>
 
 	<script type="module" src="main.js"></script>

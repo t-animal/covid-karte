@@ -51,6 +51,33 @@ header, section {
 	background: var(--background-darker);
 }
 
+nav.section-nav {
+    display: flex;
+    margin-top: -5px;
+    padding-left: 5px;
+}
+
+.section-nav > div {
+	background: var(--background-darkest);
+
+    border: var(--light-border);
+    border-top: none;
+	border-bottom-width: 2px;
+
+    position: relative;
+	top: -1px;
+
+    margin-right: 10px;
+	padding: 5px;
+	
+	cursor: pointer;
+}
+
+.section-nav > div.active {
+	border-bottom-color: var(--highlight-blue);
+	background: var(--background-darker);
+}
+
 h1 {
 	font-size: 1.8rem;
     line-height: 1.3875;
@@ -241,10 +268,7 @@ section.info-section {
 	min-width: 200px;
 }
 
-/*
- * Daily new cases bar plot section
- */
-section.new-cases-per-day-section {
+.development-graphs {
 	grid-column: 3/6;
 	grid-row: 2/4;
 
@@ -252,33 +276,42 @@ section.new-cases-per-day-section {
 	flex-direction: column;
 }
 
-section.new-cases-per-day-section .daily-new-cases-canvas-resize-container {
+/*
+ * Daily new cases bar plot section
+ */
+.development-graphs section.new-cases-per-day-section {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+ }
+
+.development-graphs section.new-cases-per-day-section .daily-new-cases-canvas-resize-container {
 	position: relative;
 	flex: 1;
 }
 
-section.new-cases-per-day-section canvas {
+.development-graphs section.new-cases-per-day-section canvas {
 	height: 100%!important;
 }
 
-section.new-cases-per-day-section .chart-labels {
+.development-graphs section.new-cases-per-day-section .chart-labels {
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
 
-section.new-cases-per-day-section .chart-label {
+.development-graphs section.new-cases-per-day-section .chart-label {
     width: 15px;
     height: 15px;
     border-radius: 50%;
     margin: 0 5px 0 15;
 }
 
-section.new-cases-per-day-section .chart-label.by-first-sickday {
+.development-graphs section.new-cases-per-day-section .chart-label.by-first-sickday {
     background: var(--highlight-blue);
 }
 
-section.new-cases-per-day-section .chart-label.by-notificationday {
+.development-graphs section.new-cases-per-day-section .chart-label.by-notificationday {
     background: var(--highlight-orange);
 }
 
