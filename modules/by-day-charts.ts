@@ -16,8 +16,8 @@ export async function loadAndDisplayDailyInfections() {
 
     const values = preprocessData(data);
 
-    const canvs = getElementOrThrow<HTMLCanvasElement>('.daily-new-cases-canvas-resize-container canvas');
-    renderChart(canvs, values);
+    const canvas = getElementOrThrow<HTMLCanvasElement>('.new-cases-per-day-section canvas');
+    renderChart(canvas, values);
 }
 
 function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {

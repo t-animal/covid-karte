@@ -3,6 +3,7 @@ const TODAYS_SUMMED_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/ar
 const TODAYS_CASES_DIFF_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?f=json&where=NeuerFall%20IN(1%2C%20-1)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22AnzahlFall%22%2C%22outStatisticFieldName%22%3A%22diff%22%7D%5D&resultType=standard&cacheHint=true';
 const TODAYS_DEATHS_DIFF_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?f=json&where=NeuerTodesfall%20IN(1%2C%20-1)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22AnzahlTodesfall%22%2C%22outStatisticFieldName%22%3A%22diff%22%7D%5D&resultType=standard&cacheHint=true';
 const DAILY_INFECTIONS_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=json&outStatistics=[%20{%20%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelle%22%20}%20]&groupByFieldsForStatistics=Refdatum,IstErkrankungsbeginn&orderByFields=Refdatum%20desc';
+const TOTAL_INFECTIONS_PER_DAY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/Covid19_RKI_Sums/FeatureServer/0/query?f=json&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultType=standard&cacheHint=true&groupByFieldsForStatistics=Meldedatum&outStatistics=[{%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22SummeFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelleTag%22%20%20}]&orderByFields=Meldedatum%20desc'
 
 export type RkiCountyFeatureAttributes = {
 	"OBJECTID": number,
@@ -51,6 +52,8 @@ export type RkiSummedDayData =  {"totalCases":number, "totalDeaths":number};
 export type RkiDiffData = {"diff": number};
 
 export type RkiDailyNewCasesData = {"GesamtFaelle": number, "Refdatum": number, "IstErkrankungsbeginn": number};
+
+export type RkiTotalCasesPerDay = {"GesamtFaelleTag": number, "Meldedatum": number};
 
 
 export type RkiFeatureData<T> = {
@@ -119,3 +122,6 @@ export const loadTodaysDeathsDiff = todaysDeathsDiffLoader.createBoundLoadFuncti
 
 let dailyInfectionsLoader = new DataLoader<RkiFeatureData<RkiDailyNewCasesData>>(DAILY_INFECTIONS_URL);
 export const loadDailyInfections = dailyInfectionsLoader.createBoundLoadFunction();
+
+let totalCasesPerDayLoader = new DataLoader<RkiFeatureData<RkiTotalCasesPerDay>>(TOTAL_INFECTIONS_PER_DAY_URL);
+export const loadTotalCasesReportedPerDay = totalCasesPerDayLoader.createBoundLoadFunction();

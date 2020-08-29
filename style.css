@@ -119,6 +119,23 @@ a {
 	text-decoration: none;
 }
 
+.canvas-resize-container {
+	position: relative;
+	flex: 1;
+}
+
+.canvas-resize-container canvas {
+	height: 100%!important;
+}
+
+.navigatable section {
+	display: none;
+}
+
+.navigatable section.active {
+	display: flex;
+}
+
 /*
  * Map section
  */
@@ -276,24 +293,15 @@ section.info-section {
 	flex-direction: column;
 }
 
+.development-graphs section {
+	flex-direction: column;
+	flex: 1;
+}
+
+
 /*
  * Daily new cases bar plot section
  */
-.development-graphs section.new-cases-per-day-section {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
- }
-
-.development-graphs section.new-cases-per-day-section .daily-new-cases-canvas-resize-container {
-	position: relative;
-	flex: 1;
-}
-
-.development-graphs section.new-cases-per-day-section canvas {
-	height: 100%!important;
-}
-
 .development-graphs section.new-cases-per-day-section .chart-labels {
     display: flex;
     justify-content: center;
