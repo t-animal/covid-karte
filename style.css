@@ -4,6 +4,10 @@
 	--highlight-grey: #5c5c5c;
 	--highlight-orange: #e69800;
 
+	--background-darkest: #050505;
+	--background-darker: #222222;
+	--background-dark: #404040;
+
 	--strong-border: 1px solid rgba(255, 255, 255, 0.4);
 	--light-border: 1px solid rgb(58 58 58);
 }
@@ -20,7 +24,7 @@ html {
 }
 
 body {
-	background: rgb(5,5,5);
+	background: var(--background-darkest);
 	padding: 0;
 	margin: 0;
 
@@ -44,7 +48,7 @@ header, section {
 	margin: 5px;
 
 	border: var(--light-border);
-	background: rgb(34, 34, 34);
+	background: var(--background-darker);
 }
 
 h1 {
@@ -61,12 +65,47 @@ h2 {
 	text-align: center;
 }
 
+h3 {
+    margin: 0px;
+    margin-bottom: 0.5em;
+    font-size: 1.1rem;
+}
+
 section.map-section {
     grid-row: 1 / 4;
     grid-column: 2;
 
 	display: flex;
 	flex-direction: column;
+
+    position: relative;
+}
+
+section.map-section .county-info {
+    position: absolute;
+    background: var(--background-darker);
+    z-index: 999;
+    width: 30%;
+    min-width: 200px;
+    top: 2.5em;
+    border: var(--strong-border);
+}
+
+section.map-section .county-info > header {
+	margin: 0;
+	display: flex; 
+	flex-direction: row-reverse;
+	background: var(--background-dark);
+	border-bottom: var(--strong-border)
+}
+
+section.map-section .county-info > div {
+    padding: 5px;
+}
+
+section.map-section .county-info table {
+    font-size: 1rem;
+    text-align: left;
 }
 
 section.data-age {

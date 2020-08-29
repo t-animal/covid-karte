@@ -27,6 +27,8 @@ const map = L
 	.map(getMapElement())
 	.setView([51.163361, 10.447683], 6);
 
+map.zoomControl.setPosition('bottomright');
+
 function getMapElement() {
 	return getElementOrThrow<HTMLDivElement>('div.map');
 }
