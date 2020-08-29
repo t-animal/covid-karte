@@ -207,6 +207,8 @@ section.counties .scroll-container table td,
 section.counties .scroll-container table th {
 	padding: 5px;
 	border-bottom: var(--strong-border);
+
+	cursor: pointer;
 }
 
 

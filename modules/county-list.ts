@@ -1,5 +1,6 @@
 import { loadCountyData, RkiCountyFeatureAttributes } from './data-loading';
 import { getElementOrThrow } from './helpers';
+import { selectOrToggleCounty } from './county-selection';
 
 function getTableElement() {
     return getElementOrThrow<HTMLTableElement>('.county-list');
@@ -22,6 +23,9 @@ function createRow(county: RkiCountyFeatureAttributes) {
     rowElem.appendChild(createCell('td', 'cases', county.cases));
     rowElem.appendChild(createCell('td', 'deaths', county.deaths));
     rowElem.appendChild(createCell('th', 'county-name', `${county.GEN} ${county.BEZ}`));
+
+    rowElem.addEventListener('click', () => selectOrToggleCounty(county.OBJECTID));
+
     return rowElem;
 }
 
