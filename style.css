@@ -257,28 +257,28 @@ section.new-cases-per-day-section .daily-new-cases-canvas-resize-container {
 	flex: 1;
 }
 
-section.new-cases-per-day-section .new-cases-per-day-section canvas {
+section.new-cases-per-day-section canvas {
 	height: 100%!important;
 }
 
-section.new-cases-per-day-section .new-cases-per-day-section .chart-labels {
+section.new-cases-per-day-section .chart-labels {
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
 
-section.new-cases-per-day-section .new-cases-per-day-section .chart-label {
+section.new-cases-per-day-section .chart-label {
     width: 15px;
     height: 15px;
     border-radius: 50%;
     margin: 0 5px 0 15;
 }
 
-section.new-cases-per-day-section .new-cases-per-day-section .chart-label.by-first-sickday {
+section.new-cases-per-day-section .chart-label.by-first-sickday {
     background: var(--highlight-blue);
 }
 
-section.new-cases-per-day-section .new-cases-per-day-section .chart-label.by-notificationday {
+section.new-cases-per-day-section .chart-label.by-notificationday {
     background: var(--highlight-orange);
 }
 
