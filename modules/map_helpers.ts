@@ -1,14 +1,14 @@
 import {  RkiCountyFeatureAttributes, RkiFeatureData } from "./data-loading";
 
-export async function loadCountyMap() {
+export async function loadCountyMap(): Promise<GeoJSON.FeatureCollection> {
 	return (await fetch('./map-data/county-map.json')).json();
 }
 
-export async function loadStateMap() {
+export async function loadStateMap(): Promise<GeoJSON.FeatureCollection> {
 	return (await fetch('./map-data/state-map.json')).json();
 }
 
-export async function loadEuMap() {
+export async function loadEuMap(): Promise<GeoJSON.FeatureCollection> {
 	return (await fetch('./map-data/eu-map.json')).json();
 }
 

@@ -1,9 +1,9 @@
 import { color, rkiFeatureByMapId, loadCountyMap, loadEuMap, loadStateMap } from "./map_helpers";
 // import 'leaflet/dist/leaflet.css'
-import L from 'leaflet';
+import L, { LayerGroup, PathOptions, FeatureGroup } from 'leaflet';
 import { loadCountyData } from './data-loading';
 import { getElementOrThrow } from './helpers';
-import { selectOrToggleCounty } from './county-selection';
+import { selectOrToggleCounty, observeCountyChanges, getDataOfSelectedCounty, selectedCountyRkiId } from './county-selection';
 
 
 type CountyMapInfo = {
@@ -37,7 +37,8 @@ function getMapElement() {
 export async function loadAndDisplayMap() {
 	const rkiDataResponse = loadCountyData();
 	const countiesResponse = loadCountyMap();
-	const statesResponse = loadStateMap();
+	const preloadedStates = loadStateMap();
+	const preloadedEurope = loadEuMap();
 
 	const rkiData = await rkiDataResponse;
 
@@ -57,7 +58,7 @@ export async function loadAndDisplayMap() {
 		return data.county;
 	}
 
-	L.geoJSON<CountyMapInfo>(await countiesResponse, {
+	const countiesLayer = L.geoJSON<CountyMapInfo>(await countiesResponse, {
 		style: function (feature) {
 			if(feature?.properties == undefined) {
 				return {};
@@ -78,19 +79,26 @@ export async function loadAndDisplayMap() {
 					selectOrToggleCounty(rkiId);
 				}
 			});
-		}
+		},
 	}).bindTooltip(getCountyTooltip, {direction: 'top'})
 	  .addTo(map);
 
-	L.geoJSON(await statesResponse, {
+	addStateBoundaries(await preloadedStates);
+	addEuropeanMap(await preloadedEurope);
+}
+
+async function addStateBoundaries(preloadedMap: GeoJSON.FeatureCollection) {
+	L.geoJSON(preloadedMap, {
 		style: {
 			color: '#888',
 			weight: 2,
 			fill: false
 		}
 	}).addTo(map);
+}
 
-	L.geoJSON(await loadEuMap(), {
+async function addEuropeanMap(preloadedMap: GeoJSON.FeatureCollection) {
+	L.geoJSON(preloadedMap, {
 		style: {
 			color: '#313232',
 			fillColor: '#393a3a',
