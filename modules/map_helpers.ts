@@ -1,14 +1,30 @@
 import {  RkiCountyFeatureAttributes, RkiFeatureData } from "./data-loading";
 
-export async function loadCountyMap(): Promise<GeoJSON.FeatureCollection> {
+export type CountyMapInfo = {
+	"ID_0": number,
+	"ISO": string,
+	"NAME_0": string,
+	"ID_1": number,
+	"NAME_1": string,
+	"ID_2": number,
+	"NAME_2": string,
+	"ID_3": number,
+	"NAME_3": string,
+	"NL_NAME_3": null,
+	"VARNAME_3": null,
+	"TYPE_3": string,
+	"ENGTYPE_3": string
+};
+
+export async function loadCountyMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>> {
 	return (await fetch('./map-data/county-map.json')).json();
 }
 
-export async function loadStateMap(): Promise<GeoJSON.FeatureCollection> {
+export async function loadStateMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
 	return (await fetch('./map-data/state-map.json')).json();
 }
 
-export async function loadEuMap(): Promise<GeoJSON.FeatureCollection> {
+export async function loadEuMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
 	return (await fetch('./map-data/eu-map.json')).json();
 }
 
