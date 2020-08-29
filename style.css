@@ -71,7 +71,31 @@ h3 {
     font-size: 1.1rem;
 }
 
-section.map-section {
+.label {
+	font-size: 0.9rem;
+}
+
+.cases {
+    color:var(--highlight-cyan);
+}
+
+.deaths {
+    color: var(--highlight-grey);
+}
+
+.highlight {
+	color: var(--highlight-orange);
+}
+
+a {
+	color: var(--highlight-cyan);
+	text-decoration: none;
+}
+
+/*
+ * Map section
+ */
+ section.map-section {
     grid-row: 1 / 4;
     grid-column: 2;
 
@@ -108,6 +132,16 @@ section.map-section .county-info table {
     text-align: left;
 }
 
+section.map-section .map {
+	flex: 1;
+
+	background: none;
+}
+
+
+/*
+ * Data-age section
+ */
 section.data-age {
     grid-column: 1;
 	height: fit-content;
@@ -115,6 +149,10 @@ section.data-age {
 	text-align: center;
 }
 
+
+/*
+ * County list section
+ */
 section.counties {
 	grid-row: 1 / 3;
 	grid-column: 1;
@@ -147,8 +185,11 @@ section.counties .scroll-container table th {
 	border-bottom: var(--strong-border);
 }
 
-section.cases-section, 
-section.deaths-section {
+
+/*
+ * Total sum section
+ */
+section.summed-section {
 	grid-row: 1;
 	text-align: center;
 	
@@ -156,29 +197,28 @@ section.deaths-section {
 	flex-direction: column;
 }
 
-section.cases-section h2, 
-section.deaths-section h2, 
-section.info-section h2 {
-	white-space: nowrap;
+section.summed-section .daily-sum,
+section.summed-section .daily-diff {
+	font-size: 2.5rem;
+	font-weight: 500;
 }
 
+section.summed-section .daily-diff {
+	border-top: var(--light-border);
+}
 
+/*
+ * Info section
+ */
 section.info-section {
 	grid-row: 1;
 	min-width: 200px;
 }
 
-.daily-sum,
-.daily-diff {
-	font-size: 2.5rem;
-	font-weight: 500;
-}
-
-.daily-diff {
-	border-top: var(--light-border);
-}
-
-.new-cases-per-day-section {
+/*
+ * Daily new cases bar plot section
+ */
+section.new-cases-per-day-section {
 	grid-column: 3/6;
 	grid-row: 2/4;
 
@@ -186,59 +226,32 @@ section.info-section {
 	flex-direction: column;
 }
 
-.daily-new-cases-canvas-resize-container {
+section.new-cases-per-day-section .daily-new-cases-canvas-resize-container {
 	position: relative;
 	flex: 1;
 }
 
-.new-cases-per-day-section canvas {
+section.new-cases-per-day-section .new-cases-per-day-section canvas {
 	height: 100%!important;
 }
 
-.new-cases-per-day-section .chart-labels {
+section.new-cases-per-day-section .new-cases-per-day-section .chart-labels {
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
 
-.new-cases-per-day-section .chart-label {
+section.new-cases-per-day-section .new-cases-per-day-section .chart-label {
     width: 15px;
     height: 15px;
     border-radius: 50%;
     margin: 0 5px 0 15;
 }
 
-.new-cases-per-day-section .chart-label.by-first-sickday {
+section.new-cases-per-day-section .new-cases-per-day-section .chart-label.by-first-sickday {
     background: var(--highlight-blue);
 }
 
-.new-cases-per-day-section .chart-label.by-notificationday {
+section.new-cases-per-day-section .new-cases-per-day-section .chart-label.by-notificationday {
     background: var(--highlight-orange);
-}
-
-.label {
-	font-size: 0.9rem;
-}
-
-.cases {
-    color:var(--highlight-cyan);
-}
-
-.deaths {
-    color: var(--highlight-grey);
-}
-
-.highlight {
-	color: var(--highlight-orange);
-}
-
-.map {
-	flex: 1;
-
-	background: none;
-}
-
-a {
-	color: var(--highlight-cyan);
-	text-decoration: none;
 }
