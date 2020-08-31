@@ -1,104 +1,124 @@
 <html>
 <head>
-	<style>
-		body {
-			background: black;
-			padding: 0;
-			margin: 0;
-			display: flex;
-		}
-
-		iframe {
-			flex: 1;
-			border: 0;
-		}
-
-		nav {
-			padding-right: 8px;
-    		border-right: 1px solid white;
-		}
-
-		nav > div {
-			margin: 10px 0;
-			padding: 10px;
-
-			border: 2px solid #c3c3c3;
-			border-radius: 999px;
-
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			background: linear-gradient(130deg, rgb(58 58 58) 0%, rgb(49 49 49) 80%);
-			box-shadow: 0px 1px 2px 1px rgba(255 255 255 / 55%);
-
-			cursor: pointer;
-
-			font-family: sans-serif;
-			font-weight: bold;
-		}
-
-		nav > div > a {
-		    color: white;
-	    	text-decoration: none;
-		}
-
-		nav > div > a > span { 
-			word-break: break-all;
-
-			display: inline-flex;
-			align-items: center;
-	 	}
-
-		nav > div:active,
-		nav > div.active {
-		    box-shadow: inset 1px 1px 3px 0px black;
-			background: linear-gradient(130deg, rgb(132 132 132) 0%, rgb(200 200 200) 100%);
-
-		}
-
-		nav > div:active > a,
-		nav > div.active > a{
-			color: #222;
-		}
-	</style>
-	<script>
-		function markActive(element) {
-			const existing = document.querySelector('.active');
-			if(existing !== null){
-				existing.classList.remove('active');
-			}
-
-			element.classList.add('active');
-		}
-	</script>
+	<meta charset="utf-8" />
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./web_modules/leaflet/dist/leaflet.css"/>
+	<link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
+	<header>
+		<h1>Ein performantes COVID-19-Dashboard</h1>
+		Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4/page/page_1/">RKI-Dashboard</a>, aber schneller.
+	</header>
 
-	<nav>
-		<div onclick="markActive(this)">
-			<a href="https://chores.t-animal.de" target="main">
-				<span>
-					Chores
-				</span>
-			</a>
-		</div>
-		<div onclick="markActive(this)">
-			<a href="http://james.fritz.box" target="main">
-				<span>
-					James
-				</span>
-			</a>
-		</div>
-		<div onclick="markActive(this)">
-			<a href="https://m.wetterdienst.de/Wetter/Erlangen/" target="main">
-				<span>
-					Wetter
-				</span>
-			</a>
-		</div>
-	</nav>
+	<main>
+		<section class="counties">
+			<h2>Auswahl pro Landkreis</h2>
+			<span class="label">
+				(<span class="label cases">Covid-19-Fälle</span> | <span class="label deaths">Todesfälle</span>)
+			</span>
+			<div class="scroll-container">
+				<table class="county-list"></table>
+			</div>
+		</section>
 
-	<iframe name="main" src=""></iframe>
+		<section class="data-age">
+			<h2>Datenstand</h2>
+			<span></span>
+		</section>
+
+		<section class="map-section">
+			<h2>COVID-19-Fälle der letzten 7 Tage/100.000 Einwohner</h2>
+			<div class="map"></div>
+			<aside class="county-info">
+				<header><div class="close-icon"></div></header>
+				<div>
+					<h3></h3>
+					<table>
+						<tr class="cases-row"><th>Fälle</th><td></td></tr>
+						<tr class="cases-per-100k-row"><th>Fälle/100.000 EW</th><td></td></tr>
+						<tr class="cases-per-100k-last-7d-row"><th>Fälle letzte 7 Tage/100.000 EW</th><td></td></tr>
+						<tr class="deaths-row"><th>Todesfälle</th><td></td></tr>
+						<tr class="inhabitants-row"><th>Einwohnerzahl</th><td></td></tr>
+						<tr class="data-age-row"><th>Aktualisierung</th><td></td></tr>
+					</table>
+				</div>
+			</aside>
+		</section>
+
+		<section class="cases-section summed-section">
+			<h2>Covid-19-Fälle</h2>
+			<span class="daily-sum cases"></span>
+			<span class="daily-diff highlight"></span>
+			<span class="label">zum Vortag</span>
+		</section>
+
+		<section class="deaths-section summed-section">
+			<h2>Covid-19-Todesfälle</h2>
+			<span class="daily-sum deaths"></span>
+			<span class="daily-diff deaths"></span>
+			<span class="label">zum Vortag</span>
+		</section>
+
+		<section class="info-section">
+			<h2>Disclaimer</h2>
+
+			Dieses Projekt ist in keiner Weise mit dem RKI verbunden, aber es werden die offiziellen RKI Daten geladen.
+			Keine Garantien für Richtigkeit der hier dargestellten Daten.
+		</section>
+
+		<div class="development-graphs navigatable">
+			<section class="new-cases-per-day-section active">
+				<h2>COVID-19-Fälle/Tag nach Erkrankungsbeginn, ersatzweise Meldedatum*</h2>
+				<div class="canvas-resize-container">
+					<canvas></canvas>
+				</div>
+
+				<div class="chart-labels">
+					<div class="chart-label by-first-sickday"></div><span class="label">Erkrankungsbeginn</span>
+					<div class="chart-label by-notificationday"></div><span class="label">Meldedatum</span>
+				</div>
+
+				<span class="label">* Bei Fällen ohne Angaben zum Erkrankungsbeginn (Erkrankungsbeginn unbekannt bzw. Fälle ohne Symptome)
+				wird ersatzweise das Meldedatum verwendet.
+				Die abnehmende Fallzahl über die letzten Tage kann durch den Melde- und Übermittlungsverzug bedingt sein.</span>
+			</section>
+
+			<section class="newly-reported-cases-per-day-section">
+				<h2>COVID-19-Fälle/Tag nach Meldedatum*</h2>
+				<div class="canvas-resize-container">
+					<canvas></canvas>
+				</div>
+
+				<span class="label">* Gesamtplus der Fälle zum Vortag verteilt sich auf versch. Tage (orangene Balken) aufgrund des Übermittlungsprozesses.</span>
+			</section>
+
+			<section class="total-reported-cases-per-day-section">
+				<h2>COVID-19-Fälle kumuliert *</h2>
+				<div class="canvas-resize-container">
+					<canvas></canvas>
+				</div>
+
+				<span class="label">* Gesamtplus der Fälle zum Vortag verteilt sich auf versch. Tage aufgrund des Übermittlungsprozesses.</span>
+			</section>
+
+			<section class="total-cases-per-100k-section">
+				<h2>Am stärksten betroffene Landkreise COVID-19/100.000 Einwohner</h2>
+				<div class="canvas-resize-container">
+					<canvas></canvas>
+				</div>
+			</section>
+
+			<nav class="section-nav">
+				<div data-nav-group="development-graphs" data-nav-target="new-cases-per-day-section" class="active">Fälle/Tag (Erkrankung)</div>
+				<div data-nav-group="development-graphs" data-nav-target="newly-reported-cases-per-day-section">Fälle/Tag (Meldung)</div>
+				<div data-nav-group="development-graphs" data-nav-target="total-reported-cases-per-day-section">Fälle kumuliert</div>
+				<div data-nav-group="development-graphs" data-nav-target="total-cases-per-100k-section">Fälle/100.000 Einwohner</div>
+				<div data-nav-group="development-graphs" data-nav-target="disclaimer">Disclaimer</div>
+			</nav>
+		</div>
+	</main>
+
+	<script type="module" src="main.js"></script>
 </body>
 </html>
