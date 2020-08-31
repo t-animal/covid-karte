@@ -1,6 +1,7 @@
 import { loadAndDisplayDailyInfections } from "./daily-infections";
 import { loadAndDisplayTotalReportedCasesPerDay } from "./total-cases-per-day";
 import { loadAndDisplayDailyReportedInfections } from "./daily-reported-infections";
+import { loadAndDisplayTotalCasesPer100kChart } from "./cases-per-100k";
 
 export function initNavigation() {
     const navElements = Array.from(document.querySelectorAll('.section-nav [data-nav-target]'));
@@ -36,6 +37,7 @@ function initiationFunction(navTarget: string) {
         case 'new-cases-per-day-section': return loadAndDisplayDailyInfections;
         case 'total-reported-cases-per-day-section': return loadAndDisplayTotalReportedCasesPerDay;
         case 'newly-reported-cases-per-day-section': return loadAndDisplayDailyReportedInfections;
+        case 'total-cases-per-100k-section': return loadAndDisplayTotalCasesPer100kChart;
         default: return null;
     }
 }
