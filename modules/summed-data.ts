@@ -1,5 +1,5 @@
 import { loadTodaysSummedData, loadTodaysCasesDiff, loadTodaysDeathsDiff, RkiDiffData, RkiFeatureData, loadCountyData } from './data-loading';
-import { getElementOrThrow } from './helpers';
+import { getElementOrThrow, countyNameById } from './helpers';
 import { observeCountyChanges, selectedCountyRkiId } from './county-selection';
 
 export async function loadAndDisplaySums(countyId: number | null = null) {
@@ -90,14 +90,6 @@ function countryWideDiff(data: RkiFeatureData<RkiDiffData>) {
 async function diffOfSpecificCounty(countyId: number, data: RkiFeatureData<RkiDiffData>) {
     const countyName = await countyNameById(countyId);
     return data.features.find(feature => feature.attributes.Landkreis == countyName)?.attributes.diff ?? 0;
-}
-
-async function countyNameById(countyId: number) {
-    const data = await loadCountyData();
-     return data.features
-        .find((feature) => feature.attributes.OBJECTID == countyId)
-        ?.attributes.county;
-
 }
 
 function withSign(num: number) {

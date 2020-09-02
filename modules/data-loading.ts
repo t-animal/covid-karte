@@ -7,6 +7,7 @@ const TODAYS_DEATHS_DIFF_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjA
 const TODAYS_CASES_DIFF_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?f=json&groupByFieldsForStatistics=Landkreis&where=NeuerFall%20IN(1,%20-1)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=[{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22AnzahlFall%22,%22outStatisticFieldName%22:%22diff%22}]&resultType=standard&cacheHint=true';
 
 const DAILY_INFECTIONS_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=json&outStatistics=[%20{%20%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelle%22%20}%20]&groupByFieldsForStatistics=Refdatum,IstErkrankungsbeginn&orderByFields=Refdatum%20desc';
+const DAILY_INFECTIONS_OF_COUNTY_URL_FACTORY = (county: string) => `https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Landkreis='${county}'&outFields=*&outSR=4326&f=json&outStatistics=[%20{%20%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelle%22%20}%20]&groupByFieldsForStatistics=Refdatum,IstErkrankungsbeginn&orderByFields=Refdatum%20desc`;
 const TOTAL_INFECTIONS_PER_DAY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/Covid19_RKI_Sums/FeatureServer/0/query?f=json&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultType=standard&cacheHint=true&groupByFieldsForStatistics=Meldedatum&outStatistics=[{%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22SummeFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelleTag%22%20%20}]&orderByFields=Meldedatum%20desc'
 
 export type RkiCountyFeatureAttributes = {
@@ -110,6 +111,25 @@ class DataLoader<T> {
 	}
 }
 
+type Parameters = readonly any[];
+
+class ParametrizedDataLoader<T, P extends Parameters>{
+	private loaders: {[key: string]: DataLoader<T>} = {};
+
+	constructor(
+		private urlBuilder: (...args: P) => string,
+	){}
+
+	load(...args: P): Promise<T> {
+		const url = this.urlBuilder(...args);
+
+		if(this.loaders[url] == undefined) {
+			this.loaders[url] = new DataLoader<T>(url);
+		}
+
+		return this.loaders[url].load();
+	}
+}
 
 
 let countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(COUNTY_DATA_URL);
@@ -129,3 +149,6 @@ export const loadDailyInfections = dailyInfectionsLoader.createBoundLoadFunction
 
 let totalCasesPerDayLoader = new DataLoader<RkiFeatureData<RkiTotalCasesPerDay>>(TOTAL_INFECTIONS_PER_DAY_URL);
 export const loadTotalCasesReportedPerDay = totalCasesPerDayLoader.createBoundLoadFunction();
+
+let dailyInfectionsOfCountyLoader = new ParametrizedDataLoader<RkiFeatureData<RkiDailyNewCasesData>, [string]>(DAILY_INFECTIONS_OF_COUNTY_URL_FACTORY);
+export const loadDailyInfectionsOfCounty = (county: string) => dailyInfectionsOfCountyLoader.load(county);

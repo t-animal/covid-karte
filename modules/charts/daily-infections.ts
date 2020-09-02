@@ -1,9 +1,11 @@
-import { getElementOrThrow } from '../helpers';
+import { getElementOrThrow, countyNameById } from '../helpers';
 
 import 'moment';
 import 'chartjs-plugin-zoom';
 import chartjs from 'chart.js';
-import { loadDailyInfections, RkiFeatureData, RkiDailyNewCasesData } from '../data-loading';
+import { loadDailyInfections, RkiFeatureData, RkiDailyNewCasesData, loadDailyInfectionsOfCounty } from '../data-loading';
+import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
+import * as Chart from 'chart.js';
 
 type PreprocessedData = {
     casesByFirstSickday: {x: number, y: number}[],
@@ -12,12 +14,32 @@ type PreprocessedData = {
 
 export async function loadAndDisplayDailyInfections() {
     const data = await loadDailyInfections();
+    renderData(data);
+}
 
+export function syncDailyInfectionsDisplayToCountySelection() {
+    observeCountyChanges(async () => {
+        const countyId = selectedCountyRkiId();
+        if(countyId == null) {
+            return loadAndDisplayDailyInfections();
+        }
+        const countyName = (await countyNameById(countyId)) ?? '';
+        const countyData = await loadDailyInfectionsOfCounty(countyName);
+        console.log(countyData);
+        renderData(countyData);
+    })
+}
+
+let chart: Chart;
+function renderData(data: RkiFeatureData<RkiDailyNewCasesData>){
     const values = preprocessData(data);
 
     const canvas = getElementOrThrow<HTMLCanvasElement>('.new-cases-per-day-section canvas');
-    renderChart(canvas, values);
+    chart?.clear();
+    chart?.destroy();
+    chart = renderChart(canvas, values);
 }
+
 
 function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     const panZoomSettings = {
