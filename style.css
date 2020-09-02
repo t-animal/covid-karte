@@ -273,8 +273,16 @@ section.summed-section .daily-diff {
 	font-weight: 500;
 }
 
-section.summed-section .daily-diff {
+section.summed-section .secondary-info {
+	font-size: 1.5rem;
+}
+
+section.summed-section span.daily-diff {
 	border-top: var(--light-border);
+}
+
+section.summed-section .no-data {
+	display: none;
 }
 
 /*
