@@ -17,7 +17,7 @@ export async function loadAndDisplayDailyInfections() {
     renderData(data);
 }
 
-export function syncDailyInfectionsDisplayToCountySelection() {
+export function reactToCountySelection() {
     observeCountyChanges(async () => {
         const countyId = selectedCountyRkiId();
         if(countyId == null) {

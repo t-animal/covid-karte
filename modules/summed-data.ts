@@ -9,7 +9,7 @@ export async function loadAndDisplaySums(countyId: number | null = null) {
     loadAndDisplayCasesDiff(countyId);
 }
 
-export async function syncSumDisplayToCountySelection() {
+export async function reactToCountySelection() {
     observeCountyChanges(() => {
         const countyId = selectedCountyRkiId();
         loadAndDisplaySums(countyId);
@@ -56,16 +56,16 @@ async function loadAndDisplayCountySpecificCasesAndDeathSums(countyId: number | 
 async function loadAndDisplayDeathDiff(countyId: number | null) {
     const data = await loadTodaysDeathsDiff();
     const section = getElementOrThrow('.deaths-section');
-    displayDiffData(section, data, countyId);
+    renderDiffData(section, data, countyId);
 }
 
 async function loadAndDisplayCasesDiff(countyId: number | null) {
     const data = await loadTodaysCasesDiff();
     const section = getElementOrThrow('.cases-section');
-    displayDiffData(section, data, countyId);
+    renderDiffData(section, data, countyId);
 }
 
-async function displayDiffData(rootElem: Element, data: RkiFeatureData<RkiDiffData>, countyId: number | null) {
+async function renderDiffData(rootElem: Element, data: RkiFeatureData<RkiDiffData>, countyId: number | null) {
     const leadingDiffElem = getElementOrThrow('span.daily-diff', rootElem);
     const secondaryDiffContainer = getElementOrThrow('.secondary-info.daily-diff', rootElem);
     const secondaryDiffElem = getElementOrThrow('span', secondaryDiffContainer);
