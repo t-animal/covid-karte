@@ -6,10 +6,26 @@ export async function loadAndDisplayTotalReportedCasesPerDay() {
     const data = await loadTotalCasesReportedPerDay();
     const canvas = getElementOrThrow<HTMLCanvasElement>('.total-reported-cases-per-day-section canvas');
 
-    renderChart(canvas, data.features.map(feature => feature.attributes));;
+    const processedData = preprocessData(data.features.map(feature => feature.attributes));
+    renderChart(canvas, processedData);
 }
 
-function renderChart(canvas: HTMLCanvasElement, values: RkiTotalCasesPerDay[]) {
+type CumulativeCases = {Meldedatum: number, GesamtFaelleSeitAnfang: number};
+
+function preprocessData(values: RkiTotalCasesPerDay[]) {
+    const sortedValues = [...values];
+    sortedValues.sort((a,b) => a.Meldedatum - b.Meldedatum);
+
+    let cumulativeTotal = 0;
+    const onlyChanges: CumulativeCases[] = [];
+    for(const {Meldedatum, GesamtFaelleTag} of sortedValues) {
+        cumulativeTotal = GesamtFaelleTag + cumulativeTotal;
+        onlyChanges.push({Meldedatum, GesamtFaelleSeitAnfang: cumulativeTotal});
+    }
+    return onlyChanges;
+}
+
+function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
     const panZoomSettings = {
         enabled: true,
         rangeMin: {x: new Date(2020, 2)},
@@ -29,7 +45,7 @@ function renderChart(canvas: HTMLCanvasElement, values: RkiTotalCasesPerDay[]) {
         data: {
             datasets: [
                 {
-                    data: values.map(value => ({x: value.Meldedatum, y: value.GesamtFaelleTag})),
+                    data: values.map(value => ({x: value.Meldedatum, y: value.GesamtFaelleSeitAnfang})),
                     borderColor: '#2f52a0',
                     backgroundColor: 'rgba(0,0,0,0)',
                 }
