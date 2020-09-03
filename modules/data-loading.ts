@@ -9,6 +9,7 @@ const TODAYS_CASES_DIFF_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjAy
 const DAILY_INFECTIONS_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=json&outStatistics=[%20{%20%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelle%22%20}%20]&groupByFieldsForStatistics=Refdatum,IstErkrankungsbeginn&orderByFields=Refdatum%20desc';
 const DAILY_INFECTIONS_OF_COUNTY_URL_FACTORY = (county: string) => `https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Landkreis='${county}'&outFields=*&outSR=4326&f=json&outStatistics=[%20{%20%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelle%22%20}%20]&groupByFieldsForStatistics=Refdatum,IstErkrankungsbeginn&orderByFields=Refdatum%20desc`;
 const TOTAL_INFECTIONS_PER_DAY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlFall>0&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Meldedatum&outStatistics=[{%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelleTag%22}]&orderBy=Meldedatum'
+const TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY = (county: string) => `https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlFall>0 AND Landkreis='${county}'&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Meldedatum&outStatistics=[{%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelleTag%22}]&orderBy=Meldedatum`;
 
 export type RkiCountyFeatureAttributes = {
 	"OBJECTID": number,
@@ -152,3 +153,6 @@ export const loadTotalCasesReportedPerDay = totalCasesPerDayLoader.createBoundLo
 
 let dailyInfectionsOfCountyLoader = new ParametrizedDataLoader<RkiFeatureData<RkiDailyNewCasesData>, [string]>(DAILY_INFECTIONS_OF_COUNTY_URL_FACTORY);
 export const loadDailyInfectionsOfCounty = (county: string) => dailyInfectionsOfCountyLoader.load(county);
+
+let totalCasesPerDayOfCountyLoader = new ParametrizedDataLoader<RkiFeatureData<RkiTotalCasesPerDay>, [string]>(TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY);
+export const loadTotalCasesReportedPerDayOfCounty = (county: string) => totalCasesPerDayOfCountyLoader.load(county);

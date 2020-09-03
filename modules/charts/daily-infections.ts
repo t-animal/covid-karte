@@ -25,7 +25,6 @@ export function reactToCountySelection() {
         }
         const countyName = (await countyNameById(countyId)) ?? '';
         const countyData = await loadDailyInfectionsOfCounty(countyName);
-        console.log(countyData);
         renderData(countyData);
     })
 }
@@ -39,7 +38,6 @@ function renderData(data: RkiFeatureData<RkiDailyNewCasesData>){
     chart?.destroy();
     chart = renderChart(canvas, values);
 }
-
 
 function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     const panZoomSettings = {

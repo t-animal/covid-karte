@@ -8,6 +8,8 @@ import { initNavigation } from './modules/charts/section-nav';
 import * as countyInfo from './modules/county-information';
 import * as summedData from './modules/summed-data.js';
 import * as dailyInfections from './modules/charts/daily-infections';
+import * as dailyReportedInfections from './modules/charts/daily-reported-infections';
+import * as totalCumulativeCasesPerDay from './modules/charts/total-cases-per-day';
 
 loadAndDisplayMap();
 loadAndDisplayCountyList();
@@ -19,3 +21,5 @@ initNavigation();
 countyInfo.initCallbacks();
 summedData.reactToCountySelection();
 dailyInfections.reactToCountySelection();
+dailyReportedInfections.reactToCountySelection();
+totalCumulativeCasesPerDay.reactToCountySelection();

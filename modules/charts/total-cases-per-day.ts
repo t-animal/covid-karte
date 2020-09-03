@@ -1,13 +1,33 @@
-import { loadTotalCasesReportedPerDay, RkiTotalCasesPerDay } from '../data-loading';
-import { getElementOrThrow } from '../helpers';
+import { loadTotalCasesReportedPerDay, RkiTotalCasesPerDay, RkiFeatureData, loadTotalCasesReportedPerDayOfCounty } from '../data-loading';
+import { getElementOrThrow, countyNameById } from '../helpers';
 import chartjs from 'chart.js';
+import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 
 export async function loadAndDisplayTotalReportedCasesPerDay() {
     const data = await loadTotalCasesReportedPerDay();
+
+    renderData(data);
+}
+
+export function reactToCountySelection() {
+    observeCountyChanges(async () => {
+        const countyId = selectedCountyRkiId();
+        if(countyId == null) {
+            return loadTotalCasesReportedPerDay();
+        }
+        const countyName = (await countyNameById(countyId)) ?? '';
+        const countyData = await loadTotalCasesReportedPerDayOfCounty(countyName);
+        renderData(countyData);
+    })
+}
+
+let chart: Chart;
+function renderData(data: RkiFeatureData<RkiTotalCasesPerDay>){
     const canvas = getElementOrThrow<HTMLCanvasElement>('.total-reported-cases-per-day-section canvas');
 
-    const processedData = preprocessData(data.features.map(feature => feature.attributes));
-    renderChart(canvas, processedData);
+    chart?.clear();
+    chart?.destroy();
+    chart = renderChart(canvas, preprocessData(data.features.map(feature => feature.attributes)));
 }
 
 type CumulativeCases = {Meldedatum: number, GesamtFaelleSeitAnfang: number};
