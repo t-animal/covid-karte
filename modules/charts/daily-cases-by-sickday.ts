@@ -7,12 +7,12 @@ import { loadDailyInfections, RkiFeatureData, RkiDailyNewCasesData, loadDailyInf
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 import * as Chart from 'chart.js';
 
-export async function loadAndDisplayDailyInfections() {
+export async function loadAndRenderDailyCasesBySickday() {
     renderData(preprocessData(await loadData()));
 }
 
 export function reactToCountySelection() {
-    observeCountyChanges(loadAndDisplayDailyInfections);
+    observeCountyChanges(loadAndRenderDailyCasesBySickday);
 }
 
 async function loadData() {

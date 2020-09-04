@@ -1,14 +1,14 @@
-import { loadTotalCasesReportedPerDay, RkiTotalCasesPerDay, loadTotalCasesReportedPerDayOfCounty, RkiFeatureData } from '../data-loading';
+import { loadTotalCasesReportedPerDay, RkiTotalCasesPerDay, RkiFeatureData, loadTotalCasesReportedPerDayOfCounty } from '../data-loading';
 import { getElementOrThrow, countyNameById } from '../helpers';
 import chartjs from 'chart.js';
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 
-export async function loadAndDisplayDailyReportedInfections() {
-    renderData(await loadData());
+export async function loadAndRenderCumulativeCasesPerDay() {
+    renderData(preprocessData(await loadData()));
 }
 
 export function reactToCountySelection() {
-    observeCountyChanges(loadAndDisplayDailyReportedInfections);
+    observeCountyChanges(loadAndRenderCumulativeCasesPerDay);
 }
 
 async function loadData() {
@@ -21,16 +21,30 @@ async function loadData() {
     return countyData;
 }
 
+function preprocessData(data: RkiFeatureData<RkiTotalCasesPerDay>) {
+    const sortedValues = [...data.features.map(feature => feature.attributes)];
+    sortedValues.sort((a,b) => a.Meldedatum - b.Meldedatum);
+
+    let cumulativeTotal = 0;
+    const onlyChanges: CumulativeCases[] = [];
+    for(const {Meldedatum, GesamtFaelleTag} of sortedValues) {
+        cumulativeTotal = GesamtFaelleTag + cumulativeTotal;
+        onlyChanges.push({Meldedatum, GesamtFaelleSeitAnfang: cumulativeTotal});
+    }
+    return onlyChanges;
+}
+
 let chart: Chart;
-function renderData(data: RkiFeatureData<RkiTotalCasesPerDay>){
-    const canvas = getElementOrThrow<HTMLCanvasElement>('.newly-reported-cases-per-day-section canvas');
+function renderData(data: CumulativeCases[]){
+    const canvas = getElementOrThrow<HTMLCanvasElement>('.total-reported-cases-per-day-section canvas');
 
     chart?.clear();
     chart?.destroy();
-    chart = renderChart(canvas, data.features.map(feature => feature.attributes));
+    chart = renderChart(canvas, data);
 }
 
-function renderChart(canvas: HTMLCanvasElement, values: RkiTotalCasesPerDay[]) {
+type CumulativeCases = {Meldedatum: number, GesamtFaelleSeitAnfang: number};
+function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
     const panZoomSettings = {
         enabled: true,
         rangeMin: {x: new Date(2020, 2)},
@@ -46,13 +60,13 @@ function renderChart(canvas: HTMLCanvasElement, values: RkiTotalCasesPerDay[]) {
     };
 
     return new chartjs.Chart(canvas, {
-        type: 'bar',
+        type: 'line',
         data: {
             datasets: [
                 {
-                    data: values.map(value => ({x: value.Meldedatum, y: value.GesamtFaelleTag})),
+                    data: values.map(value => ({x: value.Meldedatum, y: value.GesamtFaelleSeitAnfang})),
                     borderColor: '#2f52a0',
-                    backgroundColor: '#2f52a0',
+                    backgroundColor: 'rgba(0,0,0,0)',
                 }
             ]
         },
