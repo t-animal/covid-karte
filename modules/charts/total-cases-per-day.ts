@@ -4,36 +4,25 @@ import chartjs from 'chart.js';
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 
 export async function loadAndDisplayTotalReportedCasesPerDay() {
-    const data = await loadTotalCasesReportedPerDay();
-
-    renderData(data);
+    renderData(preprocessData(await loadData()));
 }
 
 export function reactToCountySelection() {
-    observeCountyChanges(async () => {
-        const countyId = selectedCountyRkiId();
-        if(countyId == null) {
-            return loadTotalCasesReportedPerDay();
-        }
-        const countyName = (await countyNameById(countyId)) ?? '';
-        const countyData = await loadTotalCasesReportedPerDayOfCounty(countyName);
-        renderData(countyData);
-    })
+    observeCountyChanges(loadAndDisplayTotalReportedCasesPerDay);
 }
 
-let chart: Chart;
-function renderData(data: RkiFeatureData<RkiTotalCasesPerDay>){
-    const canvas = getElementOrThrow<HTMLCanvasElement>('.total-reported-cases-per-day-section canvas');
-
-    chart?.clear();
-    chart?.destroy();
-    chart = renderChart(canvas, preprocessData(data.features.map(feature => feature.attributes)));
+async function loadData() {
+    const countyId = selectedCountyRkiId();
+    if(countyId == null) {
+        return loadTotalCasesReportedPerDay();
+    }
+    const countyName = (await countyNameById(countyId)) ?? '';
+    const countyData = await loadTotalCasesReportedPerDayOfCounty(countyName);
+    return countyData;
 }
 
-type CumulativeCases = {Meldedatum: number, GesamtFaelleSeitAnfang: number};
-
-function preprocessData(values: RkiTotalCasesPerDay[]) {
-    const sortedValues = [...values];
+function preprocessData(data: RkiFeatureData<RkiTotalCasesPerDay>) {
+    const sortedValues = [...data.features.map(feature => feature.attributes)];
     sortedValues.sort((a,b) => a.Meldedatum - b.Meldedatum);
 
     let cumulativeTotal = 0;
@@ -45,6 +34,16 @@ function preprocessData(values: RkiTotalCasesPerDay[]) {
     return onlyChanges;
 }
 
+let chart: Chart;
+function renderData(data: CumulativeCases[]){
+    const canvas = getElementOrThrow<HTMLCanvasElement>('.total-reported-cases-per-day-section canvas');
+
+    chart?.clear();
+    chart?.destroy();
+    chart = renderChart(canvas, data);
+}
+
+type CumulativeCases = {Meldedatum: number, GesamtFaelleSeitAnfang: number};
 function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
     const panZoomSettings = {
         enabled: true,

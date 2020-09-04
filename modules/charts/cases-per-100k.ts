@@ -1,21 +1,35 @@
-import { loadCountyData } from '../data-loading';
+import { loadCountyData, RkiFeatureData, RkiCountyFeatureAttributes } from '../data-loading';
 import { getElementOrThrow } from '../helpers';
 import chartjs from 'chart.js';
 
 export async function loadAndDisplayTotalCasesPer100kChart() {
-    const data = await loadCountyData();
-    const canvas = getElementOrThrow<HTMLCanvasElement>('.total-cases-per-100k-section canvas');
+    renderData(preprocessData(await loadData()));
+}
 
-    const filteredData =
-        data.features.map(feature => ({
-            name: feature.attributes.county,
-            casesPer100k: feature.attributes.cases_per_100k
-        }));
+function loadData() {
+    return loadCountyData();
+}
+
+function preprocessData(data: RkiFeatureData<RkiCountyFeatureAttributes>) {
+    const filteredData = data.features.map(feature => ({
+        name: feature.attributes.county,
+        casesPer100k: feature.attributes.cases_per_100k
+    }));
     
     filteredData.sort((a,b) => b.casesPer100k - a.casesPer100k);
+    return filteredData.slice(0, 20);
+} 
 
-    renderChart(canvas, filteredData.slice(0, 20));
+function renderData(data: CountyAndCasesPer100k) {
+    const canvas = getElementOrThrow<HTMLCanvasElement>('.total-cases-per-100k-section canvas');
+
+    renderChart(canvas, data);
 }
+
+type CountyAndCasesPer100k = {
+    name: string;
+    casesPer100k: number;
+}[];
 
 function renderChart(canvas: HTMLCanvasElement, values: {name: string, casesPer100k: number}[]) {
     const panZoomSettings = {

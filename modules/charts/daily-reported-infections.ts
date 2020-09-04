@@ -4,21 +4,21 @@ import chartjs from 'chart.js';
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 
 export async function loadAndDisplayDailyReportedInfections() {
-    const data = await loadTotalCasesReportedPerDay();
-
-    renderData(data);
+    renderData(await loadData());
 }
 
 export function reactToCountySelection() {
-    observeCountyChanges(async () => {
-        const countyId = selectedCountyRkiId();
-        if(countyId == null) {
-            return loadAndDisplayDailyReportedInfections();
-        }
-        const countyName = (await countyNameById(countyId)) ?? '';
-        const countyData = await loadTotalCasesReportedPerDayOfCounty(countyName);
-        renderData(countyData);
-    })
+    observeCountyChanges(loadAndDisplayDailyReportedInfections);
+}
+
+async function loadData() {
+    const countyId = selectedCountyRkiId();
+    if(countyId == null) {
+        return loadTotalCasesReportedPerDay();
+    }
+    const countyName = (await countyNameById(countyId)) ?? '';
+    const countyData = await loadTotalCasesReportedPerDayOfCounty(countyName);
+    return countyData;
 }
 
 let chart: Chart;
