@@ -5,7 +5,7 @@ import { loadAndDisplaySums } from './modules/summed-data.js';
 import { loadAndDisplayDailyInfections } from './modules/charts/daily-infections';
 import { initNavigation } from './modules/charts/section-nav';
 
-import * as countyInfo from './modules/county-information';
+import * as countyInfo from './modules/map/county-information';
 import * as summedData from './modules/summed-data.js';
 import * as dailyInfections from './modules/charts/daily-infections';
 import * as dailyReportedInfections from './modules/charts/daily-reported-infections';

@@ -1,5 +1,5 @@
-import { getDataOfSelectedCounty, observeCountyChanges, deselectCounty } from './county-selection';
-import { getElementOrThrow } from './helpers';
+import { getDataOfSelectedCounty, observeCountyChanges, deselectCounty } from '../county-selection';
+import { getElementOrThrow } from '../helpers';
 
 async function renderSelectedCounty() {
     const {attributes: county} =  await getDataOfSelectedCounty() ?? {};
