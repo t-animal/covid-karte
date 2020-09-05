@@ -26,8 +26,6 @@ function getMapElement() {
 export async function loadAndDisplayMap(): Promise<void> {
   const rkiDataResponse = loadCountyData();
   const countiesResponse = loadCountyMap();
-  const preloadedStates = loadStateMap();
-  const preloadedEurope = loadEuMap();
 
   const rkiData = await rkiDataResponse;
   const countiesGeoJson = await countiesResponse;
@@ -35,8 +33,12 @@ export async function loadAndDisplayMap(): Promise<void> {
   addCountiesToMap(rkiData, countiesGeoJson);
   highlightCountyWhenSelected(rkiData, countiesGeoJson);
 
-  addStateBoundaries(await preloadedStates);
-  addEuropeanMap(await preloadedEurope);
+  window.setTimeout(tmp, 0);
+}
+
+async function tmp() {
+  addStateBoundaries(await loadStateMap());
+  addEuropeanMap(await loadEuMap());
 }
 
 function addCountiesToMap(
