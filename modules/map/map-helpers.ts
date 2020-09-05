@@ -222,6 +222,13 @@ function mapIdToRkiObjectId(mapId: number) {
     case 119: return 317; //"LK Donau-Ries",
     case 126: return 318; //"LK Oberallgäu",
 
+    case 342: return 319; //"LK Stadtverband Saarbrücken",
+    case 340: return 320; //"LK Merzig-Wadern",
+    case 341: return 321; //"LK Neunkirchen",
+    case 343: return 322; //"LK Saarlouis",
+    case 344: return 323; //"LK Saar-Pfalz-Kreis",
+    case 345: return 324; //"LK Sankt Wendel",
+
     case 143: return 326; //"SK Brandenburg a.d.Havel",
     case 144: return 327; //"SK Cottbus",
     case 147: return 328; //"SK Frankfurt (Oder)",
