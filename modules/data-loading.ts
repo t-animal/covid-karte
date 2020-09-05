@@ -10,6 +10,8 @@ const DAILY_INFECTIONS_OF_COUNTY_URL_FACTORY = (county: string) => `https://serv
 const TOTAL_INFECTIONS_PER_DAY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlFall>0&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Meldedatum&outStatistics=[{%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelleTag%22}]&orderBy=Meldedatum';
 const TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY = (county: string) => `https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlFall>0 AND Landkreis='${county}'&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Meldedatum&outStatistics=[{%22statisticType%22:%20%22sum%22,%20%22onStatisticField%22:%20%22AnzahlFall%22,%20%22outStatisticFieldName%22:%20%22GesamtFaelleTag%22}]&orderBy=Meldedatum`;
 
+const TOTAL_RECOVERED_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlGenesen>0&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Landkreis&outStatistics=[{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22AnzahlGenesen%22,%22outStatisticFieldName%22:%22SummeGenesen%22}]';
+
 export type RkiCountyFeatureAttributes = {
   'OBJECTID': number,
   'ADE': number,
@@ -62,6 +64,7 @@ export type RkiDailyNewCasesData = {
 
 export type RkiTotalCasesPerDay = { 'GesamtFaelleTag': number, 'Meldedatum': number };
 
+export type RkiTotalRecoveredByCounty = { 'SummeGenesen': number, 'Landkreis': string };
 
 export type RkiFeatureData<T> = {
   features: [{ attributes: T }]
@@ -158,3 +161,6 @@ export const loadDailyInfectionsOfCounty = (county: string): Promise<RkiFeatureD
 
 const totalCasesPerDayOfCountyLoader = new ParametrizedDataLoader<RkiFeatureData<RkiTotalCasesPerDay>, [string]>(TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY);
 export const loadTotalCasesReportedPerDayOfCounty = (county: string): Promise<RkiFeatureData<RkiTotalCasesPerDay>> => totalCasesPerDayOfCountyLoader.load(county);
+
+const totalRecoveredByCountyLoader = new DataLoader<RkiFeatureData<RkiTotalRecoveredByCounty>>(TOTAL_RECOVERED_BY_COUNTY_URL);
+export const loadTotalRecoveredByCounty = totalRecoveredByCountyLoader.createBoundLoadFunction();
