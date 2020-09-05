@@ -55,6 +55,10 @@ export function rkiFeatureByMapId(
 
 function mapIdToRkiObjectId(mapId: number) {
   switch (mapId) {
+
+
+    case 161: return 16; //	"SK Hamburg",
+
     case 35: return 179; //	"SK Stuttgart",
     case 23: return 180; //	"LK Böblingen",
     case 24: return 181; //	"LK Esslingen",
@@ -202,6 +206,25 @@ function mapIdToRkiObjectId(mapId: number) {
     case 128: return 316; //"LK Unterallgäu",
     case 119: return 317; //"LK Donau-Ries",
     case 126: return 318; //"LK Oberallgäu",
+
+    case 143: return 326; //"SK Brandenburg a.d.Havel",
+    case 144: return 327; //"SK Cottbus",
+    case 147: return 328; //"SK Frankfurt (Oder)",
+    case 155: return 329; //"SK Potsdam",
+    case 142: return 330; //"LK Barnim",
+    case 145: return 331; //"LK Dahme-Spreewald",
+    case 146: return 332; //"LK Elbe-Elster",
+    case 148: return 333; //"LK Havelland",
+    case 149: return 334; //"LK Märkisch-Oderland",
+    case 150: return 335; //"LK Oberhavel",
+    case 151: return 336; //"LK Oberspreewald-Lausitz",
+    case 152: return 337; //"LK Oder-Spree",
+    case 153: return 338; //"LK Ostprignitz-Ruppin",
+    case 154: return 339; //"LK Potsdam-Mittelmark",
+    case 156: return 340; //"LK Prignitz",
+    case 157: return 341; //"LK Spree-Neiße",
+    case 158: return 342; //"LK Teltow-Fläming",
+    case 159: return 343; //"LK Uckermark",
 
     case 164: return 117; //"SK Darmstadt",
     case 165: return 118; //"SK Frankfurt am Main",
