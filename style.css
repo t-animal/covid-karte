@@ -206,6 +206,38 @@ section.map-section .map {
 	background: none;
 }
 
+section.map-section aside.map-legend {
+  position: absolute;
+  top: 3em;
+  right: 15px;
+  z-index: 999;
+
+  width: 150px;
+  max-height: 13em;
+  transition: max-height 500ms;
+  overflow: hidden;
+
+  padding: 5px;
+  
+  background: var(--background-darker);
+  border: var(--strong-border);
+
+  cursor: pointer;
+}
+
+section.map-section aside.map-legend.collapsed {
+  max-height: 2.1em;
+  overflow: hidden;
+  transition: max-height 500ms;
+}
+
+section.map-section .legend-color {
+  height: 1em;
+  width: 1em;
+  float: left;
+  margin-right: 5px;
+}
+
 
 /*
  * Data-age section
