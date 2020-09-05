@@ -55,6 +55,21 @@ export function rkiFeatureByMapId(
 
 function mapIdToRkiObjectId(mapId: number) {
   switch (mapId) {
+    case 399: return 1; //"SK Flensburg",
+    case 400: return 2; //"SK Kiel",
+    case 402: return 3; //"SK Lübeck",
+    case 403: return 4; //"SK Neumünster",
+    case 398: return 5; //"LK Dithmarschen",
+    case 401: return 6; //"LK Herzogtum Lauenburg",
+    case 404: return 7; //"LK Nordfriesland",
+    case 405: return 8; //"LK Ostholstein",
+    case 406: return 9; //"LK Pinneberg",
+    case 407: return 10; //"LK Plön",
+    case 408: return 11; //"LK Rendsburg-Eckernförde",
+    case 409: return 12; //"LK Schleswig-Flensburg",
+    case 410: return 13; //"LK Segeberg",
+    case 411: return 14; //"LK Steinburg",
+    case 412: return 15; //"LK Stormarn",
 
 
     case 161: return 16; //	"SK Hamburg",
