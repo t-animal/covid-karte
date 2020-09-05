@@ -17,5 +17,8 @@ export async function countyNameById(countyId: number): Promise<string | null> {
   return data.features
     .find((feature) => feature.attributes.OBJECTID == countyId)
     ?.attributes.county ?? null;
+}
 
+export function format(num: number, decimalDigits = 0): string {
+  return new Intl.NumberFormat('de-DE', {  maximumFractionDigits: decimalDigits, }).format(num);
 }

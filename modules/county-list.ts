@@ -1,6 +1,6 @@
 import { selectOrToggleCounty } from './county-selection';
 import { loadCountyData, RkiCountyFeatureAttributes } from './data-loading';
-import { getElementOrThrow } from './helpers';
+import { format, getElementOrThrow } from './helpers';
 
 function getTableElement() {
   return getElementOrThrow<HTMLTableElement>('.county-list');
@@ -20,8 +20,8 @@ export async function loadAndDisplayCountyList(): Promise<void> {
 
 function createRow(county: RkiCountyFeatureAttributes) {
   const rowElem = document.createElement('tr');
-  rowElem.appendChild(createCell('td', 'cases', county.cases));
-  rowElem.appendChild(createCell('td', 'deaths', county.deaths));
+  rowElem.appendChild(createCell('td', 'cases', format(county.cases)));
+  rowElem.appendChild(createCell('td', 'deaths', format(county.deaths)));
   rowElem.appendChild(createCell('th', 'county-name', `${county.GEN} ${county.BEZ}`));
 
   rowElem.addEventListener('click', () => selectOrToggleCounty(county.OBJECTID));

@@ -1,7 +1,7 @@
 import chartjs from 'chart.js';
 
 import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
-import { getElementOrThrow } from '../helpers';
+import { format, getElementOrThrow } from '../helpers';
 
 export async function loadAndDisplayTotalCasesPer100kChart(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -61,6 +61,11 @@ function renderChart(canvas: HTMLCanvasElement, values: { name: string, casesPer
     },
     options: {
       legend: { display: false, },
+      tooltips: {
+        callbacks: { label:  (item) => {
+          return (typeof(item.xLabel) == 'number') ? format(item.xLabel, 2) : ''; }
+        }
+      },
       animation: { duration: 0 },
       scales: {
         ticks: {

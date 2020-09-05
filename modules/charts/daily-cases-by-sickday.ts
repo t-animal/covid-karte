@@ -7,7 +7,7 @@ import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 import {
   loadDailyInfections, loadDailyInfectionsOfCounty, RkiDailyNewCasesData, RkiFeatureData
 } from '../data-loading';
-import { countyNameById, getElementOrThrow } from '../helpers';
+import { countyNameById, format, getElementOrThrow } from '../helpers';
 
 export async function loadAndRenderDailyCasesBySickday(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -109,6 +109,11 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     },
     options: {
       legend: { display: false, },
+      tooltips: {
+        callbacks: { label:  (item) => {
+          return (typeof(item.yLabel) == 'number') ? format(item.yLabel) : ''; }
+        }
+      },
       animation: { duration: 0 },
       scales: {
         xAxes: [{

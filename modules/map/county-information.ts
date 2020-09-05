@@ -1,5 +1,5 @@
 import { deselectCounty, getDataOfSelectedCounty, observeCountyChanges } from '../county-selection';
-import { getElementOrThrow } from '../helpers';
+import { format, getElementOrThrow } from '../helpers';
 
 async function renderSelectedCounty() {
   const { attributes: county } = await getDataOfSelectedCounty() ?? {};
@@ -10,20 +10,18 @@ async function renderSelectedCounty() {
     return;
   }
 
-  const population = county.cases / county.cases_per_population * 100;
-
   getElementOrThrow('h3', countyInfo).textContent = 
     `${county.GEN} ${county.BEZ}`;
   getElementOrThrow('.cases-row td', countyInfo).textContent = 
-    `${county.cases}`;
+    format(county.cases);
   getElementOrThrow('.cases-per-100k-row td', countyInfo).textContent =
-    `${county.cases_per_100k.toFixed(2)}`;
+    format(county.cases_per_100k, 2);
   getElementOrThrow('.cases-per-100k-last-7d-row td', countyInfo).textContent = 
-    `${county.cases7_per_100k.toFixed(2)}`;
+    format(county.cases7_per_100k, 2);
   getElementOrThrow('.deaths-row td', countyInfo).textContent = 
-    `${county.deaths}`;
+    format(county.deaths);
   getElementOrThrow('.inhabitants-row td', countyInfo).textContent = 
-    `etwa ${population.toFixed(0)}`;
+    format(county.EWZ);
   getElementOrThrow('.data-age-row td', countyInfo).textContent = 
     `${county.last_update}`;
   countyInfo.classList.add('displayed');

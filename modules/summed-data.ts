@@ -4,7 +4,7 @@ import {
   loadCountyData, loadTodaysCasesDiff, loadTodaysDeathsDiff, loadTodaysSummedData, RkiDiffData,
   RkiFeatureData
 } from './data-loading';
-import { countyNameById, getElementOrThrow } from './helpers';
+import { countyNameById, format, getElementOrThrow } from './helpers';
 
 export async function loadAndDisplaySums(countyId: number | null = null): Promise<void> {
   loadAndDisplayCountryWideCasesAndDeathSums(countyId != null);
@@ -30,8 +30,8 @@ async function loadAndDisplayCountryWideCasesAndDeathSums(asSecondary: boolean) 
 
   const { totalCases, totalDeaths } = data.features[0].attributes;
 
-  casesElem.textContent = totalCases.toString();
-  deathsElem.textContent = totalDeaths.toString();
+  casesElem.textContent = format(totalCases);
+  deathsElem.textContent = format(totalDeaths);
 }
 
 async function loadAndDisplayCountySpecificCasesAndDeathSums(countyId: number | null) {
@@ -103,5 +103,5 @@ async function diffOfSpecificCounty(countyId: number, data: RkiFeatureData<RkiDi
 }
 
 function withSign(num: number) {
-  return (num >= 0 ? '+' : '-') + num;
+  return (num >= 0 ? '+' : '-') + format(num);
 }
