@@ -19,8 +19,9 @@
 html {
 	color: white;
 	font-family: "Rubik", "Avenir Next", "Helvetica Neue", sans-serif;
-    font-weight: 300;
-    font-size: 13px;
+  font-weight: 300;
+  font-size: 13px;
+  height: 100%;
 }
 
 body {
@@ -140,8 +141,13 @@ a {
   float: right;
 }
 
+.close-icon::before {
+  content: '✖';
+  cursor: pointer;
+}
+
 /*
- * Fork me button
+ * Fork me button and page info
  */
 button.fork-me {
   display: flex;
@@ -158,6 +164,48 @@ button.fork-me {
 
 button.fork-me img {
   margin: 0 3px;
+}
+
+aside.page-info {
+  position: fixed;
+  z-index: 1050;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+aside.page-info.hidden {
+  display: none;
+}
+
+aside.page-info > div {
+  width: 80%;
+  max-width: 600px;
+  max-height: 80%;
+  overflow: auto;
+
+  background: var(--background-darker);
+
+  border: var(--strong-border);
+  padding: 5px;
+
+  position: relative;
+}
+
+aside.page-info h3 {
+  margin-top: 20px;
+}
+
+aside.page-info .close-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 /*
@@ -188,10 +236,6 @@ section.map-section .county-info {
 	transition: opacity 300ms, width 0ms 300ms, height 0ms 300ms;
 }
 
-section.map-section .county-info .close-icon::before {
-    content: '✖';
-    cursor: pointer;
-}
 
 section.map-section .county-info.displayed {
 	opacity: 1;

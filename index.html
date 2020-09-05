@@ -20,7 +20,39 @@
 
 		<h1>Ein performantes COVID-19-Dashboard</h1>
     Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://corona.rki.de">RKI-Dashboard</a>, aber schneller.
-	</header>
+    <a href="javascript:document.querySelector('.page-info').classList.remove('hidden');">Kontakt und weitere Infos</a>.
+  </header>
+  
+  <aside class="page-info hidden" onclick="this.classList.add('hidden')">
+    <div>
+      <div class="close-icon" onclick="this.parentElement.parentElement.classList.add('hidden')"></div>
+      <h3>Kontakt</h3>
+      Fragen, Anregungen und sonstiges nehme ich gerne entgegen unter tilman-corona-dashboard[at]t-animal[punkt]de.
+
+      <h3>Was ist das?</h3>
+      Das ist ein Klon des originalen <a href="https://corona.rki.de">RKI-Corona-Dashboards</a>. Es kann nicht viel
+      mehr als das Dashboard des RKI, aber es zeigt die gleichen Daten an und ist dabei viel schneller.
+
+      <h3>Was kann das?</h3>
+      Diese Seite zeigt die aktuelle Situation der Corona bzw. Covid-19 Pandemie in Deutschland nach den offiziellen
+      Zahlen des Robert-Koch-Instituts. Klicke auf der Corona Karte bzw in der Liste der Landkreise auf einen Landkreis,
+      um mehr über einen Landkreis zu erfahren.
+
+      <h3>Warum geht das nicht?</h3>
+      Ich hab auf veraltete Browser keine Rücksicht genommen. Halte deinen Browser aktuell.
+
+      <h3>Daten</h3>
+      Als Datenquelle dient wie beim Corona Dashboard des RKI der <a href="https://npgeo-corona-npgeo-de.hub.arcgis.com/">
+      NPGEO Corona Hub</a>. Die Daten stehen unter Open Data Datenlizenz Deutschland – Namensnennung – Version 2.0.
+      Quellenvermerk: Robert Koch-Institut (RKI), dl-de/by-2-0.
+
+      <h3>Datenschutz</h3>
+      Diese Seite verwendet keine Cookies, keine Trackingdienste oder sonstigen Unfug. Unter Umständen werden Zugriffe 
+      auf dem Server protokolliert und dabei kann deine IP gespeichert werden sowie Basisinformationen über dein
+      System wie zB dein Browser. Diese Daten werden nicht mit anderen Daten verknüpft und dienen lediglich der 
+      Sicherstellung des Betriebs.
+    </div>
+  </aside>
 
 	<main>
 		<section class="counties">
