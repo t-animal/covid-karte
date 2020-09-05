@@ -136,6 +136,30 @@ a {
 	display: flex;
 }
 
+.page-header .fork-me {
+  float: right;
+}
+
+/*
+ * Fork me button
+ */
+button.fork-me {
+  display: flex;
+  align-items: center;
+  
+  background: var(--background-darker);
+  color: white;
+
+  border: var(--strong-border);
+  border-radius: 3px;
+
+  cursor: pointer;
+}
+
+button.fork-me img {
+  margin: 0 3px;
+}
+
 /*
  * Map section
  */
