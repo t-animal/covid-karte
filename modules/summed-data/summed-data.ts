@@ -6,7 +6,8 @@ import {
 import { format, getElementOrThrow } from '../helpers';
 import { renderDiffData } from './generic-rendering';
 
-export async function loadAndDisplaySums(countyId: number | null = null): Promise<void> {
+export function loadAndDisplaySums(): void {
+  const countyId = selectedCountyRkiId();
   loadAndDisplayCountryWideCasesAndDeathSums(countyId != null);
   loadAndDisplayCountySpecificCasesAndDeathSums(countyId);
   loadAndDisplayDeathDiff(countyId);
@@ -14,12 +15,8 @@ export async function loadAndDisplaySums(countyId: number | null = null): Promis
 }
 
 export async function reactToCountySelection(): Promise<void> {
-  observeCountyChanges(() => {
-    const countyId = selectedCountyRkiId();
-    loadAndDisplaySums(countyId);
-  });
+  observeCountyChanges(loadAndDisplaySums);
 }
-
 
 async function loadAndDisplayCountryWideCasesAndDeathSums(asSecondary: boolean) {
   const data = await loadTodaysSummedData();
