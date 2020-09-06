@@ -248,9 +248,13 @@ section.map-section .county-info.displayed {
 section.map-section .county-info > header {
 	margin: 0;
 	display: flex; 
-	flex-direction: row-reverse;
+	flex-direction: reverse;
 	background: var(--background-dark);
 	border-bottom: var(--strong-border)
+}
+
+section.map-section .county-info > header .spacer {
+  flex: 1;
 }
 
 section.map-section .county-info > div {

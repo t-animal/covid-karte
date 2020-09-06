@@ -35,6 +35,9 @@ function renderData(county: RkiCountyFeatureAttributes | null) {
   getElementOrThrow('.data-age-row td', countyInfo).textContent = 
     `${county.last_update}`;
   countyInfo.classList.add('displayed');
+
+  getElementOrThrow<HTMLAnchorElement>('.permalink', countyInfo).href = 
+    location.href;
 }
 
 export function initCallbacks(): void {
