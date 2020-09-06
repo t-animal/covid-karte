@@ -1,8 +1,18 @@
 import { deselectCounty, getDataOfSelectedCounty, observeCountyChanges } from '../county-selection';
+import { RkiCountyFeatureAttributes } from '../data-loading';
 import { format, getElementOrThrow } from '../helpers';
 
-async function renderSelectedCounty() {
+export async function loadAndDisplayCountyMapOverlay(): Promise<void> {
+  const county = await loadData();
+  renderData(county ?? null);
+}
+
+async function loadData() {
   const { attributes: county } = await getDataOfSelectedCounty() ?? {};
+  return county;
+}
+
+function renderData(county: RkiCountyFeatureAttributes | null) {
   const countyInfo = getElementOrThrow<HTMLElement>('.county-info');
 
   if (county == null) {
@@ -28,7 +38,7 @@ async function renderSelectedCounty() {
 }
 
 export function initCallbacks(): void {
-  observeCountyChanges(renderSelectedCounty);
+  observeCountyChanges(loadAndDisplayCountyMapOverlay);
   getElementOrThrow<HTMLElement>('.county-info .close-icon')
     .addEventListener('click', deselectCounty);
 }

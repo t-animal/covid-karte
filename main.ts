@@ -7,6 +7,7 @@ import * as countySelectionPersistence from './modules/county-selection-persiste
 
 import { initNavigation } from './modules/charts/section-nav';
 import { loadAndDisplayCountyList } from './modules/county-list';
+import { loadAndDisplayCountyMapOverlay } from './modules/map/county-information';
 import { loadAndDisplayDataAge } from './modules/data-age';
 import { loadAndDisplayMap } from './modules/map/map.js';
 import { loadAndDisplaySums } from './modules/summed-data.js';
@@ -16,6 +17,7 @@ import { restoreCountySelectionFromUrl } from './modules/county-selection-persis
 restoreCountySelectionFromUrl();
 
 loadAndDisplayMap();
+loadAndDisplayCountyMapOverlay();
 loadAndDisplayCountyList();
 loadAndDisplayDataAge();
 loadAndDisplaySums();
