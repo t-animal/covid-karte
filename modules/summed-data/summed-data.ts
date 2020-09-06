@@ -1,10 +1,10 @@
 
-import { observeCountyChanges, selectedCountyRkiId } from './county-selection';
+import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 import {
-  loadCountyData, loadTodaysCasesDiff, loadTodaysDeathsDiff, loadTodaysSummedData, RkiDiffData,
-  RkiFeatureData
-} from './data-loading';
-import { countyNameById, format, getElementOrThrow } from './helpers';
+  loadCountyData, loadTodaysCasesDiff, loadTodaysDeathsDiff, loadTodaysSummedData
+} from '../data-loading';
+import { format, getElementOrThrow } from '../helpers';
+import { renderDiffData } from './generic-rendering';
 
 export async function loadAndDisplaySums(countyId: number | null = null): Promise<void> {
   loadAndDisplayCountryWideCasesAndDeathSums(countyId != null);
@@ -70,38 +70,3 @@ async function loadAndDisplayCasesDiff(countyId: number | null) {
   renderDiffData(section, data, countyId);
 }
 
-async function renderDiffData(rootElem: Element,
-  data: RkiFeatureData<RkiDiffData>,
-  countyId: number | null
-) {
-  const leadingDiffElem = getElementOrThrow('span.daily-diff', rootElem);
-  const secondaryDiffContainer = getElementOrThrow('.secondary-info.daily-diff', rootElem);
-  const secondaryDiffElem = getElementOrThrow('span', secondaryDiffContainer);
-
-  const totalDiff = countryWideDiff(data);
-  if (countyId !== null) {
-    const countyDiff = await diffOfSpecificCounty(countyId, data);
-    leadingDiffElem.textContent = withSign(countyDiff);
-    secondaryDiffElem.textContent = withSign(totalDiff);
-    secondaryDiffContainer.classList.remove('no-data');
-  } else {
-    leadingDiffElem.textContent = withSign(totalDiff);
-    secondaryDiffContainer.classList.add('no-data');
-  }
-}
-
-
-function countryWideDiff(data: RkiFeatureData<RkiDiffData>) {
-  return data.features.reduce((prev, curr) => prev + curr.attributes.diff, 0);
-}
-
-async function diffOfSpecificCounty(countyId: number, data: RkiFeatureData<RkiDiffData>) {
-  const countyName = await countyNameById(countyId);
-  return data.features
-    .find(feature => feature.attributes.Landkreis == countyName)
-    ?.attributes.diff ?? 0;
-}
-
-function withSign(num: number) {
-  return (num >= 0 ? '+' : '-') + format(num);
-}
