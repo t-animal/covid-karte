@@ -23,20 +23,32 @@ function getMapElement() {
   return getElementOrThrow<HTMLDivElement>('div.map');
 }
 
-export async function loadAndDisplayMap(): Promise<void> {
+export function loadAndDisplayMap(): void {
+  renderData(loadData());
+}
+
+async function loadData() {
   const rkiDataResponse = loadCountyData();
   const countiesResponse = loadCountyMap();
 
   const rkiData = await rkiDataResponse;
   const countiesGeoJson = await countiesResponse;
 
-  addCountiesToMap(rkiData, countiesGeoJson);
-  highlightCountyWhenSelected(rkiData, countiesGeoJson);
-
-  window.setTimeout(tmp, 0);
+  return {rkiData, countiesGeoJson};
 }
 
-async function tmp() {
+async function renderData(data: ReturnType<typeof loadData>) {
+  const {rkiData, countiesGeoJson} = await data;
+
+  addCountiesToMap(rkiData, countiesGeoJson);
+
+  highlightSelectedCounty(rkiData, countiesGeoJson);
+  highlightCountyWhenSelected(rkiData, countiesGeoJson);
+
+  window.setTimeout(drawBackground, 0);
+}
+
+async function drawBackground() {
   addStateBoundaries(await loadStateMap());
   addEuropeanMap(await loadEuMap());
 }
@@ -92,24 +104,30 @@ function highlightCountyWhenSelected(
   rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
   counties: CountyMap
 ) {
-  let highlightLayer: L.GeoJSON | null = null;
-  observeCountyChanges(() => {
-    const countyId = selectedCountyRkiId();
-    highlightLayer?.remove();
-    if (countyId == null) {
-      return;
-    }
-    for (const county of counties.features) {
-      const rkiId = rkiFeatureByMapId(rkiData, county.properties.ID_3)?.OBJECTID;
-      if (countyId == rkiId) {
-        highlightLayer = new L.GeoJSON(county, { 
-          style: { color: '#2f52a0', weight: 3, stroke: true, fill: false }
-        });
-        highlightLayer.addTo(map);
-      }
-    }
-  });
+  observeCountyChanges(() => highlightSelectedCounty(rkiData, counties));
 }
+
+let highlightLayer: L.GeoJSON | null = null;
+function highlightSelectedCounty(
+  rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
+  counties: CountyMap
+): void {
+  const countyId = selectedCountyRkiId();
+  highlightLayer?.remove();
+  if (countyId == null) {
+    return;
+  }
+  for (const county of counties.features) {
+    const rkiId = rkiFeatureByMapId(rkiData, county.properties.ID_3)?.OBJECTID;
+    if (countyId == rkiId) {
+      highlightLayer = new L.GeoJSON(county, { 
+        style: { color: '#2f52a0', weight: 3, stroke: true, fill: false }
+      });
+      highlightLayer.addTo(map);
+    }
+  }
+}
+
 
 async function addStateBoundaries(preloadedMap: GeoJSON.FeatureCollection) {
   L.geoJSON(preloadedMap, {
