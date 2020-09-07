@@ -32,3 +32,7 @@ function makeFormatter(decimalDigits: number) {
 
   return formatters[decimalDigits];
 }
+
+export function nowPlus12Hours(): Date {
+  return new Date(Date.now() + 12 * 60 * 60 * 1000);
+}

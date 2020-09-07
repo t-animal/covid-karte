@@ -5,7 +5,7 @@ import {
   loadTotalCasesReportedPerDay, loadTotalCasesReportedPerDayOfCounty, RkiFeatureData,
   RkiTotalCasesPerDay
 } from '../data-loading';
-import { countyNameById, format, getElementOrThrow } from '../helpers';
+import { countyNameById, format, getElementOrThrow, nowPlus12Hours } from '../helpers';
 
 export async function loadAndRenderDailyCasesByReportday(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -132,7 +132,10 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         xAxes: [{
           type: 'time',
           time: { unit: 'month', },
-          ticks: { min: '2020-03' },
+          ticks: { 
+            min: '2020-03',
+            max: nowPlus12Hours(),
+          },
           ...commonAxisSettings
         }],
         yAxes: [commonAxisSettings]
