@@ -26,7 +26,7 @@ export function getSortFunction(): CountySortFunction {
 
 export function initCallbacks(): void {
   document
-    .querySelectorAll('.county-list .sort-row td')
+    .querySelectorAll('.county-list .sort-row th')
     .forEach((element, index) => {
       element.addEventListener('click', () => sortByCol(index));
     });
@@ -43,7 +43,7 @@ function sortByCol(index: number) {
 
   getElementOrThrow('.county-list .sort-row span.sorted')
     .classList.remove('sorted', 'sorted-asc', 'sorted-desc');
-  getElementOrThrow(`.county-list .sort-row td:nth-child(${index + 1}) span`)
+  getElementOrThrow(`.county-list .sort-row th:nth-child(${index + 1}) span`)
     .classList.add('sorted', orderFunctionToApply === asc ? 'sorted-asc' : 'sorted-desc');
 
   loadAndDisplayCountyList();

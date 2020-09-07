@@ -167,8 +167,12 @@ tr.sort-row span.sort {
   color: #888;
 }
 
-table tr.sort-row td {
+table tr.sort-row th {
+  position: sticky;
   text-align: center;
+  top: 0;
+  background: var(--background-darker);
+  border-bottom: none;
 }
 
 span.sorted-asc::before,
