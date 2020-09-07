@@ -9,7 +9,7 @@
     "chart.js": "^2.9.3",
     "chartjs": "^0.3.24",
     "chartjs-plugin-zoom": "^0.7.7",
-    "leaflet": "^1.6.0"
+    "leaflet": "^1.7.1"
   },
   "devDependencies": {
     "@snowpack/plugin-postcss": "^1.0.2",
@@ -19,7 +19,7 @@
     "eslint": "^7.8.1",
     "postcss": "^7.0.32",
     "postcss-cli": "^7.1.2",
-    "snowpack": "^2.9.0",
+    "snowpack": "^2.10.1",
     "typescript": "^4.0.2"
   },
   "scripts": {
