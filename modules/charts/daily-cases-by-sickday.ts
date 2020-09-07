@@ -110,8 +110,12 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     options: {
       legend: { display: false, },
       tooltips: {
-        callbacks: { label:  (item) => {
-          return (typeof(item.yLabel) == 'number') ? format(item.yLabel) : ''; }
+        callbacks: { label: 
+          (item) => {
+            const label = item.datasetIndex == 0? 'Erkrankt' : 'Gemeldet';
+            const value = (typeof(item.yLabel) == 'number') ? format(item.yLabel) : '??';
+            return `${label}: ${value}`;
+          }
         }
       },
       animation: { duration: 0 },
