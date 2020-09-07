@@ -383,7 +383,10 @@ section.counties .label {
 section.counties .scroll-container {
 	flex: 1;
 	overflow-y: scroll;
-	position: relative;
+  position: relative;
+  
+  scroll-snap-type: y mandatory;
+  scroll-padding: calc(1em + 10px);
 }
 
 section.counties .scroll-container table {
@@ -404,6 +407,10 @@ section.counties .scroll-container table th {
 	border-bottom: var(--strong-border);
 
 	cursor: pointer;
+}
+
+section.counties .scroll-container table tr {
+  scroll-snap-align: start;
 }
 
 
