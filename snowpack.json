@@ -1,7 +1,20 @@
 {
-  "install": ["node_modules/leaflet/dist/leaflet.css"],
-  "exclude": [".git/**", "node_modules/**", "*.json", "information/**", "LICENSE", "README.md", "package*json"],
+  "install": [
+    "node_modules/leaflet/dist/leaflet.css"
+  ],
+  "exclude": [
+    ".git/**",
+    "node_modules/**",
+    "*.json",
+    "information/**",
+    "LICENSE",
+    "README.md",
+    "package*json"
+  ],
   "plugins": [
     "@snowpack/plugin-postcss"
-  ]
+  ],
+  "mount": {
+    "src/": "/"
+  }
 }
