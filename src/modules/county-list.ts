@@ -20,6 +20,7 @@ export async function loadAndDisplayCountyList(): Promise<void> {
 
 function createRow(county: RkiCountyFeatureAttributes) {
   const rowElem = document.createElement('tr');
+  rowElem.appendChild(createCell('td', 'cases-7d-100k', format(county.cases7_per_100k, 1)));
   rowElem.appendChild(createCell('td', 'cases', format(county.cases)));
   rowElem.appendChild(createCell('td', 'deaths', format(county.deaths)));
   rowElem.appendChild(createCell('th', 'county-name', `${county.GEN} ${county.BEZ}`));
