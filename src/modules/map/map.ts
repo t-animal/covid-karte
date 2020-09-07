@@ -1,4 +1,5 @@
-// import 'leaflet/dist/leaflet.css'
+import 'leaflet/dist/leaflet.css';
+
 import L from 'leaflet';
 
 import {
