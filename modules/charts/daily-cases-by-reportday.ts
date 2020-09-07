@@ -8,7 +8,7 @@ import {
 import { countyNameById, format, getElementOrThrow } from '../helpers';
 
 export async function loadAndRenderDailyCasesByReportday(): Promise<void> {
-  renderData(await loadData());
+  renderData(preprocessData(await loadData()));
 }
 
 export function reactToCountySelection(): void {
@@ -25,18 +25,53 @@ async function loadData() {
   return countyData;
 }
 
+function preprocessData(data: RkiFeatureData<RkiTotalCasesPerDay>) {
+  const isNew = (data: RkiTotalCasesPerDay) => data.NeuerFall === 1;
+
+  const existingDataByReportDay: {[key: number]: RkiTotalCasesPerDay} = {};
+  const newDataByReportDay: {[key: number]: RkiTotalCasesPerDay} = {};
+
+  const dataAttributes = data.features.map(feature => feature.attributes);
+  for(const attributes of dataAttributes) {
+    if(isNew(attributes)) {
+      newDataByReportDay[attributes.Meldedatum] = attributes;
+    }else{
+      existingDataByReportDay[attributes.Meldedatum] = attributes;
+    }
+  }
+
+  const allReportdays = dataAttributes.map(({Meldedatum}) => Meldedatum);
+  for(const reportDay of allReportdays) {
+    const noCasesEntry = {Meldedatum: reportDay, GesamtFaelleTag: 0, NeuerFall: null};
+    newDataByReportDay[reportDay] = newDataByReportDay[reportDay] ?? noCasesEntry;
+    existingDataByReportDay[reportDay] = existingDataByReportDay[reportDay] ?? noCasesEntry;
+  }
+
+  const processedData = {
+    preExist: Object.values(existingDataByReportDay),
+    new: Object.values(newDataByReportDay)
+  };
+
+  processedData.preExist.sort((a,b) => a.Meldedatum - b.Meldedatum);
+  processedData.new.sort((a,b) => a.Meldedatum - b.Meldedatum);
+
+  return processedData;
+}
+
+type PreprocessedData = {preExist: RkiTotalCasesPerDay[], new: RkiTotalCasesPerDay[]};
+
 let chart: Chart;
-function renderData(data: RkiFeatureData<RkiTotalCasesPerDay>) {
+function renderData(data: PreprocessedData) {
   const canvas = getElementOrThrow<HTMLCanvasElement>(
     '.newly-reported-cases-per-day-section canvas'
   );
 
   chart?.clear();
   chart?.destroy();
-  chart = renderChart(canvas, data.features.map(feature => feature.attributes));
+  chart = renderChart(canvas, data);
 }
 
-function renderChart(canvas: HTMLCanvasElement, values: RkiTotalCasesPerDay[]) {
+function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
   const panZoomSettings = {
     enabled: true,
     rangeMin: { x: new Date(2020, 2) },
@@ -48,25 +83,48 @@ function renderChart(canvas: HTMLCanvasElement, values: RkiTotalCasesPerDay[]) {
     gridLines: {
       color: 'rgba(255, 255, 255, 0.1)',
       borderDash: [5]
-    }
+    },
+    stacked: true
   };
+
+  const commonDatasetSettings = {
+    stack: 'stack0',
+    borderWidth: 0,
+    barPercentage: 1,
+    categoryPercentage: 1,
+  };
+
+  console.log(values);
 
   return new chartjs.Chart(canvas, {
     type: 'bar',
     data: {
       datasets: [
         {
-          data: values.map(value => ({ x: value.Meldedatum, y: value.GesamtFaelleTag })),
-          borderColor: '#2f52a0',
-          backgroundColor: '#2f52a0',
+          label: 'Zuletzt',
+          data: values.preExist.map(value => ({ x: value.Meldedatum, y: value.GesamtFaelleTag })),
+          borderColor: '#00c5ff',
+          backgroundColor: '#00c5ff',
+          ...commonDatasetSettings
+        },
+        {
+          label: 'Neu',
+          data: values.new.map(value => ({ x: value.Meldedatum, y: value.GesamtFaelleTag })),
+          borderColor: '#e69800',
+          backgroundColor: '#e69800',
+          ...commonDatasetSettings
         }
       ]
     },
     options: {
       legend: { display: false, },
       tooltips: {
-        callbacks: { label:  (item) => {
-          return (typeof(item.yLabel) == 'number') ? format(item.yLabel) : ''; }
+        callbacks: { label:  
+          (item) => {
+            const label = item.datasetIndex == 0? 'Bis gestern übermittelt' : 'Gestern übermittelt';
+            const value = (typeof(item.yLabel) == 'number') ? format(item.yLabel) : '??';
+            return `${label}: ${value}`;
+          }
         }
       },
       animation: { duration: 0 },

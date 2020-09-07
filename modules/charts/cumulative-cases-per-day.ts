@@ -30,12 +30,14 @@ function preprocessData(data: RkiFeatureData<RkiTotalCasesPerDay>) {
   sortedValues.sort((a, b) => a.Meldedatum - b.Meldedatum);
 
   let cumulativeTotal = 0;
-  const onlyChanges: CumulativeCases[] = [];
+  const cumulativeCasesByReportDay: {[key: string]: CumulativeCases} = {};
   for (const { Meldedatum, GesamtFaelleTag } of sortedValues) {
-    cumulativeTotal = GesamtFaelleTag + cumulativeTotal;
-    onlyChanges.push({ Meldedatum, GesamtFaelleSeitAnfang: cumulativeTotal });
+    cumulativeTotal = GesamtFaelleTag 
+      + (cumulativeCasesByReportDay[Meldedatum]?.GesamtFaelleSeitAnfang ?? cumulativeTotal);
+    cumulativeCasesByReportDay[Meldedatum] = {Meldedatum, GesamtFaelleSeitAnfang: cumulativeTotal};
   }
-  return onlyChanges;
+
+  return Object.values(cumulativeCasesByReportDay);
 }
 
 let chart: Chart;
