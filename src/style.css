@@ -146,6 +146,45 @@ a {
   cursor: pointer;
 }
 
+span.sort::before {
+  content: '▲';
+  position: absolute;
+  top: -0.4em;
+  font-size: 0.8rem;
+}
+
+span.sort::after {
+  content: '▼';
+  position: absolute;
+  top:0.4em;
+  font-size: 0.8rem;
+}
+
+tr.sort-row span.sort {
+  position:relative;
+  height: 1em;
+  display: block;
+  color: #888;
+}
+
+table tr.sort-row td {
+  text-align: center;
+}
+
+span.sorted-asc::before,
+span.sorted-desc:hover::before {
+  color: white;
+}
+
+span.sorted-desc::after,
+span.sorted-asc:hover::after {
+  color: white;
+}
+
+span.sort:hover::after {
+  color: white;
+}
+
 /*
  * Fork me button and page info
  */
@@ -349,6 +388,10 @@ section.counties .scroll-container table {
 	text-align: left;
 	border-collapse: collapse;
 	margin-top: 1rem;
+}
+
+section.counties td {
+  text-align: right;
 }
 
 section.counties .scroll-container table td,

@@ -1,6 +1,7 @@
-import { selectOrToggleCounty } from './county-selection';
-import { loadCountyData, RkiCountyFeatureAttributes } from './data-loading';
-import { format, getElementOrThrow } from './helpers';
+import { selectOrToggleCounty } from '../county-selection';
+import { loadCountyData, RkiCountyFeatureAttributes } from '../data-loading';
+import { format, getElementOrThrow } from '../helpers';
+import { getSortFunction } from './sorting';
 
 function getTableElement() {
   return getElementOrThrow<HTMLTableElement>('.county-list');
@@ -9,9 +10,10 @@ function getTableElement() {
 export async function loadAndDisplayCountyList(): Promise<void> {
   const counties = await loadCountyData();
   const sortedCounties = [...counties.features].map(elem => elem.attributes);
-  sortedCounties.sort((a, b) => b.cases - a.cases);
+  sortedCounties.sort(getSortFunction());
 
   const tableElement = getTableElement();
+  tableElement.querySelectorAll('tr:not(.sort-row)').forEach(elem => elem.remove());
   for (const county of sortedCounties) {
     const newEntry = createRow(county);
     tableElement.appendChild(newEntry);
