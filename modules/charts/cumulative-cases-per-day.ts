@@ -89,7 +89,10 @@ function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
       scales: {
         xAxes: [{
           type: 'time',
-          time: { unit: 'month', },
+          time: {
+            unit: 'month',
+            tooltipFormat: 'DD.MM.YYYY'
+          },
           ticks: { min: '2020-03' },
           ...commonAxisSettings
         }],

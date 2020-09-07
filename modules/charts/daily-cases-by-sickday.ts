@@ -122,7 +122,10 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
       scales: {
         xAxes: [{
           type: 'time',
-          time: { unit: 'month', },
+          time: {
+            unit: 'month',
+            tooltipFormat: 'DD.MM.YYYY'
+          },
           ticks: { 
             min: '2020-03',
             max: nowPlus12Hours()
