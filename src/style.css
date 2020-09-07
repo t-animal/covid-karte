@@ -394,7 +394,8 @@ section.counties .scroll-container table {
     font-size: 1.2rem;
 	text-align: left;
 	border-collapse: collapse;
-	margin-top: 1rem;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 section.counties td {
