@@ -6,6 +6,7 @@ import {
   RkiTotalCasesPerDay
 } from '../data-loading';
 import { countyNameById, format, getElementOrThrow } from '../helpers';
+import { commonChartOptions } from './chart-options';
 
 export async function loadAndRenderCumulativeCasesPerDay(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -53,20 +54,6 @@ function renderData(data: CumulativeCases[]) {
 
 type CumulativeCases = { Meldedatum: number, GesamtFaelleSeitAnfang: number };
 function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
-  const panZoomSettings = {
-    enabled: true,
-    rangeMin: { x: new Date(2020, 2) },
-    rangeMax: { x: new Date() },
-    mode: 'x'
-  };
-
-  const commonAxisSettings = {
-    gridLines: {
-      color: 'rgba(255, 255, 255, 0.1)',
-      borderDash: [5]
-    }
-  };
-
   return new chartjs.Chart(canvas, {
     type: 'line',
     data: {
@@ -79,33 +66,12 @@ function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
       ]
     },
     options: {
-      legend: { display: false, },
       tooltips: {
         callbacks: { label:  (item) => {
           return (typeof(item.yLabel) == 'number') ? format(item.yLabel) : ''; }
         }
       },
-      animation: { duration: 0 },
-      scales: {
-        xAxes: [{
-          type: 'time',
-          time: {
-            unit: 'month',
-            tooltipFormat: 'DD.MM.YYYY'
-          },
-          ticks: { min: '2020-03' },
-          ...commonAxisSettings
-        }],
-        yAxes: [commonAxisSettings]
-      },
-      plugins: {
-        zoom: {
-          pan: panZoomSettings,
-          zoom: panZoomSettings
-        }
-      },
-      responsive: true,
-      maintainAspectRatio: false
+      ...commonChartOptions(false)
     },
   });
 }

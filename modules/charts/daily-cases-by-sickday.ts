@@ -7,7 +7,8 @@ import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 import {
   loadDailyInfections, loadDailyInfectionsOfCounty, RkiDailyNewCasesData, RkiFeatureData
 } from '../data-loading';
-import { countyNameById, format, getElementOrThrow, nowPlus12Hours } from '../helpers';
+import { countyNameById, format, getElementOrThrow } from '../helpers';
+import { commonChartOptions } from './chart-options';
 
 export async function loadAndRenderDailyCasesBySickday(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -68,21 +69,6 @@ type PreprocessedData = {
 };
 
 function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
-  const panZoomSettings = {
-    enabled: true,
-    rangeMin: { x: new Date(2020, 2) },
-    rangeMax: { x: new Date() },
-    mode: 'x'
-  };
-
-  const commonAxisSettings = {
-    stacked: true,
-    gridLines: {
-      color: 'rgba(255, 255, 255, 0.1)',
-      borderDash: [5]
-    }
-  };
-
   const commonDatasetSettings = {
     stack: 'stack0',
     borderWidth: 0,
@@ -108,7 +94,6 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
       ]
     },
     options: {
-      legend: { display: false, },
       tooltips: {
         callbacks: { label: 
           (item) => {
@@ -118,30 +103,7 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
           }
         }
       },
-      animation: { duration: 0 },
-      scales: {
-        xAxes: [{
-          type: 'time',
-          time: {
-            unit: 'month',
-            tooltipFormat: 'DD.MM.YYYY'
-          },
-          ticks: { 
-            min: '2020-03',
-            max: nowPlus12Hours()
-          },
-          ...commonAxisSettings
-        }],
-        yAxes: [commonAxisSettings]
-      },
-      plugins: {
-        zoom: {
-          pan: panZoomSettings,
-          zoom: panZoomSettings
-        }
-      },
-      responsive: true,
-      maintainAspectRatio: false
+      ...commonChartOptions(true)
     },
   });
 }
