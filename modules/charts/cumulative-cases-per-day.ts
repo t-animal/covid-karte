@@ -73,7 +73,7 @@ function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
       datasets: [
         {
           data: values.map(value => ({ x: value.Meldedatum, y: value.GesamtFaelleSeitAnfang })),
-          borderColor: '#2f52a0',
+          borderColor: '#00c5ff',
           backgroundColor: 'rgba(0,0,0,0)',
         }
       ]
