@@ -445,6 +445,15 @@ function mapIdToRkiObjectId(mapId: number) {
     case 158: return 342; //"LK Teltow-Fläming",
     case 159: return 343; //"LK Uckermark",
 
+    case 200: return 344; //	"SK Rostock",
+    case 202: return 345; //	"SK Schwerin",
+    case 189: return 346; //	"LK Mecklenburgische Seenplatte",
+    case 188: return 347; //	"LK Rostock",
+    case 196: return 348; //	"LK Vorpommern-Rügen",
+    case 197: return 349; //	"LK Nordwestmecklenburg",
+    case 190: return 350; //	"LK Vorpommern-Greifswald",
+    case 192: return 351; //	"LK Ludwigslust-Parchim",
+
     case 164: return 117; //"SK Darmstadt",
     case 165: return 118; //"SK Frankfurt am Main",
     case 171: return 119; //"SK Offenbach",
