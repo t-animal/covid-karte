@@ -1,3 +1,5 @@
+import { feature } from 'topojson';
+
 import { RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
 
 export type CountyMapInfo = {
@@ -19,15 +21,24 @@ export type CountyMapInfo = {
 export async function loadCountyMap()
   : Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>>
 {
-  return (await fetch('./map-data/county-map.json')).json();
+  const topo: TopoJSON.Topology = await (await fetch('./map-data/county-map.topo.json')).json();
+  const geo = feature(topo, topo.objects['county-map']);
+
+  return geo as GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>;
 }
 
 export async function loadStateMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
-  return (await fetch('./map-data/state-map.json')).json();
+  const topo: TopoJSON.Topology = await (await fetch('./map-data/state-map.topo.json')).json();
+  const geo = feature(topo, topo.objects['state-map']);
+
+  return geo as GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>;
 }
 
 export async function loadEuMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
-  return (await fetch('./map-data/eu-map.json')).json();
+  const topo: TopoJSON.Topology = await (await fetch('./map-data/eu-map.topo.json')).json();
+  const geo = feature(topo, topo.objects['eu-map']);
+
+  return geo as GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>;
 }
 
 export function color(sevenDaysInfectionsPer100k: number | undefined): string {
