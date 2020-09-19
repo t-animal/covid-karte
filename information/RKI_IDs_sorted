@@ -44,7 +44,7 @@
 232	42	"LK Stade",
 233	43	"LK Uelzen",
 234	44	"LK Verden",
-   	45	"SK Delmenhorst",
+   	45	"SK Delmenhorst", 	=============================
 238	46	"SK Emden",
 243	47	"SK Oldenburg",
 245	48	"SK Osnabrück",
@@ -62,7 +62,7 @@
 248	60	"LK Wesermarsch",
 250	61	"LK Wittmund",
 160	62	"SK Bremen",
-   	63	"SK Bremerhaven",
+   	63	"SK Bremerhaven", 	=============================
 
 272	64	"SK Düsseldorf",
 271	65	"SK Duisburg",
@@ -167,7 +167,7 @@
 325	162	"SK Ludwigshafen",
 327	163	"SK Mainz",
 328	164	"SK Neustadt a.d.Weinstraße",
-   	165	"SK Pirmasens",
+   	165	"SK Pirmasens", 	=============================
 330	166	"SK Speyer",
 333	167	"SK Worms",
 334	168	"SK Zweibrücken",
@@ -234,7 +234,7 @@
  71	227	"LK Berchtesgadener Land",
  70	228	"LK Bad Tölz-Wolfratshausen",
  72	229	"LK Dachau",
-   	230	"LK Ebersberg",
+   	230	"LK Ebersberg", 	=============================
  74	231	"LK Eichstätt",
  75	232	"LK Erding",
  76	233	"LK Freising",
@@ -268,7 +268,7 @@
 105	261	"LK Amberg-Sulzbach",
 107	262	"LK Cham",
 108	263	"LK Neumarkt i.d.OPf.",
-   	264	"LK Neustadt a.d.Waldnaab",
+   	264	"LK Neustadt a.d.Waldnaab", 	=============================
 111	265	"LK Regensburg",
 112	266	"LK Schwandorf",
 113	267	"LK Tirschenreuth",
@@ -297,32 +297,34 @@
  51	290	"LK Neustadt a.d.Aisch-Bad Windsheim",
  54	291	"LK Roth",
  56	292	"LK Weißenburg-Gunzenhausen",
-   	293	"SK Aschaffenburg",
-   	294	"SK Schweinfurt",
-   	295	"SK Würzburg",
-   	296	"LK Aschaffenburg",
-   	297	"LK Bad Kissingen",
-   	298	"LK Rhön-Grabfeld",
-   	299	"LK Haßberge",
-   	300	"LK Kitzingen",
-   	301	"LK Miltenberg",
-   	302	"LK Main-Spessart",
-   	303	"LK Schweinfurt",
-   	304	"LK Würzburg",
-   	305	"SK Augsburg",
-   	306	"SK Kaufbeuren",
-   	307	"SK Kempten",
-   	308	"SK Memmingen",
-   	309	"LK Aichach-Friedberg",
-   	310	"LK Augsburg",
-   	311	"LK Dillingen a.d.Donau",
-   	312	"LK Günzburg",
-   	313	"LK Neu-Ulm",
-   	314	"LK Lindau",
-   	315	"LK Ostallgäu",
-   	316	"LK Unterallgäu",
-   	317	"LK Donau-Ries",
-   	318	"LK Oberallgäu",
+
+129	293	"SK Aschaffenburg",
+137	294	"SK Schweinfurt",
+139	295	"SK Würzburg",
+130	296	"LK Aschaffenburg",
+131	297	"LK Bad Kissingen",
+136	298	"LK Rhön-Grabfeld",
+132	299	"LK Haßberge",
+133	300	"LK Kitzingen",
+135	301	"LK Miltenberg",
+134	302	"LK Main-Spessart",
+138	303	"LK Schweinfurt",
+140	304	"LK Würzburg",
+
+116	305	"SK Augsburg",
+121	306	"SK Kaufbeuren",
+122	307	"SK Kempten",
+124	308	"SK Memmingen",
+115	309	"LK Aichach-Friedberg",
+117	310	"LK Augsburg",
+118	311	"LK Dillingen a.d.Donau",
+120	312	"LK Günzburg",
+125	313	"LK Neu-Ulm",
+123	314	"LK Lindau",
+127	315	"LK Ostallgäu",
+128	316	"LK Unterallgäu",
+119	317	"LK Donau-Ries",
+126	318	"LK Oberallgäu",
 
 342	319	"LK Stadtverband Saarbrücken",
 340	320	"LK Merzig-Wadern",
@@ -393,7 +395,7 @@
 421	381	"SK Jena",
 430	382	"SK Suhl",
 433	383	"SK Weimar",
-   	384	"SK Eisenach",
+   	384	"SK Eisenach", 	=============================
 414	385	"LK Eichsfeld",
 423	386	"LK Nordhausen",
 432	387	"LK Wartburgkreis",
@@ -411,15 +413,15 @@
 425	399	"LK Saale-Orla-Kreis",
 418	400	"LK Greiz",
 413	401	"LK Altenburger Land",
-   	404	"SK Berlin Reinickendorf",
-   	405	"SK Berlin Charlottenburg-Wilmersdorf",
-   	406	"SK Berlin Treptow-Köpenick",
-   	407	"SK Berlin Pankow",
-   	408	"SK Berlin Neukölln",
-   	409	"SK Berlin Lichtenberg",
-   	410	"SK Berlin Marzahn-Hellersdorf",
-   	411	"SK Berlin Spandau",
-   	412	"SK Berlin Steglitz-Zehlendorf",
-   	413	"SK Berlin Mitte",
-   	414	"SK Berlin Friedrichshain-Kreuzberg",
-   	415	"SK Berlin Tempelhof-Schöneberg",
+   	404	"SK Berlin Reinickendorf", 	=============================
+   	405	"SK Berlin Charlottenburg-Wilmersdorf", 	=============================
+   	406	"SK Berlin Treptow-Köpenick", 	=============================
+   	407	"SK Berlin Pankow", 	=============================
+   	408	"SK Berlin Neukölln", 	=============================
+   	409	"SK Berlin Lichtenberg", 	=============================
+   	410	"SK Berlin Marzahn-Hellersdorf", 	=============================
+   	411	"SK Berlin Spandau", 	=============================
+   	412	"SK Berlin Steglitz-Zehlendorf", 	=============================
+   	413	"SK Berlin Mitte", 	=============================
+   	414	"SK Berlin Friedrichshain-Kreuzberg", 	=============================
+   	415	"SK Berlin Tempelhof-Schöneberg", 	=============================
