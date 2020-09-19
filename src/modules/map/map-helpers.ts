@@ -1,4 +1,4 @@
-import { feature } from 'topojson';
+import { feature, merge } from 'topojson';
 
 import { RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
 
@@ -18,13 +18,60 @@ export type CountyMapInfo = {
   'ENGTYPE_3': string
 };
 
+type GeoDingsi = GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>;
+
 export async function loadCountyMap()
   : Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>>
 {
   const topo: TopoJSON.Topology = await (await fetch('./map-data/county-map.topo.json')).json();
-  const geo = feature(topo, topo.objects['county-map']);
+  const geo = feature(topo, topo.objects['county-map']) as GeoDingsi;
 
-  return geo as GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>;
+  function mergeCounties(targetId: number, sourceIds: number[]) {
+    const needsFilter = (elem: GeoJSON.Feature) => 
+      ([targetId, ...sourceIds].includes(elem?.properties?.ID_3));
+    const merged = merge(
+      topo,
+      topo.objects['county-map']
+        .geometries
+        .filter(needsFilter)
+    );
+
+    const [source,] = geo.features.filter(needsFilter);
+    geo.features = geo.features.filter(elem => !needsFilter(elem));
+    geo.features.push({...source, geometry: merged as any});
+  }
+
+  mergeCounties(188, [191]);
+  mergeCounties(192, [199]);
+  mergeCounties(194, [193, 195, 189]);
+  mergeCounties(197, [205]);
+  mergeCounties(196, [203, 201]);
+  mergeCounties(198, [204, 190]);
+
+  mergeCounties(386, [384, 388]);
+  mergeCounties(385, [382]);
+  mergeCounties(390, [391]);
+  mergeCounties(387, [389]);
+  mergeCounties(392, [397]);
+  mergeCounties(395, [396]);
+  mergeCounties(377, [379]);
+  mergeCounties(381, [380, 373]);
+  mergeCounties(378, [371, 370, 375]);
+  mergeCounties(393, [376, 374]);
+
+  mergeCounties(353, [359]);
+  mergeCounties(356, [357]);
+  mergeCounties(355, [358]);
+  mergeCounties(346, [350, 348]);
+  mergeCounties(362, [366, 369]);
+  mergeCounties(365, [361]);
+  mergeCounties(352, [367, 347]);
+
+  mergeCounties(209, [212]);
+
+  mergeCounties(286, [285]);
+
+  return geo;
 }
 
 export async function loadStateMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
