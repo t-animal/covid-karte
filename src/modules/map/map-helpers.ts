@@ -24,6 +24,7 @@ export async function loadCountyMap()
   : Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>>
 {
   const topo: TopoJSON.Topology = await (await fetch('./map-data/county-map.topo.json')).json();
+  const berlinTopoPromise = loadBerlinMap();
   const geo = feature(topo, topo.objects['county-map']) as GeoDingsi;
 
   function mergeCounties(targetId: number, sourceIds: number[]) {
@@ -71,7 +72,40 @@ export async function loadCountyMap()
 
   mergeCounties(286, [285]);
 
+  const berlinTopo = await berlinTopoPromise;
+  const berlinTopoObjects = berlinTopo.objects['berliner-bezirke'] as
+    TopoJSON.GeometryCollection<{spatial_alias: string}>;
+
+  
+  geo.features = geo.features.filter(elem => elem.properties.NAME_3 !== 'Berlin');
+  for(const [key, berlinCountyTopo] of Array.from(berlinTopoObjects.geometries.entries())){
+    const converted = feature(berlinTopo, berlinCountyTopo) as GeoJSON.Feature;
+    geo.features.push({
+      ...converted,
+      id: 9000 + key,
+      properties: {
+        ENGTYPE_3: 'Rural district', 
+        ID_0: 86, 
+        ID_1: 9, 
+        ID_2: 23, 
+        ID_3: 9000 + key , 
+        ISO: 'DEU', 
+        NAME_0: 'Germany', 
+        NAME_1: 'Berlin', 
+        NAME_2: 'Berlin', 
+        NAME_3: converted.properties?.spatial_alias, 
+        NL_NAME_3: null, 
+        TYPE_3: 'Landkreise', 
+        VARNAME_3: null,
+      }
+    } as unknown as GeoJSON.Feature<GeoJSON.MultiPolygon, CountyMapInfo>);
+  }
+
   return geo;
+}
+
+async function loadBerlinMap() {
+  return await (await (fetch('./map-data/berlin-counties.topo.json'))).json();
 }
 
 export async function loadStateMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
@@ -533,6 +567,19 @@ function mapIdToRkiObjectId(mapId: number) {
     425: 399,	// "LK Saale-Orla-Kreis",
     418: 400,	// "LK Greiz",
     413: 401,	// "LK Altenburger Land",
+
+    9011: 404, // "SK Berlin Reinickendorf",
+    9003:	405, // "SK Berlin Charlottenburg-Wilmersdorf",
+    9008:	406, // "SK Berlin Treptow-Köpenick",
+    9002:	407, // "SK Berlin Pankow",
+    9007:	408, // "SK Berlin Neukölln",
+    9010:	409, // "SK Berlin Lichtenberg",
+    9009:	410, // "SK Berlin Marzahn-Hellersdorf",
+    9004:	411, // "SK Berlin Spandau",
+    9005:	412, // "SK Berlin Steglitz-Zehlendorf",
+    9000:	413, // "SK Berlin Mitte",
+    9001:	414, // "SK Berlin Friedrichshain-Kreuzberg",
+    9006:	415, // "SK Berlin Tempelhof-Schöneberg",
   };
 
   return idMap[mapId] ?? null;

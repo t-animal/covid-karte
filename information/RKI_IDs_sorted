@@ -413,15 +413,16 @@
 425	399	"LK Saale-Orla-Kreis",
 418	400	"LK Greiz",
 413	401	"LK Altenburger Land",
-   	404	"SK Berlin Reinickendorf", 	=============================
-   	405	"SK Berlin Charlottenburg-Wilmersdorf", 	=============================
-   	406	"SK Berlin Treptow-Köpenick", 	=============================
-   	407	"SK Berlin Pankow", 	=============================
-   	408	"SK Berlin Neukölln", 	=============================
-   	409	"SK Berlin Lichtenberg", 	=============================
-   	410	"SK Berlin Marzahn-Hellersdorf", 	=============================
-   	411	"SK Berlin Spandau", 	=============================
-   	412	"SK Berlin Steglitz-Zehlendorf", 	=============================
-   	413	"SK Berlin Mitte", 	=============================
-   	414	"SK Berlin Friedrichshain-Kreuzberg", 	=============================
-   	415	"SK Berlin Tempelhof-Schöneberg", 	=============================
+
+9011  404	"SK Berlin Reinickendorf",
+9003	405	"SK Berlin Charlottenburg-Wilmersdorf",
+9008	406	"SK Berlin Treptow-Köpenick",
+9002	407	"SK Berlin Pankow",
+9007	408	"SK Berlin Neukölln",
+9010	409	"SK Berlin Lichtenberg",
+9009	410	"SK Berlin Marzahn-Hellersdorf",
+9004	411	"SK Berlin Spandau",
+9005	412	"SK Berlin Steglitz-Zehlendorf",
+9000	413	"SK Berlin Mitte",
+9001	414	"SK Berlin Friedrichshain-Kreuzberg",
+9006	415	"SK Berlin Tempelhof-Schöneberg",
