@@ -16,9 +16,17 @@ The first goal is to reimplement all featuers of the official corona
 map and then some convenience features and then maybe some cool
 features like historic views.
 
-## Development serve
+## Some things to remind myself of what to do
+### Development serve
 `snowpack dev --reload`
 
-## Build
+### Build
 `snowpack build --config ./snowpack.json`
+
+### Deploy
+```
+scp -r build/* uberspace:www/corona.t-animal.de
+ssh uberspace chmod a+rX -R www/corona.t-animal.de/
+```
+(Yes, I know.)
 
