@@ -15,3 +15,10 @@
 The first goal is to reimplement all featuers of the official corona
 map and then some convenience features and then maybe some cool
 features like historic views.
+
+## Development serve
+`snowpack dev --reload`
+
+## Build
+`snowpack build --config ./snowpack.json`
+
