@@ -8,7 +8,8 @@ import {
 import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
 import { getElementOrThrow } from '../helpers';
 import {
-  color, CountyMapInfo, loadCountyMap, loadEuMap, loadStateMap, rkiFeatureByMapId
+  CityInfo, color, CountyMapInfo, loadCities, loadCountyMap, loadEuMap, loadStateMap,
+  rkiFeatureByMapId
 } from './map-helpers';
 
 type CountyFeature = GeoJSON.Feature<GeoJSON.Polygon, CountyMapInfo>;
@@ -47,11 +48,16 @@ async function renderData(data: ReturnType<typeof loadData>) {
   highlightCountyWhenSelected(rkiData, countiesGeoJson);
 
   window.setTimeout(drawBackground, 0);
+  window.setTimeout(drawCities, 0);
 }
 
 async function drawBackground() {
   addStateBoundaries(await loadStateMap());
   addEuropeanMap(await loadEuMap());
+}
+
+async function drawCities() {
+  addCities(await loadCities());
 }
 
 function addCountiesToMap(
@@ -151,4 +157,65 @@ async function addEuropeanMap(preloadedMap: GeoJSON.FeatureCollection) {
   }).addTo(map);
 
   getMapElement().style.background = '#1d2224';
+}
+
+async function addCities(preloadedCities: CityInfo[]){
+  const hugeCities = [];
+  const largeCities = [];
+  const mediumCities = [];
+  const smallCities = [];
+
+  const sortedCities = [...preloadedCities];
+  sortedCities.sort((a, b) => b.population - a.population);
+
+  for(const city of sortedCities) {
+    if(hugeCities.length < 14) {
+      hugeCities.push(city);
+      continue;
+    }
+    if(largeCities.length < sortedCities.length / 15) {
+      largeCities.push(city);
+      continue;
+    }
+    if(mediumCities.length < sortedCities.length / 4) {
+      mediumCities.push(city);
+      continue;
+    }
+    smallCities.push(city);
+  }
+
+  const hugeCitiesMarkers = new L.FeatureGroup();
+  const largeCitiesMarkers = new L.FeatureGroup();
+  const mediumCitiesMarkers = new L.FeatureGroup();
+  const smallCitiesMarkers = new L.FeatureGroup();
+
+  const cityToMarker = (city: CityInfo) => {
+    const icon = new L.DivIcon({className: 'city-label', html: `<div>${city.cityLabel}</div>`});
+    return L.marker(city.coordinates, {icon});
+  };
+  
+  hugeCities.map(cityToMarker).forEach(marker => hugeCitiesMarkers.addLayer(marker));
+  largeCities.map(cityToMarker).forEach(marker => largeCitiesMarkers.addLayer(marker));
+  mediumCities.map(cityToMarker).forEach(marker => mediumCitiesMarkers.addLayer(marker));
+  smallCities.map(cityToMarker).forEach(marker => smallCitiesMarkers.addLayer(marker));
+
+  map.addLayer(hugeCitiesMarkers);
+
+  map.on('zoomend', function() {
+    if (map.getZoom() > 7){
+      map.addLayer(largeCitiesMarkers);
+    } else {
+      map.removeLayer(largeCitiesMarkers);
+    }
+    if (map.getZoom() > 9){
+      map.addLayer(mediumCitiesMarkers);
+    } else {
+      map.removeLayer(mediumCitiesMarkers);
+    }
+    if (map.getZoom() > 11){
+      map.addLayer(smallCitiesMarkers);
+    } else {
+      map.removeLayer(smallCitiesMarkers);
+    }
+  });
 }

@@ -1,0 +1,826 @@
+[
+  {
+    "cityLabel": "Bad Reichenhall",
+    "population": 18278,
+    "coordinates": [
+      12.876944444,
+      47.724722222
+    ]
+  },
+  {
+    "cityLabel": "Landsberg am Lech",
+    "population": 29132,
+    "coordinates": [
+      10.868930555,
+      48.052769444
+    ]
+  },
+  {
+    "cityLabel": "Halle-Neustadt",
+    "population": 46280,
+    "coordinates": [
+      11.9214,
+      51.4789
+    ]
+  },
+  {
+    "cityLabel": "Bremen",
+    "population": 569352,
+    "coordinates": [
+      8.808888888,
+      53.076944444
+    ]
+  },
+  {
+    "cityLabel": "Köln",
+    "population": 1085664,
+    "coordinates": [
+      6.957777777,
+      50.942222222
+    ]
+  },
+  {
+    "cityLabel": "Heilbronn",
+    "population": 125960,
+    "coordinates": [
+      9.217953,
+      49.140428
+    ]
+  },
+  {
+    "cityLabel": "Stuttgart",
+    "population": 634830,
+    "coordinates": [
+      9.1775,
+      48.776111111
+    ]
+  },
+  {
+    "cityLabel": "Karlsruhe",
+    "population": 313092,
+    "coordinates": [
+      8.4,
+      49.016666666
+    ]
+  },
+  {
+    "cityLabel": "Dortmund",
+    "population": 587010,
+    "coordinates": [
+      7.465277777,
+      51.513888888
+    ]
+  },
+  {
+    "cityLabel": "Kiel",
+    "population": 247548,
+    "coordinates": [
+      10.139444444,
+      54.323333333
+    ]
+  },
+  {
+    "cityLabel": "Schwerin",
+    "population": 95818,
+    "coordinates": [
+      11.416666666,
+      53.633333333
+    ]
+  },
+  {
+    "cityLabel": "Hannover",
+    "population": 538068,
+    "coordinates": [
+      9.738611111,
+      52.374444444
+    ]
+  },
+  {
+    "cityLabel": "Düsseldorf",
+    "population": 619294,
+    "coordinates": [
+      6.772380555,
+      51.231144444
+    ]
+  },
+  {
+    "cityLabel": "Mainz",
+    "population": 217118,
+    "coordinates": [
+      8.266666666,
+      50.0
+    ]
+  },
+  {
+    "cityLabel": "Wiesbaden",
+    "population": 278342,
+    "coordinates": [
+      8.24,
+      50.0825
+    ]
+  },
+  {
+    "cityLabel": "München",
+    "population": 1471508,
+    "coordinates": [
+      11.5755,
+      48.137194444
+    ]
+  },
+  {
+    "cityLabel": "Erfurt",
+    "population": 213699,
+    "coordinates": [
+      11.029166666,
+      50.978055555
+    ]
+  },
+  {
+    "cityLabel": "Dresden",
+    "population": 555805,
+    "coordinates": [
+      13.738361111,
+      51.049258333
+    ]
+  },
+  {
+    "cityLabel": "Magdeburg",
+    "population": 238697,
+    "coordinates": [
+      11.629166666,
+      52.127777777
+    ]
+  },
+  {
+    "cityLabel": "Essen",
+    "population": 583109,
+    "coordinates": [
+      7.013055555,
+      51.450833333
+    ]
+  },
+  {
+    "cityLabel": "Leipzig",
+    "population": 593197,
+    "coordinates": [
+      12.383333333,
+      51.333333333
+    ]
+  },
+  {
+    "cityLabel": "Nürnberg",
+    "population": 518365,
+    "coordinates": [
+      11.077777777,
+      49.452777777
+    ]
+  },
+  {
+    "cityLabel": "Duisburg",
+    "population": 498590,
+    "coordinates": [
+      6.761111111,
+      51.432222222
+    ]
+  },
+  {
+    "cityLabel": "Bochum",
+    "population": 364628,
+    "coordinates": [
+      7.216666666,
+      51.483333333
+    ]
+  },
+  {
+    "cityLabel": "Wuppertal",
+    "population": 354382,
+    "coordinates": [
+      7.183333333,
+      51.266666666
+    ]
+  },
+  {
+    "cityLabel": "Bielefeld",
+    "population": 333786,
+    "coordinates": [
+      8.533333333,
+      52.016666666
+    ]
+  },
+  {
+    "cityLabel": "Mannheim",
+    "population": 309370,
+    "coordinates": [
+      8.466111111,
+      49.487777777
+    ]
+  },
+  {
+    "cityLabel": "Bremerhaven",
+    "population": 113634,
+    "coordinates": [
+      8.583333333,
+      53.55
+    ]
+  },
+  {
+    "cityLabel": "Münster",
+    "population": 314319,
+    "coordinates": [
+      7.625555555,
+      51.9625
+    ]
+  },
+  {
+    "cityLabel": "Augsburg",
+    "population": 295135,
+    "coordinates": [
+      10.898333333,
+      48.371666666
+    ]
+  },
+  {
+    "cityLabel": "Mönchengladbach",
+    "population": 261454,
+    "coordinates": [
+      6.433333333,
+      51.2
+    ]
+  },
+  {
+    "cityLabel": "Gelsenkirchen",
+    "population": 260654,
+    "coordinates": [
+      7.1,
+      51.516666666
+    ]
+  },
+  {
+    "cityLabel": "Chemnitz",
+    "population": 245403,
+    "coordinates": [
+      12.916666666,
+      50.833333333
+    ]
+  },
+  {
+    "cityLabel": "Krefeld",
+    "population": 227020,
+    "coordinates": [
+      6.566666666,
+      51.333333333
+    ]
+  },
+  {
+    "cityLabel": "Halle (Saale)",
+    "population": 239257,
+    "coordinates": [
+      11.969722222,
+      51.482777777
+    ]
+  },
+  {
+    "cityLabel": "Oberhausen",
+    "population": 210829,
+    "coordinates": [
+      6.8514,
+      51.4699
+    ]
+  },
+  {
+    "cityLabel": "Rostock",
+    "population": 208886,
+    "coordinates": [
+      12.133333333,
+      54.083333333
+    ]
+  },
+  {
+    "cityLabel": "Kassel",
+    "population": 201585,
+    "coordinates": [
+      9.497916666,
+      51.315777777
+    ]
+  },
+  {
+    "cityLabel": "Hagen",
+    "population": 188814,
+    "coordinates": [
+      7.475,
+      51.359444444
+    ]
+  },
+  {
+    "cityLabel": "Hamm",
+    "population": 179111,
+    "coordinates": [
+      7.816666666,
+      51.666666666
+    ]
+  },
+  {
+    "cityLabel": "Mülheim an der Ruhr",
+    "population": 170880,
+    "coordinates": [
+      6.878888888,
+      51.428333333
+    ]
+  },
+  {
+    "cityLabel": "Herne",
+    "population": 156374,
+    "coordinates": [
+      7.21897,
+      51.54258
+    ]
+  },
+  {
+    "cityLabel": "Ludwigshafen am Rhein",
+    "population": 171061,
+    "coordinates": [
+      8.435277777,
+      49.481111111
+    ]
+  },
+  {
+    "cityLabel": "Osnabrück",
+    "population": 164748,
+    "coordinates": [
+      8.043055555,
+      52.278888888
+    ]
+  },
+  {
+    "cityLabel": "Oldenburg",
+    "population": 168210,
+    "coordinates": [
+      8.213888888,
+      53.143888888
+    ]
+  },
+  {
+    "cityLabel": "Leverkusen",
+    "population": 163838,
+    "coordinates": [
+      6.983333333,
+      51.033333333
+    ]
+  },
+  {
+    "cityLabel": "Solingen",
+    "population": 159360,
+    "coordinates": [
+      7.083333333,
+      51.166666666
+    ]
+  },
+  {
+    "cityLabel": "Heidelberg",
+    "population": 160355,
+    "coordinates": [
+      8.71,
+      49.412222222
+    ]
+  },
+  {
+    "cityLabel": "Darmstadt",
+    "population": 159207,
+    "coordinates": [
+      8.65,
+      49.866666666
+    ]
+  },
+  {
+    "cityLabel": "Regensburg",
+    "population": 152610,
+    "coordinates": [
+      12.083333333,
+      49.016666666
+    ]
+  },
+  {
+    "cityLabel": "Würzburg",
+    "population": 127880,
+    "coordinates": [
+      9.929444444,
+      49.794444444
+    ]
+  },
+  {
+    "cityLabel": "Ingolstadt",
+    "population": 136981,
+    "coordinates": [
+      11.426111111,
+      48.763611111
+    ]
+  },
+  {
+    "cityLabel": "Wolfsburg",
+    "population": 124151,
+    "coordinates": [
+      10.787222222,
+      52.423055555
+    ]
+  },
+  {
+    "cityLabel": "Göttingen",
+    "population": 119801,
+    "coordinates": [
+      9.935555555,
+      51.533888888
+    ]
+  },
+  {
+    "cityLabel": "Offenbach am Main",
+    "population": 128744,
+    "coordinates": [
+      8.766666666,
+      50.1
+    ]
+  },
+  {
+    "cityLabel": "Pforzheim",
+    "population": 125542,
+    "coordinates": [
+      8.705,
+      48.895
+    ]
+  },
+  {
+    "cityLabel": "Bottrop",
+    "population": 117383,
+    "coordinates": [
+      6.925269444,
+      51.52325
+    ]
+  },
+  {
+    "cityLabel": "Fürth",
+    "population": 127748,
+    "coordinates": [
+      10.990277777,
+      49.478333333
+    ]
+  },
+  {
+    "cityLabel": "Remscheid",
+    "population": 110994,
+    "coordinates": [
+      7.187211111,
+      51.180188888
+    ]
+  },
+  {
+    "cityLabel": "Koblenz",
+    "population": 114024,
+    "coordinates": [
+      7.597777777,
+      50.359722222
+    ]
+  },
+  {
+    "cityLabel": "Erlangen",
+    "population": 111962,
+    "coordinates": [
+      11.004444444,
+      49.596388888
+    ]
+  },
+  {
+    "cityLabel": "Trier",
+    "population": 110636,
+    "coordinates": [
+      6.641388888,
+      49.756666666
+    ]
+  },
+  {
+    "cityLabel": "Jena",
+    "population": 111407,
+    "coordinates": [
+      11.586388888,
+      50.927222222
+    ]
+  },
+  {
+    "cityLabel": "Salzgitter",
+    "population": 104948,
+    "coordinates": [
+      10.359305555,
+      52.150277777
+    ]
+  },
+  {
+    "cityLabel": "Gera",
+    "population": 94152,
+    "coordinates": [
+      12.08242,
+      50.87818
+    ]
+  },
+  {
+    "cityLabel": "Kaiserslautern",
+    "population": 100030,
+    "coordinates": [
+      7.768888888,
+      49.444722222
+    ]
+  },
+  {
+    "cityLabel": "Flensburg",
+    "population": 90164,
+    "coordinates": [
+      9.436666666,
+      54.781944444
+    ]
+  },
+  {
+    "cityLabel": "Dessau-Roßlau",
+    "population": 81237,
+    "coordinates": [
+      12.233333,
+      51.833333
+    ]
+  },
+  {
+    "cityLabel": "Worms",
+    "population": 83330,
+    "coordinates": [
+      8.365277777,
+      49.631944444
+    ]
+  },
+  {
+    "cityLabel": "Wilhelmshaven",
+    "population": 76097,
+    "coordinates": [
+      8.133333333,
+      53.516666666
+    ]
+  },
+  {
+    "cityLabel": "Neumünster",
+    "population": 79487,
+    "coordinates": [
+      9.99,
+      54.071388888
+    ]
+  },
+  {
+    "cityLabel": "Delmenhorst",
+    "population": 77607,
+    "coordinates": [
+      8.631666666,
+      53.050555555
+    ]
+  },
+  {
+    "cityLabel": "Bayreuth",
+    "population": 74657,
+    "coordinates": [
+      11.578333333,
+      49.948055555
+    ]
+  },
+  {
+    "cityLabel": "Brandenburg an der Havel",
+    "population": 72124,
+    "coordinates": [
+      12.556111111,
+      52.411666666
+    ]
+  },
+  {
+    "cityLabel": "Bamberg",
+    "population": 77592,
+    "coordinates": [
+      10.891666666,
+      49.891666666
+    ]
+  },
+  {
+    "cityLabel": "Aschaffenburg",
+    "population": 70527,
+    "coordinates": [
+      9.1478,
+      49.97575
+    ]
+  },
+  {
+    "cityLabel": "Weimar",
+    "population": 65090,
+    "coordinates": [
+      11.316666666,
+      50.983333333
+    ]
+  },
+  {
+    "cityLabel": "Landshut",
+    "population": 72404,
+    "coordinates": [
+      12.150833333,
+      48.539722222
+    ]
+  },
+  {
+    "cityLabel": "Kempten",
+    "population": 68907,
+    "coordinates": [
+      10.316666666,
+      47.733333333
+    ]
+  },
+  {
+    "cityLabel": "Rosenheim",
+    "population": 63324,
+    "coordinates": [
+      12.128888888,
+      47.856111111
+    ]
+  },
+  {
+    "cityLabel": "Baden-Baden",
+    "population": 55123,
+    "coordinates": [
+      8.240833333,
+      48.761944444
+    ]
+  },
+  {
+    "cityLabel": "Schweinfurt",
+    "population": 54032,
+    "coordinates": [
+      10.233333333,
+      50.05
+    ]
+  },
+  {
+    "cityLabel": "Neustadt an der Weinstraße",
+    "population": 53148,
+    "coordinates": [
+      8.15,
+      49.35
+    ]
+  },
+  {
+    "cityLabel": "Emden",
+    "population": 49913,
+    "coordinates": [
+      7.206111111,
+      53.366944444
+    ]
+  },
+  {
+    "cityLabel": "Passau",
+    "population": 52469,
+    "coordinates": [
+      13.466666666,
+      48.566666666
+    ]
+  },
+  {
+    "cityLabel": "Freital",
+    "population": 39709,
+    "coordinates": [
+      13.65,
+      51.016666666
+    ]
+  },
+  {
+    "cityLabel": "Speyer",
+    "population": 50378,
+    "coordinates": [
+      8.431111111,
+      49.319444444
+    ]
+  },
+  {
+    "cityLabel": "Frankenthal",
+    "population": 48561,
+    "coordinates": [
+      8.35,
+      49.533333333
+    ]
+  },
+  {
+    "cityLabel": "Hof",
+    "population": 45930,
+    "coordinates": [
+      11.916666666,
+      50.316666666
+    ]
+  },
+  {
+    "cityLabel": "Freising",
+    "population": 48634,
+    "coordinates": [
+      11.748888888,
+      48.402777777
+    ]
+  },
+  {
+    "cityLabel": "Straubing",
+    "population": 47794,
+    "coordinates": [
+      12.575833333,
+      48.877222222
+    ]
+  },
+  {
+    "cityLabel": "Amberg",
+    "population": 41970,
+    "coordinates": [
+      11.848333333,
+      49.444444444
+    ]
+  },
+  {
+    "cityLabel": "Landau in der Pfalz",
+    "population": 46677,
+    "coordinates": [
+      8.123055555,
+      49.199444444
+    ]
+  },
+  {
+    "cityLabel": "Eisenach",
+    "population": 42370,
+    "coordinates": [
+      10.324444444,
+      50.974722222
+    ]
+  },
+  {
+    "cityLabel": "Weiden in der Oberpfalz",
+    "population": 42520,
+    "coordinates": [
+      12.166061111,
+      49.673530555
+    ]
+  },
+  {
+    "cityLabel": "Kaufbeuren",
+    "population": 43893,
+    "coordinates": [
+      10.6225,
+      47.88
+    ]
+  },
+  {
+    "cityLabel": "Coburg",
+    "population": 41249,
+    "coordinates": [
+      10.957869444,
+      50.258469444
+    ]
+  },
+  {
+    "cityLabel": "Memmingen",
+    "population": 43837,
+    "coordinates": [
+      10.181111111,
+      47.987777777
+    ]
+  },
+  {
+    "cityLabel": "Pirmasens",
+    "population": 40403,
+    "coordinates": [
+      7.6,
+      49.2
+    ]
+  },
+  {
+    "cityLabel": "Ansbach",
+    "population": 41847,
+    "coordinates": [
+      10.583333333,
+      49.3
+    ]
+  },
+  {
+    "cityLabel": "Schwabach",
+    "population": 40792,
+    "coordinates": [
+      11.020833333,
+      49.329166666
+    ]
+  },
+  {
+    "cityLabel": "Suhl",
+    "population": 36955,
+    "coordinates": [
+      10.693055555,
+      50.610555555
+    ]
+  },
+  {
+    "cityLabel": "Deggendorf",
+    "population": 33585,
+    "coordinates": [
+      12.964444444,
+      48.835277777
+    ]
+  }
+]

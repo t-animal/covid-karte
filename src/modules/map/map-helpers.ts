@@ -108,6 +108,11 @@ async function loadBerlinMap() {
   return await (await (fetch('./map-data/berlin-counties.topo.json'))).json();
 }
 
+export type CityInfo = {cityLabel: string, population: number, coordinates: [number, number]}
+export async function loadCities(): Promise<CityInfo[]> {
+  return await (await fetch('./map-data/cities-mid-large.json')).json();
+}
+
 export async function loadStateMap(): Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>> {
   const topo: TopoJSON.Topology = await (await fetch('./map-data/state-map.topo.json')).json();
   const geo = feature(topo, topo.objects['state-map']);

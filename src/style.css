@@ -354,6 +354,19 @@ section.map-section .legend-color {
   margin-right: 5px;
 }
 
+section.map-section .city-label {
+  pointer-events: none!important;
+  color: #eee;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0px 0px 6px var(--background-darkest);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  font-size: 0.8rem;
+}
+
 
 /*
  * Data-age section
