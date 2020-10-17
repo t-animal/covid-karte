@@ -160,27 +160,43 @@ async function addEuropeanMap(preloadedMap: GeoJSON.FeatureCollection) {
 }
 
 async function addCities(preloadedCities: CityInfo[]){
-  const hugeCities = [];
-  const largeCities = [];
-  const mediumCities = [];
-  const smallCities = [];
+  const hugeCities: CityInfo[] = [];
+  const largeCities: CityInfo[] = [];
+  const mediumCities: CityInfo[] = [];
+  const smallCities: CityInfo[] = [];
 
   const sortedCities = [...preloadedCities];
   sortedCities.sort((a, b) => b.population - a.population);
 
+  function distance(a:CityInfo, b: CityInfo) {
+    const [a1, a2] = a.coordinates;
+    const [b1, b2] = b.coordinates;
+    return Math.sqrt(Math.pow(a1 - b1, 2) + Math.pow(a2 - b2, 2));
+  }
+  const distanceTo = (a: CityInfo) => ((b: CityInfo) => distance(a, b));
+
   for(const city of sortedCities) {
-    if(hugeCities.length < 14) {
+    const alreadyIncluded = [...hugeCities];
+    const isNotCloseToAnyIncluded = (city: CityInfo, minDistance: number) =>
+      alreadyIncluded.map(distanceTo(city)).every(distance => distance > minDistance);
+
+    if(city.population > 100000 && isNotCloseToAnyIncluded(city, 1.4)) {
       hugeCities.push(city);
       continue;
     }
-    if(largeCities.length < sortedCities.length / 15) {
+
+    alreadyIncluded.push(...largeCities);
+    if(city.population > 60000 && isNotCloseToAnyIncluded(city, 0.5)) {
       largeCities.push(city);
       continue;
     }
-    if(mediumCities.length < sortedCities.length / 4) {
+
+    alreadyIncluded.push(...mediumCities);
+    if(city.population > 30000 && isNotCloseToAnyIncluded(city, 0.1)) {
       mediumCities.push(city);
       continue;
     }
+
     smallCities.push(city);
   }
 
@@ -202,17 +218,17 @@ async function addCities(preloadedCities: CityInfo[]){
   map.addLayer(hugeCitiesMarkers);
 
   map.on('zoomend', function() {
-    if (map.getZoom() > 7){
+    if (map.getZoom() > 6){
       map.addLayer(largeCitiesMarkers);
     } else {
       map.removeLayer(largeCitiesMarkers);
     }
-    if (map.getZoom() > 9){
+    if (map.getZoom() > 8){
       map.addLayer(mediumCitiesMarkers);
     } else {
       map.removeLayer(mediumCitiesMarkers);
     }
-    if (map.getZoom() > 11){
+    if (map.getZoom() > 10){
       map.addLayer(smallCitiesMarkers);
     } else {
       map.removeLayer(smallCitiesMarkers);
