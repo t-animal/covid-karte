@@ -189,6 +189,7 @@ function mapIdToRkiObjectId(mapId: number) {
     223: 33, //	"LK Schaumburg",
     224: 34, //	"LK Celle",
     225: 35, //	"LK Cuxhaven",
+    8225: 63, //	"LK Cuxhaven",
     226: 36, //	"LK Harburg",
     227: 37, //	"LK Lüchow-Dannenberg",
     228: 38, //	"LK Lüneburg",
