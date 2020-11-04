@@ -167,7 +167,7 @@
 325	162	"SK Ludwigshafen",
 327	163	"SK Mainz",
 328	164	"SK Neustadt a.d.Weinstraße",
-   	165	"SK Pirmasens", 	=============================
+   	165	"SK Pirmasens", 	============================= (nicht auf rki karte)
 330	166	"SK Speyer",
 333	167	"SK Worms",
 334	168	"SK Zweibrücken",
@@ -234,7 +234,7 @@
  71	227	"LK Berchtesgadener Land",
  70	228	"LK Bad Tölz-Wolfratshausen",
  72	229	"LK Dachau",
-   	230	"LK Ebersberg", 	=============================
+ 73	230	"LK Ebersberg",
  74	231	"LK Eichstätt",
  75	232	"LK Erding",
  76	233	"LK Freising",
@@ -268,7 +268,7 @@
 105	261	"LK Amberg-Sulzbach",
 107	262	"LK Cham",
 108	263	"LK Neumarkt i.d.OPf.",
-   	264	"LK Neustadt a.d.Waldnaab", 	=============================
+109	264	"LK Neustadt a.d.Waldnaab",
 111	265	"LK Regensburg",
 112	266	"LK Schwandorf",
 113	267	"LK Tirschenreuth",
