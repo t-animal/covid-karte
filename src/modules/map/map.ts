@@ -7,9 +7,9 @@ import {
 } from '../county-selection';
 import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
 import { getElementOrThrow } from '../helpers';
+import { colorForIncidence } from './label-scheme';
 import {
-  CityInfo, color, CountyMapInfo, loadCities, loadCountyMap, loadEuMap, loadStateMap,
-  rkiFeatureByMapId
+  CityInfo, CountyMapInfo, loadCities, loadCountyMap, loadEuMap, loadStateMap, rkiFeatureByMapId
 } from './map-helpers';
 
 type CountyFeature = GeoJSON.Feature<GeoJSON.Polygon, CountyMapInfo>;
@@ -73,7 +73,7 @@ function addCountiesToMap(
       return {
         color: '#888',
         weight: 0.5,
-        fillColor: color(data?.cases7_per_100k),
+        fillColor: colorForIncidence(data?.cases7_per_100k),
         fillOpacity: 1,
         stroke: true,
       };
