@@ -574,7 +574,11 @@ section.info-section {
     font-size: 20px;
   }
 
-	main {grid-template-columns: 50% 50%;}
+  main {grid-template-columns: 50% 50%;}
+  
+  .help {
+    display: none;
+  }
 
 	section.counties {
 		grid-row: 4;
