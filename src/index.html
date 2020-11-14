@@ -18,11 +18,12 @@
     </button>
 
 		<h1>Ein performantes COVID-19-Dashboard</h1>
-    Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://corona.rki.de">RKI-Dashboard</a>, aber schneller.
-    <a href="javascript:document.querySelector('.page-info').classList.remove('hidden');">Kontakt und weitere Infos</a>.
+    Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://corona.rki.de">RKI-Dashboard</a>, aber schneller. |
+    <a href="javascript:document.querySelector('.page-info').classList.remove('hidden');"><span class="symbol">✉</span> Kontakt und weitere Infos</a> | 
+    <a href="javascript:document.querySelector('.settings').classList.remove('hidden');"><span class="symbol">⚙</span> Einstellungen</a>.
   </header>
   
-  <aside class="page-info hidden" onclick="this.classList.add('hidden')">
+  <aside class="page-info info-overlay hidden" onclick="this.classList.add('hidden')">
     <div>
       <div class="close-icon" onclick="this.parentElement.parentElement.classList.add('hidden')"></div>
       <h3>Kontakt</h3>
@@ -57,6 +58,19 @@
       auf dem Server protokolliert und dabei kann deine IP gespeichert werden sowie Basisinformationen über dein
       System wie zB dein Browser. Diese Daten werden nicht mit anderen Daten verknüpft und dienen lediglich der 
       Sicherstellung des Betriebs.
+    </div>
+  </aside>
+  
+  <aside class="settings info-overlay hidden">
+    <div>
+      <div class="close-icon" onclick="location.reload()"></div>
+      <h3>Settings</h3>
+      <h4>Legende</h4>
+      <form class="settings-form">
+        <input class="setting" type="radio" name="labelScheme" value="RKI" /> RKI (Einfach) <br />
+        <input class="setting" type="radio" name="labelScheme" value="RiskLayer" /> RiskLayer (Feingranular) <br />
+      </form>
+      
     </div>
   </aside>
 
@@ -105,12 +119,7 @@
       <aside class="map-legend collapsed" onclick="this.classList.toggle('collapsed')">
         <h3>Legende</h3>
           Fälle letzte 7 Tage/100.000 EW
-          <div>                 0 <div class="legend-color" style="background: #d2d2d2;"></div></div>
-          <div> &gt;   0, &lt;=   5 <div class="legend-color" style="background: #d7d3af;"></div></div>
-          <div> &gt;   5, &lt;=  25 <div class="legend-color" style="background: #d7d288;"></div></div>
-          <div> &gt;  25, &lt;=  50 <div class="legend-color" style="background: #cd9406;"></div></div>
-          <div> &gt;  50, &lt;= 100 <div class="legend-color" style="background: #af2632;"></div></div>
-          <div> &gt; 100, &lt;= 500 <div class="legend-color" style="background: #8c0619;"></div></div>
+          <div class="label-container"></div>
       </aside>
 		</section>
 

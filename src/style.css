@@ -190,6 +190,13 @@ span.sort:hover::after {
   color: white;
 }
 
+span.symbol {
+  font-size: 1.5em;
+  position: relative;
+  top: 0.1em;
+  line-height: 0px;
+}
+
 /*
  * Fork me button and page info
  */
@@ -210,7 +217,7 @@ button.fork-me img {
   margin: 0 3px;
 }
 
-aside.page-info {
+aside.info-overlay {
   position: fixed;
   z-index: 1050;
 
@@ -224,11 +231,11 @@ aside.page-info {
   justify-content: center;
 }
 
-aside.page-info.hidden {
+aside.info-overlay.hidden {
   display: none;
 }
 
-aside.page-info > div {
+aside.info-overlay > div {
   width: 80%;
   max-width: 600px;
   max-height: 80%;
@@ -242,11 +249,11 @@ aside.page-info > div {
   position: relative;
 }
 
-aside.page-info h3 {
+aside.info-overlay h3 {
   margin-top: 20px;
 }
 
-aside.page-info .close-icon {
+aside.info-overlay .close-icon {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -329,7 +336,7 @@ section.map-section aside.map-legend {
   z-index: 999;
 
   width: 150px;
-  max-height: 13em;
+  max-height: 18em;
   transition: max-height 500ms;
   overflow: hidden;
 
