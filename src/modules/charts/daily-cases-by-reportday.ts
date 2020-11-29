@@ -80,6 +80,8 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     categoryPercentage: 1,
   };
 
+  const isWeekend = (value: RkiTotalCasesPerDay) => new Date(value.Meldedatum).getDay() % 6 == 0;
+
   return new chartjs.Chart(canvas, {
     type: 'bar',
     data: {
@@ -88,14 +90,14 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
           label: 'Zuletzt',
           data: values.preExist.map(value => ({ x: value.Meldedatum, y: value.GesamtFaelleTag })),
           borderColor: '#00c5ff',
-          backgroundColor: '#00c5ff',
+          backgroundColor: values.preExist.map(value => isWeekend(value) ? '#11a7d4' : '#00c5ff'),
           ...commonDatasetSettings
         },
         {
           label: 'Neu',
           data: values.new.map(value => ({ x: value.Meldedatum, y: value.GesamtFaelleTag })),
           borderColor: '#e69800',
-          backgroundColor: '#e69800',
+          backgroundColor: values.preExist.map(value => isWeekend(value) ? '#c38509' : '#e69800'),
           ...commonDatasetSettings
         }
       ]

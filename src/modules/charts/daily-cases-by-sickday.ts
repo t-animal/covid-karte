@@ -76,6 +76,8 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     categoryPercentage: 1,
   };
 
+  const isWeekend = (value: {x: number}) => new Date(value.x).getDay() % 6 == 0;
+
   return new chartjs.Chart(canvas, {
     type: 'bar',
     data: {
@@ -83,12 +85,14 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         {
           label: 'Erkrankungsdatum ',
           data: values.casesByFirstSickday,
-          backgroundColor: '#2f52a0',
+          backgroundColor:
+            values.casesByFirstSickday.map(value => isWeekend(value) ? '#344c7f' : '#2f52a0'),
           ...commonDatasetSettings
         }, {
           label: 'Meldedatum ',
           data: values.casesByNotificationday,
-          backgroundColor: '#e69800',
+          backgroundColor:
+            values.casesByFirstSickday.map(value => isWeekend(value) ? '#ba7f08' : '#e69800'),
           ...commonDatasetSettings
         }
       ]
