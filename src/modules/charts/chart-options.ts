@@ -26,7 +26,7 @@ export function commonChartOptions(stacked: boolean): ChartOptions {
         type: 'time',
         time: {
           unit: 'month',
-          tooltipFormat: 'DD.MM.YYYY'
+          tooltipFormat: 'ddd DD.MM.YYYY'
         },
         ticks: { 
           min: '2020-03',
