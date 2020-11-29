@@ -104,6 +104,7 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
     },
     options: {
       tooltips: {
+        mode: 'index',
         callbacks: { label:  
           (item) => {
             const label = item.datasetIndex == 0? 'Bis gestern übermittelt' : 'Gestern übermittelt';
