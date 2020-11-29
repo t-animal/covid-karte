@@ -489,19 +489,23 @@ section.info-section {
 
 
 /*
- * Daily new cases bar plot section
+ * Daily new cases bar plot sections
  */
-.development-graphs section.new-cases-per-day-section .chart-labels {
+.chart-labels {
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
 
-.development-graphs section.new-cases-per-day-section .chart-label {
+.chart-labels .chart-label {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    margin: 0 5px 0 15;
+    margin-right: 5px;
+}
+
+.chart-labels .label {
+    margin-right: 15px;
 }
 
 .development-graphs section.new-cases-per-day-section .chart-label.by-first-sickday {
@@ -509,6 +513,14 @@ section.info-section {
 }
 
 .development-graphs section.new-cases-per-day-section .chart-label.by-notificationday {
+    background: var(--highlight-orange);
+}
+
+.development-graphs section.newly-reported-cases-per-day-section  .chart-label.last-reported {
+    background: var(--highlight-cyan);
+}
+
+.development-graphs section.newly-reported-cases-per-day-section  .chart-label.newly-reported {
     background: var(--highlight-orange);
 }
 
