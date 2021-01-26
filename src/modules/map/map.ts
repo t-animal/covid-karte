@@ -5,6 +5,7 @@ import {
 } from '../county-selection';
 import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
 import { getElementOrThrow } from '../helpers';
+import { addEuropeanMap, addStateBoundaries } from './background';
 import { addCities } from './cities';
 import { colorForIncidence } from './label-scheme';
 import {
@@ -52,8 +53,8 @@ async function renderData(data: ReturnType<typeof loadData>) {
 }
 
 async function drawBackground() {
-  addStateBoundaries(await loadStateMap());
-  addEuropeanMap(await loadEuMap());
+  addStateBoundaries(map, await loadStateMap());
+  addEuropeanMap(map, await loadEuMap());
 }
 
 async function drawCities() {
@@ -133,28 +134,4 @@ function highlightSelectedCounty(
       highlightLayer.addTo(map);
     }
   }
-}
-
-
-async function addStateBoundaries(preloadedMap: GeoJSON.FeatureCollection) {
-  L.geoJSON(preloadedMap, {
-    style: {
-      color: '#888',
-      weight: 2,
-      fill: false
-    }
-  }).addTo(map);
-}
-
-async function addEuropeanMap(preloadedMap: GeoJSON.FeatureCollection) {
-  L.geoJSON(preloadedMap, {
-    style: {
-      color: '#313232',
-      fillColor: '#393a3a',
-      fillOpacity: 1,
-      weight: 2,
-    }
-  }).addTo(map);
-
-  getMapElement().style.background = '#1d2224';
 }
