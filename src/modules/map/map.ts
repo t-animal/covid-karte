@@ -22,6 +22,8 @@ const map = L
 
 map.zoomControl.setPosition('bottomright');
 
+let countiesLayer: L.GeoJSON<CountyMapInfo>;
+
 function getMapElement() {
   return getElementOrThrow<HTMLDivElement>('div.map');
 }
@@ -65,7 +67,9 @@ function addCountiesToMap(
   rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
   countiesGeoJson: CountyMap
 ) {
-  L.geoJSON<CountyMapInfo>(countiesGeoJson, {
+  countiesLayer?.removeFrom(map);
+
+  countiesLayer = L.geoJSON<CountyMapInfo>(countiesGeoJson, {
     style: function (feature) {
       if (feature?.properties == undefined) {
         return {};
@@ -88,7 +92,8 @@ function addCountiesToMap(
       });
     },
   }).bindTooltip(getCountyTooltip, { direction: 'top' })
-    .addTo(map);
+    .addTo(map)
+    .bringToBack();
 
 
   function getCountyTooltip(layer: L.Layer & { feature?: CountyFeature }): string {
