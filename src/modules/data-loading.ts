@@ -120,12 +120,13 @@ class DataLoader<T> {
 }
 
 type Parameters = readonly unknown[];
+type UrlBuilder<P extends Parameters> = (...args: P) => string;
 
 class ParametrizedDataLoader<T, P extends Parameters>{
   private loaders: { [key: string]: DataLoader<T> } = {};
 
   constructor(
-    private urlBuilder: (...args: P) => string,
+    private urlBuilder: UrlBuilder<P>
   ) { }
 
   load(...args: P): Promise<T> {
@@ -136,6 +137,10 @@ class ParametrizedDataLoader<T, P extends Parameters>{
     }
 
     return this.loaders[url].load();
+  }
+
+  createBoundLoadFunction() {
+    return this.load.bind(this);
   }
 }
 
@@ -159,10 +164,10 @@ const totalCasesPerDayLoader = new DataLoader<RkiFeatureData<RkiTotalCasesPerDay
 export const loadTotalCasesReportedPerDay = totalCasesPerDayLoader.createBoundLoadFunction();
 
 const dailyInfectionsOfCountyLoader = new ParametrizedDataLoader<RkiFeatureData<RkiDailyNewCasesData>, [string]>(DAILY_INFECTIONS_OF_COUNTY_URL_FACTORY);
-export const loadDailyInfectionsOfCounty = (county: string): Promise<RkiFeatureData<RkiDailyNewCasesData>> => dailyInfectionsOfCountyLoader.load(county);
+export const loadDailyInfectionsOfCounty = dailyInfectionsOfCountyLoader.createBoundLoadFunction();
 
 const totalCasesPerDayOfCountyLoader = new ParametrizedDataLoader<RkiFeatureData<RkiTotalCasesPerDay>, [string]>(TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY);
-export const loadTotalCasesReportedPerDayOfCounty = (county: string): Promise<RkiFeatureData<RkiTotalCasesPerDay>> => totalCasesPerDayOfCountyLoader.load(county);
+export const loadTotalCasesReportedPerDayOfCounty = totalCasesPerDayOfCountyLoader.createBoundLoadFunction();
 
 const totalRecoveredByCountyLoader = new DataLoader<RkiFeatureData<RkiTotalRecoveredByCounty>>(TOTAL_RECOVERED_BY_COUNTY_URL);
 export const loadTotalRecoveredByCounty = totalRecoveredByCountyLoader.createBoundLoadFunction();
