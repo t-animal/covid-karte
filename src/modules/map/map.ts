@@ -104,10 +104,10 @@ function addCountiesToMap(
     if (data == null) {
       const prop = layer.feature.properties;
       return `<b>${prop.NAME_3}, ${prop.NAME_2}</b><br>
-			Noch nicht den RKI Daten zugeordnet<br><br>
+      Noch nicht den RKI Daten zugeordnet<br><br>
 
-			<b>Mithelfen?</b> Bitte finde in den RKI Daten den passenden Datensatz.<br>
-			Bitte teile mir die ID des RKI Datensatzes und die Zahl <b>'${prop.ID_3}'</b> mit.`;
+      <b>Mithelfen?</b> Bitte finde in den RKI Daten den passenden Datensatz.<br>
+      Bitte teile mir die ID des RKI Datensatzes und die Zahl <b>'${prop.ID_3}'</b> mit.`;
     }
     return data.county;
   }

@@ -20,7 +20,7 @@ export async function countyNameById(countyId: number): Promise<string | null> {
 }
 
 
-const formatters: {[decimalDigits: number]: Intl.NumberFormat} = {};
+const formatters: { [decimalDigits: number]: Intl.NumberFormat } = {};
 export function format(num: number, decimalDigits = 0): string {
   return (formatters[decimalDigits] ?? makeFormatter(decimalDigits)).format(num);
 }
