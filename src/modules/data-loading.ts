@@ -144,6 +144,35 @@ class ParametrizedDataLoader<T, P extends Parameters>{
   }
 }
 
+class PermanentlyCachingDataLoader<T, P extends Parameters> {
+  private constructor(
+    private cache: Cache,
+    private urlBuilder: UrlBuilder<P>,
+  ) { }
+
+  static async open<T, P extends Parameters>(
+    cacheName: string,
+    urlBuilder: UrlBuilder<P>
+  ): Promise<PermanentlyCachingDataLoader<T, P>> {
+    return new PermanentlyCachingDataLoader(await caches.open(cacheName), urlBuilder);
+  }
+
+  async load(...args: P): Promise<T> {
+    const url = this.urlBuilder(...args);
+
+    const cacheValue = await this.cache.match(url);
+    if (cacheValue != undefined) {
+      return cacheValue.json();
+    }
+
+    const response = await fetch(url);
+    if (response.ok) {
+      this.cache.put(url, response.clone());
+    }
+    return response.json();
+  }
+}
+
 
 const countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(COUNTY_DATA_URL);
 export const loadCountyData = countyDataLoader.createBoundLoadFunction();
