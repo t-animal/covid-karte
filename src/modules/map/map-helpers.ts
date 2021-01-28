@@ -20,9 +20,14 @@ export type CountyMapInfo = {
 
 type GeoDingsi = GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>;
 
+let cachedCountyMap: ReturnType<loadCountyMap>;
+
 export async function loadCountyMap()
-  : Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>>
-{
+  : Promise<GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, CountyMapInfo>> {
+  if (cachedCountyMap !== undefined) {
+    return cachedCountyMap;
+  }
+
   const topo: TopoJSON.Topology = await (await fetch('./map-data/county-map.topo.json')).json();
   const berlinTopoPromise = loadBerlinMap();
   const geo = feature(topo, topo.objects['county-map']) as GeoDingsi;
@@ -101,6 +106,7 @@ export async function loadCountyMap()
     } as unknown as GeoJSON.Feature<GeoJSON.MultiPolygon, CountyMapInfo>);
   }
 
+  cachedCountyMap = geo;
   return geo;
 }
 
