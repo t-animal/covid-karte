@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 const COUNTY_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&outSR=4326&f=json';
+const HISTORIC_COUNTY_DATA_URL_FACTORY = (year: number, month: number, day: number) => `http://localhost:8080/src/assets/historic-county-data/county-data-${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}.json`;
 
 const TODAYS_SUMMED_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?f=json&where=1=1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=[{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22cases%22,%22outStatisticFieldName%22:%22totalCases%22},{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22deaths%22,%22outStatisticFieldName%22:%22totalDeaths%22}]&resultType=standard&cacheHint=true';
 const TODAYS_DEATHS_DIFF_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?f=json&groupByFieldsForStatistics=Landkreis&where=NeuerTodesfall%20IN(1%2C%20-1)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22AnzahlTodesfall%22%2C%22outStatisticFieldName%22%3A%22diff%22%7D%5D&resultType=standard&cacheHint=true';
@@ -176,6 +177,11 @@ class PermanentlyCachingDataLoader<T, P extends Parameters> {
 
 const countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(COUNTY_DATA_URL);
 export const loadCountyData = countyDataLoader.createBoundLoadFunction();
+
+const historicCountyDataLoader =
+  PermanentlyCachingDataLoader.open<RkiFeatureData<RkiCountyFeatureAttributes>, [number, number, number]>('historicCountyData-v1', HISTORIC_COUNTY_DATA_URL_FACTORY);
+export const loadHistoricCountyData =
+  async (...args: [number, number, number]): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> => (await historicCountyDataLoader).load(...args);
 
 const todaysSummedDataLoader = new DataLoader<RkiFeatureData<RkiSummedDayData>>(TODAYS_SUMMED_DATA_URL);
 export const loadTodaysSummedData = todaysSummedDataLoader.createBoundLoadFunction();
