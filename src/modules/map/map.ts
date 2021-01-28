@@ -63,10 +63,10 @@ async function drawCities() {
   addCities(map, await loadCities());
 }
 
-function addCountiesToMap(
+export function addCountiesToMap(
   rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
   countiesGeoJson: CountyMap
-) {
+): void {
   countiesLayer?.removeFrom(map);
 
   countiesLayer = L.geoJSON<CountyMapInfo>(countiesGeoJson, {
@@ -121,7 +121,7 @@ function highlightCountyWhenSelected(
 }
 
 let highlightLayer: L.GeoJSON | null = null;
-function highlightSelectedCounty(
+export function highlightSelectedCounty(
   rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
   counties: CountyMap
 ): void {
