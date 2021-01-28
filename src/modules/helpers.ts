@@ -36,3 +36,24 @@ function makeFormatter(decimalDigits: number) {
 export function nowPlus12Hours(): Date {
   return new Date(Date.now() + 12 * 60 * 60 * 1000);
 }
+
+export function* daysSince(year: number, month: number, day: number)
+  : Generator<[number, number, number]> {
+  const isLeapYear = (year: number) => year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+  const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const now = new Date();
+
+  while (year < now.getFullYear() || month < now.getMonth() + 1 || day < now.getDate()) {
+    yield [year, month, day];
+
+    day++;
+    if (day > daysPerMonth[month - 1] + (isLeapYear(year) && month == 2 ? 1 : 0)) {
+      day = 1;
+      month++;
+      if (month > 12) {
+        year++;
+        month = 1;
+      }
+    }
+  }
+}
