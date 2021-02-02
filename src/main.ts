@@ -8,6 +8,7 @@ import * as countySelectionPersistence from './modules/county-selection-persiste
 import * as settings from './modules/settings';
 import * as historyAnimation from './modules/history-animation/map';
 import * as map from './modules/map/map';
+import * as dataAge from './modules/data-age';
 
 import { initNavigation } from './modules/charts/section-nav';
 import { loadAndDisplayCountyList } from './modules/county-list/county-list';
@@ -35,6 +36,7 @@ initNavigation();
 countyInfo.initCallbacks();
 countyMapSorting.initCallbacks();
 map.initCallbacks();
+dataAge.initCallbacks();
 
 settings.initCallbacks();
 settings.displayCurrentSettings();
