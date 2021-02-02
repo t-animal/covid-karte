@@ -7,6 +7,7 @@ import * as countyMapSorting from './modules/county-list/sorting';
 import * as countySelectionPersistence from './modules/county-selection-persistence';
 import * as settings from './modules/settings';
 import * as historyAnimation from './modules/history-animation/map';
+import * as map from './modules/map/map';
 
 import { initNavigation } from './modules/charts/section-nav';
 import { loadAndDisplayCountyList } from './modules/county-list/county-list';
@@ -33,6 +34,7 @@ renderColorScheme();
 initNavigation();
 countyInfo.initCallbacks();
 countyMapSorting.initCallbacks();
+map.initCallbacks();
 
 settings.initCallbacks();
 settings.displayCurrentSettings();

@@ -6,6 +6,7 @@ import {
 import { loadCountyData } from '../data-loading';
 import { RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading/types';
 import { getElementOrThrow } from '../helpers';
+import { observeDateChanges } from '../history-animation/date-selection';
 import { addEuropeanMap, addStateBoundaries } from './background';
 import { addCities } from './cities';
 import { colorForIncidence } from './label-scheme';
@@ -31,6 +32,15 @@ function getMapElement() {
 
 export function loadAndDisplayMap(): void {
   renderData(loadData());
+}
+
+async function rerenderWithUpdatedData() {
+  const rkiData: RkiFeatureData<RkiCountyFeatureAttributes> = await loadCountyData();
+  const countiesGeoJson = await loadCountyMap();
+
+  addCountiesToMap(rkiData, countiesGeoJson);
+
+  highlightSelectedCounty(rkiData, countiesGeoJson);
 }
 
 async function loadData() {
@@ -146,4 +156,8 @@ export function highlightSelectedCounty(
       highlightLayer.addTo(map);
     }
   }
+}
+
+export function initCallbacks() {
+  observeDateChanges(rerenderWithUpdatedData);
 }
