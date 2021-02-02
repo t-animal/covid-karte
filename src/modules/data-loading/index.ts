@@ -1,3 +1,4 @@
+import { getDate } from '../history-animation/date-selection';
 import { DataLoader, ParametrizedDataLoader, PermanentlyCachingDataLoader } from './data-loaders';
 import {
   RkiCountyFeatureAttributes,
@@ -25,15 +26,18 @@ const TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY = (county: string) => `http
 
 const TOTAL_RECOVERED_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlGenesen>0&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Landkreis&outStatistics=[{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22AnzahlGenesen%22,%22outStatisticFieldName%22:%22SummeGenesen%22}]';
 
-
-
 const countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(COUNTY_DATA_URL);
-export const loadCountyData = countyDataLoader.createBoundLoadFunction();
+export const loadTodaysCountyData = countyDataLoader.createBoundLoadFunction();
 
 const historicCountyDataLoader =
   PermanentlyCachingDataLoader.open<RkiFeatureData<RkiCountyFeatureAttributes>, [number, number, number]>('historicCountyData-v1', HISTORIC_COUNTY_DATA_URL_FACTORY);
 export const loadHistoricCountyData =
   async (...args: [number, number, number]): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> => (await historicCountyDataLoader).load(...args);
+
+export function loadCountyData(): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> {
+  const date = getDate();
+  return date == 'today' ? loadTodaysCountyData() : loadHistoricCountyData(...date);
+}
 
 const todaysSummedDataLoader = new DataLoader<RkiFeatureData<RkiSummedDayData>>(TODAYS_SUMMED_DATA_URL);
 export const loadTodaysSummedData = todaysSummedDataLoader.createBoundLoadFunction();
