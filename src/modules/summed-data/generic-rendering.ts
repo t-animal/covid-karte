@@ -23,5 +23,5 @@ export async function renderDiffData(rootElem: Element,
 }
 
 function withSign(num: number): string {
-  return (num >= 0 ? '+' : '-') + format(num);
+  return (num >= 0 ? '+' : '') + format(num);
 }
