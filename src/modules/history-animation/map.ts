@@ -1,6 +1,7 @@
 import {
-  loadHistoricCountyData, RkiCountyFeatureAttributes, RkiFeatureData
+  loadHistoricCountyData
 } from '../data-loading';
+import { RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading/types';
 import { daysSince } from '../helpers';
 import { addCountiesToMap, highlightSelectedCounty } from '../map/map';
 import { loadCountyMap } from '../map/map-helpers';

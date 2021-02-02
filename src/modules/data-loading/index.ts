@@ -1,3 +1,15 @@
+import { DataLoader, ParametrizedDataLoader, PermanentlyCachingDataLoader } from './data-loaders';
+import {
+  RkiCountyFeatureAttributes,
+  RkiDailyNewCasesData,
+  RkiDiffData,
+  RkiFeatureData,
+  RkiSummedDayData,
+  RkiTotalCasesPerDay,
+  RkiTotalRecoveredByCounty
+} from './types';
+
+
 /* eslint-disable max-len */
 const COUNTY_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&outSR=4326&f=json';
 const HISTORIC_COUNTY_DATA_URL_FACTORY = (year: number, month: number, day: number) => `http://localhost:8080/src/assets/historic-county-data/county-data-${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}.json`;
@@ -13,166 +25,6 @@ const TOTAL_INFECTIONS_PER_DAY_OF_COUNTY_URL_FACTORY = (county: string) => `http
 
 const TOTAL_RECOVERED_BY_COUNTY_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=AnzahlGenesen>0&outFields=*&outSR=4326&f=json&groupByFieldsForStatistics=Landkreis&outStatistics=[{%22statisticType%22:%22sum%22,%22onStatisticField%22:%22AnzahlGenesen%22,%22outStatisticFieldName%22:%22SummeGenesen%22}]';
 
-export type RkiCountyFeatureAttributes = {
-  'OBJECTID': number,
-  'ADE': number,
-  'GF': number,
-  'BSG': number,
-  'RS': string,
-  'AGS': string,
-  'SDV_RS': string,
-  'GEN': string,
-  'BEZ': string,
-  'IBZ': number,
-  'BEM': string,
-  'NBD': string,
-  'SN_L': string,
-  'SN_R': string,
-  'SN_K': string,
-  'SN_V1': string,
-  'SN_V2': string,
-  'SN_G': string,
-  'FK_S3': string,
-  'NUTS': string,
-  'RS_0': string,
-  'AGS_0': string,
-  'WSK': string,
-  'EWZ': number,
-  'KFL': number,
-  'DEBKG_ID': string,
-  'Shape__Area': number,
-  'Shape__Length': number,
-  'death_rate': number,
-  'cases': number,
-  'deaths': number,
-  'cases_per_100k': number,
-  'cases_per_population': number,
-  'BL': string,
-  'BL_ID': string,
-  'county': string,
-  'last_update': string,
-  'cases7_per_100k': number,
-  'recovered': null
-}
-
-export type RkiSummedDayData = { 'totalCases': number, 'totalDeaths': number };
-
-export type RkiDiffData = { 'diff': number, 'Landkreis': string };
-
-export type RkiDailyNewCasesData = {
-  'GesamtFaelle': number, 'Refdatum': number, 'IstErkrankungsbeginn': number
-};
-
-export type RkiTotalCasesPerDay = {
-  'GesamtFaelleTag': number, 'Meldedatum': number, 'NeuerFall': number
-};
-
-export type RkiTotalRecoveredByCounty = { 'SummeGenesen': number, 'Landkreis': string };
-
-export type RkiFeatureData<T> = {
-  features: [{ attributes: T }]
-}
-
-
-type ResolveAndReject<T> = [(arg: T) => void, (arg: unknown) => void];
-
-class DataLoader<T> {
-
-  private isLoading = false;
-  private listeners: ResolveAndReject<T>[] = []
-
-  private loadedData: T | null = null;
-
-  constructor(
-    private url: string
-  ) { }
-
-  createBoundLoadFunction() {
-    return this.load.bind(this);
-  }
-
-  load() {
-    if (this.loadedData !== null) {
-      return Promise.resolve(this.loadedData);
-    }
-
-    this.loadDataOnce();
-
-    return new Promise<T>((resolve, reject) => {
-      this.listeners.push([resolve, reject]);
-    });
-  }
-
-  private async loadDataOnce() {
-    if (this.isLoading) {
-      return;
-    }
-    this.isLoading = true;
-
-    try {
-      this.loadedData = await (await fetch(this.url)).json() as T;
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.listeners.forEach(([resolve,]) => resolve(this.loadedData!));
-    } catch (e) {
-      this.listeners.forEach(([, reject]) => reject(e));
-    }
-  }
-}
-
-type Parameters = readonly unknown[];
-type UrlBuilder<P extends Parameters> = (...args: P) => string;
-
-class ParametrizedDataLoader<T, P extends Parameters>{
-  private loaders: { [key: string]: DataLoader<T> } = {};
-
-  constructor(
-    private urlBuilder: UrlBuilder<P>
-  ) { }
-
-  load(...args: P): Promise<T> {
-    const url = this.urlBuilder(...args);
-
-    if (this.loaders[url] == undefined) {
-      this.loaders[url] = new DataLoader<T>(url);
-    }
-
-    return this.loaders[url].load();
-  }
-
-  createBoundLoadFunction() {
-    return this.load.bind(this);
-  }
-}
-
-class PermanentlyCachingDataLoader<T, P extends Parameters> {
-  private constructor(
-    private cache: Cache,
-    private urlBuilder: UrlBuilder<P>,
-  ) { }
-
-  static async open<T, P extends Parameters>(
-    cacheName: string,
-    urlBuilder: UrlBuilder<P>
-  ): Promise<PermanentlyCachingDataLoader<T, P>> {
-    return new PermanentlyCachingDataLoader(await caches.open(cacheName), urlBuilder);
-  }
-
-  async load(...args: P): Promise<T> {
-    const url = this.urlBuilder(...args);
-
-    const cacheValue = await this.cache.match(url);
-    if (cacheValue != undefined) {
-      return cacheValue.json();
-    }
-
-    const response = await fetch(url);
-    if (response.ok) {
-      this.cache.put(url, response.clone());
-    }
-    return response.json();
-  }
-}
 
 
 const countyDataLoader = new DataLoader<RkiFeatureData<RkiCountyFeatureAttributes>>(COUNTY_DATA_URL);

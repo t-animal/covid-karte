@@ -1,5 +1,6 @@
 import { selectOrToggleCounty } from '../county-selection';
-import { loadCountyData, RkiCountyFeatureAttributes } from '../data-loading';
+import { loadCountyData } from '../data-loading';
+import { RkiCountyFeatureAttributes } from '../data-loading/types';
 import { format, getElementOrThrow } from '../helpers';
 import { getSortFunction } from './sorting';
 

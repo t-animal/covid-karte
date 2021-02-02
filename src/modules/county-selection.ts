@@ -1,4 +1,5 @@
-import { loadCountyData, RkiCountyFeatureAttributes } from './data-loading';
+import { loadCountyData } from './data-loading';
+import { RkiCountyFeatureAttributes } from './data-loading/types';
 
 type Observer = () => void;
 

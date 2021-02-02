@@ -3,7 +3,8 @@ import 'leaflet/dist/leaflet.css';
 import {
   observeCountyChanges, selectedCountyRkiId, selectOrToggleCounty
 } from '../county-selection';
-import { loadCountyData, RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading';
+import { loadCountyData } from '../data-loading';
+import { RkiCountyFeatureAttributes, RkiFeatureData } from '../data-loading/types';
 import { getElementOrThrow } from '../helpers';
 import { addEuropeanMap, addStateBoundaries } from './background';
 import { addCities } from './cities';
