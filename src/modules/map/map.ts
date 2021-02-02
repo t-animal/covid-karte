@@ -67,22 +67,28 @@ export function addCountiesToMap(
   rkiData: RkiFeatureData<RkiCountyFeatureAttributes>,
   countiesGeoJson: CountyMap
 ): void {
-  countiesLayer?.removeFrom(map);
+
+  const colorByFeature: L.StyleFunction<CountyMapInfo> = (feature) => {
+    if (feature?.properties == undefined) {
+      return {};
+    }
+    const data = rkiFeatureByMapId(rkiData, feature?.properties.ID_3);
+    return {
+      color: '#888',
+      weight: 0.5,
+      fillColor: colorForIncidence(data?.cases7_per_100k),
+      fillOpacity: 1,
+      stroke: true,
+    };
+  };
+
+  if (countiesLayer) {
+    countiesLayer.setStyle(colorByFeature);
+    return;
+  }
 
   countiesLayer = L.geoJSON<CountyMapInfo>(countiesGeoJson, {
-    style: function (feature) {
-      if (feature?.properties == undefined) {
-        return {};
-      }
-      const data = rkiFeatureByMapId(rkiData, feature?.properties.ID_3);
-      return {
-        color: '#888',
-        weight: 0.5,
-        fillColor: colorForIncidence(data?.cases7_per_100k),
-        fillOpacity: 1,
-        stroke: true,
-      };
-    },
+    style: colorByFeature,
     onEachFeature: function (feature, layer) {
       const rkiId = rkiFeatureByMapId(rkiData, feature?.properties.ID_3)?.OBJECTID;
       layer.on('click', () => {
