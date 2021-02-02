@@ -1,19 +1,18 @@
 import { loadCountyData } from './data-loading';
 import { RkiCountyFeatureAttributes } from './data-loading/types';
-
-type Observer = () => void;
+import { Observable, Observer } from './observers';
 
 let selectedRkiId: number | null = null;
-const dataChangeObservers: Observer[] = [];
+const countyChangeObservable = new Observable();
 
 export function selectCounty(rkiCountyId: number): void {
   selectedRkiId = rkiCountyId;
-  dataChangeObservers.forEach(listener => listener());
+  countyChangeObservable.notify();
 }
 
 export function deselectCounty(): void {
   selectedRkiId = null;
-  dataChangeObservers.forEach(listener => listener());
+  countyChangeObservable.notify();
 }
 
 export function selectOrToggleCounty(rkiCountyId: number): void {
@@ -28,7 +27,7 @@ export function selectedCountyRkiId(): number | null {
 }
 
 export function observeCountyChanges(listener: Observer): void {
-  dataChangeObservers.push(listener);
+  countyChangeObservable.observe(listener);
 }
 
 export async function getDataOfSelectedCounty()
