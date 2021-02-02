@@ -185,6 +185,11 @@ span.symbol {
   line-height: 0px;
 }
 
+[data-running-animation] .not-animatable {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
 /*
  * Fork me button and page info
  */
@@ -364,11 +369,6 @@ section.counties {
   grid-column: 1;
   display: flex;
   flex-direction: column;
-}
-
-[data-running-animation] section.counties {
-  opacity: 0.2;
-  pointer-events: none;
 }
 
 section.counties .label {
