@@ -6,7 +6,7 @@ import * as summedData from './modules/summed-data/summed-data.js';
 import * as countyMapSorting from './modules/county-list/sorting';
 import * as countySelectionPersistence from './modules/county-selection-persistence';
 import * as settings from './modules/settings';
-import * as historyAnimation from './modules/history-animation/map';
+import * as historyAnimation from './modules/history-animation/controls';
 import * as map from './modules/map/map';
 import * as dataAge from './modules/data-age';
 
@@ -37,6 +37,7 @@ countyInfo.initCallbacks();
 countyMapSorting.initCallbacks();
 map.initCallbacks();
 dataAge.initCallbacks();
+historyAnimation.initCallbacks();
 
 settings.initCallbacks();
 settings.displayCurrentSettings();
