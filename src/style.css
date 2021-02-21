@@ -560,15 +560,19 @@ section.info-section {
 
 @media (max-width: 1400px) and (min-width: 800px) {
   section.counties {
-    grid-row: 3;
+    grid-row: 4;
     grid-column: 1;
   }
   .development-graphs.navigatable {
-    grid-row: 2;
+    grid-row: 2/4;
     grid-column: 2/4;
   }
   section.map-section {
     grid-row: 1/3;
+    grid-column: 1;
+  }
+  section.animation-control {
+    grid-row: 3;
     grid-column: 1;
   }
   section.map-section aside.map-legend {
@@ -578,14 +582,14 @@ section.info-section {
   }
   main {
     grid-template-columns: auto 250px 250px;
-    grid-template-rows: 185px calc(80vh - 185px) 80vh;
+    grid-template-rows: 185px calc(80vh - 185px) 100px 80vh;
   }
   section.data-age {
-    grid-row: 3;
+    grid-row: 4;
     grid-column: 2;
   }
   section.info-section {
-    grid-row: 3;
+    grid-row: 4;
     grid-column: 3;
   }
   section.cases-section.summed-section {
@@ -600,7 +604,7 @@ section.info-section {
 
 @media (max-width: 800px) {
   html {
-    font-size: 20px;
+    font-size: 15px;
   }
   main {
     grid-template-columns: 50% 50%;
@@ -609,7 +613,7 @@ section.info-section {
     display: none;
   }
   section.counties {
-    grid-row: 4;
+    grid-row: 5;
     grid-column: 1/3;
     height: 250px;
     height: 100vh;
@@ -628,18 +632,22 @@ section.info-section {
     height: 250px;
     height: 80vh;
   }
-  .development-graphs.navigatable {
+  section.animation-control {
     grid-row: 3;
+    grid-column: 1/3;
+  }
+  .development-graphs.navigatable {
+    grid-row: 4;
     grid-column: 1/3;
     height: 250px;
     height: 100vh;
   }
   section.data-age {
-    grid-row: 5;
+    grid-row: 6;
     grid-column: 1;
   }
   section.info-section {
-    grid-row: 5;
+    grid-row: 6;
     grid-column: 2;
   }
 }
