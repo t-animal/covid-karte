@@ -360,6 +360,14 @@ section.animation-control {
   grid-row: 3;
 }
 
+section.animation-control.precaching .animation-controls-row, section.animation-control .animation-caching-hint {
+  display: none;
+}
+
+section.animation-control.precaching .animation-caching-hint {
+  display: block;
+}
+
 .animation-control-start, .animation-control-stop {
   flex-basis: 150px;
   flex-grow: 0;
