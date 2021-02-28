@@ -370,7 +370,6 @@ section.animation-control button, section.animation-control input {
   cursor: pointer;
   border-radius: 3px;
   padding: 0px 3px;
-  height: 1.5em;
 }
 
 section.animation-control .animation-control-range {
