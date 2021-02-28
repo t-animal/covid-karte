@@ -1,6 +1,6 @@
 import { loadHistoricCountyData } from '../data-loading';
 import { daysSince, getElementOrThrow } from '../helpers';
-import { getDate, selectDate, selectToday } from './date-selection';
+import { getAnimationDate, selectAnimationDate, selectToday } from './date-selection';
 
 let cancel = false;
 let precached = false;
@@ -12,14 +12,14 @@ export async function runAnimation(): Promise<void> {
 
   document.querySelector('body').dataset.runningAnimation = '';
 
-  const selectedDate = getDate();
+  const selectedDate = getAnimationDate();
   const startDate = selectedDate === 'today' ? daysSince(2020, 9, 1) : daysSince(...selectedDate);
   for (const date of startDate) {
     if (cancel) {
       break;
     }
 
-    selectDate(date);
+    selectAnimationDate(date);
     await new Promise(resolve => setTimeout(resolve, 100));
   }
 

@@ -1,4 +1,4 @@
-import { getDate } from '../history-animation/date-selection';
+import { getAnimationDate } from '../history-animation/date-selection';
 import { DataLoader, ParametrizedDataLoader, PermanentlyCachingDataLoader } from './data-loaders';
 import {
   RkiCountyFeatureAttributes,
@@ -35,7 +35,7 @@ export const loadHistoricCountyData =
   async (...args: [number, number, number]): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> => (await historicCountyDataLoader).load(...args);
 
 export function loadCountyData(): Promise<RkiFeatureData<RkiCountyFeatureAttributes>> {
-  const date = getDate();
+  const date = getAnimationDate();
   return date == 'today' ? loadTodaysCountyData() : loadHistoricCountyData(...date);
 }
 

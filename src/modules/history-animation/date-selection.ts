@@ -12,12 +12,12 @@ export function selectToday(): void {
   dateChangeObservable.notify();
 }
 
-export function selectDate(date: yyyymmdd): void {
+export function selectAnimationDate(date: yyyymmdd): void {
   currentDay = date;
   dateChangeObservable.notify();
 }
 
-export function getDate(): DateSelection {
+export function getAnimationDate(): DateSelection {
   return currentDay;
 }
 

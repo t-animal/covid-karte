@@ -1,10 +1,10 @@
 import { daysSince, getElementOrThrow } from '../helpers';
 import { cancelAnimation, runAnimation } from './animation';
 import {
-  getDate,
+  getAnimationDate,
 
   observeDateChanges,
-  selectDate,
+  selectAnimationDate,
   selectToday,
   yyyymmdd
 } from './date-selection';
@@ -23,7 +23,7 @@ function setupDisplay() {
   const slider = getSlider();
 
   observeDateChanges(() => {
-    const currentDate = getDate();
+    const currentDate = getAnimationDate();
     const daysPassed = valueByDay[currentDate.toString()];
     slider.style.width = `${daysPassed / daysByValue.length * 100}%`;
 
@@ -44,7 +44,7 @@ function setupDisplay() {
 function selectOffset(offset: number) {
   const newValue = getValue() + offset;
   if (newValue < 0) {
-    selectDate(daysByValue[0]);
+    selectAnimationDate(daysByValue[0]);
     return;
   }
 
@@ -53,7 +53,7 @@ function selectOffset(offset: number) {
     return;
   }
 
-  selectDate(daysByValue[newValue]);
+  selectAnimationDate(daysByValue[newValue]);
 
 }
 
@@ -62,7 +62,7 @@ function getSlider() {
 }
 
 function getValue() {
-  const date = getDate().toString();
+  const date = getAnimationDate().toString();
   return valueByDay[date];
 }
 
