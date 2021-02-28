@@ -9,14 +9,6 @@ import {
   yyyymmdd
 } from './date-selection';
 
-export function addDev() {
-  (window as any).dev = {
-    animation: { runAnimation, cancelAnimation },
-    selectDate,
-    selectToday
-  };
-}
-
 const valueByDay: { [value: number]: yyyymmdd } = {};
 const daysByValue: yyyymmdd[] = [...daysSince(2020, 9, 1)];
 

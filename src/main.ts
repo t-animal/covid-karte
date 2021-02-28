@@ -20,8 +20,6 @@ import { loadAndRenderDailyCasesBySickday } from './modules/charts/daily-cases-b
 import { restoreCountySelectionFromUrl } from './modules/county-selection-persistence';
 import { renderColorScheme } from './modules/map/label-scheme';
 
-historyAnimation.addDev();
-
 restoreCountySelectionFromUrl();
 
 loadAndDisplayMap();
