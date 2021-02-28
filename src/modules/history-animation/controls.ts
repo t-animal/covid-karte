@@ -9,26 +9,33 @@ import {
   yyyymmdd
 } from './date-selection';
 
-const valueByDay: { [value: number]: yyyymmdd } = {};
+const valueByDay: { [value: string]: number } = {};
 const daysByValue: yyyymmdd[] = [...daysSince(2020, 9, 1)];
 
-function setupRange() {
+function setupDisplay() {
   let daysPassed = 0;
 
   for (const day of daysByValue) {
     valueByDay[day.toString()] = daysPassed++;
   }
+  valueByDay['today'] = daysPassed;
 
   const slider = getSlider();
-  slider.max = '' + daysPassed;
-  slider.value = '' + daysPassed;
 
   observeDateChanges(() => {
-    if (getDate() == 'today') {
-      slider.value = slider.max;
+    const currentDate = getDate();
+    const daysPassed = valueByDay[currentDate.toString()];
+    slider.style.width = `${daysPassed / daysByValue.length * 100}%`;
+
+    if (currentDate == 'today') {
+      getElementOrThrow('.animation-control-text').innerHTML = 'Heute';
       delete document.querySelector('body').dataset.historicData;
     } else {
-      slider.value = valueByDay[getDate().toString()];
+      const dateAsString = [...currentDate]
+        .reverse()
+        .map(num => num.toString().padStart(2, '0'))
+        .join('.');
+      getElementOrThrow('.animation-control-text').innerHTML = dateAsString;
       document.querySelector('body').dataset.historicData = '';
     }
   });
@@ -55,11 +62,12 @@ function getSlider() {
 }
 
 function getValue() {
-  return parseInt(getSlider().value);
+  const date = getDate().toString();
+  return valueByDay[date];
 }
 
 export function initCallbacks(): void {
-  setupRange();
+  setupDisplay();
   getElementOrThrow('.animation-control-start').addEventListener('click', runAnimation);
   getElementOrThrow('.animation-control-stop').addEventListener('click', cancelAnimation);
 

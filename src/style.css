@@ -373,6 +373,14 @@ section.animation-control button, section.animation-control input {
   height: 1.5em;
 }
 
+section.animation-control .animation-control-range {
+  margin-top: 5px;
+  height: 4px;
+  background-color: rgb(175, 175, 175);
+  width: 100%;
+  border-radius: 3px;
+}
+
 section.animation-control.precaching .animation-controls-row, section.animation-control .animation-caching-hint {
   display: none;
 }
@@ -421,7 +429,6 @@ section.animation-control .animation-controls-row input {
 
 section.data-age {
   grid-column: 1;
-  height: fit-content;
   text-align: center;
 }
 
