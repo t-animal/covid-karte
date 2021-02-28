@@ -3,6 +3,7 @@ import { daysSince, getElementOrThrow } from '../helpers';
 import { getDate, selectDate, selectToday } from './date-selection';
 
 let cancel = false;
+let precached = false;
 
 export async function runAnimation(): Promise<void> {
   cancel = false;
@@ -36,6 +37,10 @@ async function cacheForAnimation() {
 }
 
 async function showCachingHint(promises: Promise<any>[]) {
+  if (precached) {
+    return;
+  }
+
   const elem = getElementOrThrow('.animation-caching-hint');
 
   elem.parentElement.classList.add('precaching');
@@ -44,12 +49,13 @@ async function showCachingHint(promises: Promise<any>[]) {
   for (const promise of promises) {
 
     elem.textContent = `Bitte warten. Vorausladen von ${promisesDone} von
-      ${promises.length} Tagesdatensätzen fertig.`;
+        ${promises.length} Tagesdatensätzen fertig.`;
 
     await promise;
     promisesDone++;
   }
 
+  precached = true;
   elem.parentElement.classList.remove('precaching');
 }
 
