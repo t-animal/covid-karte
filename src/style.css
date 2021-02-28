@@ -6,8 +6,10 @@
   --background-darkest: #050505;
   --background-darker: #222222;
   --background-dark: #404040;
+  --background-light: #5c5c5c;
   --strong-border: 1px solid rgba(255, 255, 255, 0.4);
-  --light-border: 1px solid rgb(58 58 58);
+  --light-border: 1px solid rgb(58, 58, 58);
+  --lighter-border: 1px solid rgb(175, 175, 175);
 }
 
 * {
@@ -358,6 +360,17 @@ section.map-section .city-label {
 section.animation-control {
   grid-column: 2;
   grid-row: 3;
+}
+
+section.animation-control button, section.animation-control input {
+  font-size: 1rem;
+  background: var(--background-light);
+  border: var(--lighter-border);
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0px 3px;
+  height: 1.5em;
 }
 
 section.animation-control.precaching .animation-controls-row, section.animation-control .animation-caching-hint {
