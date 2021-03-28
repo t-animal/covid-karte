@@ -18,13 +18,21 @@ features like historic views.
 
 ## Some things to remind myself of what to do
 
-### Development serve
+### Development server
 
-`snowpack dev --reload`
+Start the development server with
+
+```bash
+snowpack dev --reload
+```
+
+then open [http://localhost:8080/src/](http://localhost:8080/src/).
 
 ### Build
 
-`snowpack build --config ./snowpack.json`
+```bash
+snowpack build --config ./snowpack.json
+```
 
 ### Deploy
 
