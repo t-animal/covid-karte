@@ -5,12 +5,19 @@ export const enum LabelScheme {
   RiskLayer = 'RiskLayer'
 }
 
+export const enum Interpolation {
+  None = 'None',
+  Linear = 'Linear'
+}
+
 export type Settings = {
   labelScheme: LabelScheme,
+  interpolate: Interpolation,
 }
 
 const defaultSettings: Settings = {
   labelScheme: LabelScheme.RKI,
+  interpolate: Interpolation.None,
 };
 
 let currentSettings: Settings | null = null;
@@ -35,9 +42,9 @@ export function initCallbacks(): void {
     if(!isValidKey(key)){
       continue;
     }
-    
+
     uiElem.oninput = () => {
-      loadSettings()[key] = parseSetting(key, value) ?? defaultSettings[key];
+      updateSetting(key, value);
       storeSettings();
     };
   }
@@ -56,11 +63,16 @@ export function displayCurrentSettings(): void {
   }
 }
 
-function parseSetting<Key extends keyof Settings>(key: Key, value: string): Settings[Key]  | null{
-  if(key === 'labelScheme') {
-    return value === 'RKI' ? LabelScheme.RKI : LabelScheme.RiskLayer;
+function updateSetting<Key extends keyof Settings>(key: Key, value: string) {
+  loadSettings()[key] = defaultSettings[key];
+
+  if (key === 'labelScheme') {
+    loadSettings()['labelScheme'] = value === 'RKI' ? LabelScheme.RKI : LabelScheme.RiskLayer;
   }
-  return null;
+
+  if (key === 'interpolate') {
+    loadSettings()['interpolate'] = value === 'None' ? Interpolation.None : Interpolation.Linear;
+  }
 }
 
 function storeSettings(): void {

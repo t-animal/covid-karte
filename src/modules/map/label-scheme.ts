@@ -1,7 +1,11 @@
-import { getElementOrThrow } from '../helpers';
-import { LabelScheme, loadSettings } from '../settings';
+import chroma from 'chroma-js';
 
-type ColorSchemeData = {max: number, color: string}[]
+import { getElementOrThrow } from '../helpers';
+import { Interpolation, LabelScheme, loadSettings } from '../settings';
+
+type TransitionPoint = { max: number, color: string };
+type ColorSchemeData = TransitionPoint[];
+type ColorRange = { min: TransitionPoint, max: TransitionPoint };
 
 const rkiScheme: ColorSchemeData = [
   { max: 0,    color: '#ccf5c4' },
@@ -27,8 +31,24 @@ const riskLayerScheme: ColorSchemeData = [
   { max: 1000, color: '#222222' }
 ];
 
+const defaultColorSchemeEntry = {
+  max: 0,
+  color: '#fff',
+};
+
 export function colorForIncidence(sevenDaysInfectionsPer100k: number | undefined): string {
-  return getColor(getSelectedColorScheme(), sevenDaysInfectionsPer100k);
+
+  if (sevenDaysInfectionsPer100k === undefined) {
+    return defaultColorSchemeEntry.color;
+  }
+
+  const colorRange = getColor(getSelectedColorScheme(), sevenDaysInfectionsPer100k);
+  if (colorRange === undefined) {
+    return defaultColorSchemeEntry.color;
+  }
+
+  const colorFunction = getColorFunction();
+  return colorFunction(colorRange, sevenDaysInfectionsPer100k);
 }
 
 export function renderColorScheme(): void {
@@ -55,20 +75,48 @@ export function renderColorScheme(): void {
   }
 }
 
-function getSelectedColorScheme(){
-  if(loadSettings().labelScheme === LabelScheme.RiskLayer) {
+function colorWithInterpolation(colorRange: ColorRange, sevenDaysInfectionsPer100k: number): string {
+  const { min: lowerBoundColor, max: upperBoundColor } = colorRange;
+
+  const interpolationFunction = chroma.scale([lowerBoundColor.color, upperBoundColor.color]);
+
+  const factor = (sevenDaysInfectionsPer100k - lowerBoundColor.max) / (upperBoundColor.max - lowerBoundColor.max);
+  return interpolationFunction(factor).css();
+}
+
+function colorWithoutInterpolation(colorRange: ColorRange, sevenDaysInfectionsPer100k: number): string {
+  return colorRange.max.color;
+}
+
+function getSelectedColorScheme() {
+  if (loadSettings().labelScheme === LabelScheme.RiskLayer) {
     return riskLayerScheme;
   }
   return rkiScheme;
 }
 
-function getColor(scheme: ColorSchemeData, incidence: number | undefined) {
-  if (incidence === undefined) return '#fff';
-
-  for(const entry of scheme) {
-    if(incidence <= entry.max) {
-      return entry.color;
-    }
+function getColorFunction() {
+  if (loadSettings().interpolate == Interpolation.Linear) {
+    return colorWithInterpolation;
   }
-  return '#fff';
+  return colorWithoutInterpolation;
+}
+
+function getColor(scheme: ColorSchemeData, incidence: number | undefined): ColorRange | undefined {
+  if (incidence === undefined) {
+    return undefined;
+  }
+
+  let min = defaultColorSchemeEntry;
+  for (const entry of scheme) {
+    if (incidence <= entry.max) {
+      return {
+        min,
+        max: entry,
+      }
+    }
+    min = entry;
+  }
+
+  return undefined;
 }
