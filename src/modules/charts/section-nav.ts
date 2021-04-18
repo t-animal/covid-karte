@@ -1,4 +1,3 @@
-import { loadAndDisplayTotalCasesPer100kChart } from './cases-per-100k';
 import { loadAndRenderCumulativeCasesPerDay } from './cumulative-cases-per-day';
 import { loadAndRenderDailyCasesByReportday } from './daily-cases-by-reportday';
 import { loadAndRenderDailyCasesBySickday } from './daily-cases-by-sickday';
@@ -37,7 +36,6 @@ function initiationFunction(navTarget: string) {
     case 'new-cases-per-day-section': return loadAndRenderDailyCasesBySickday;
     case 'total-reported-cases-per-day-section': return loadAndRenderCumulativeCasesPerDay;
     case 'newly-reported-cases-per-day-section': return loadAndRenderDailyCasesByReportday;
-    case 'total-cases-per-100k-section': return loadAndDisplayTotalCasesPer100kChart;
     default: return null;
   }
 }
