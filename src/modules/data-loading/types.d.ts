@@ -58,3 +58,19 @@ export type RkiTotalRecoveredByCounty = { 'SummeGenesen': number, 'Landkreis': s
 export type RkiFeatureData<T> = {
     features: [{ attributes: T }]
 }
+
+export type RkiDailyAggregatedData = {
+  'AdmUnitId': number,
+  'BundeslandId': number,
+  'AnzFall': number,
+  'AnzTodesfall': number,
+  'AnzFallNeu': number,
+  'AnzTodesfallNeu': number,
+  'AnzFall7T': number,
+  'AnzGenesen': number,
+  'AnzGenesenNeu': number,
+  'AnzAktiv': number,
+  'AnzAktivNeu': number,
+  'Inz7T': number,
+  'ObjectId': number
+};

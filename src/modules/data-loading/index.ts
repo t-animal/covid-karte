@@ -1,17 +1,12 @@
 import { getAnimationDate } from '../history-animation/date-selection';
 import { DataLoader, ParametrizedDataLoader, PermanentlyCachingDataLoader } from './data-loaders';
 import {
-  RkiCountyFeatureAttributes,
-  RkiDailyNewCasesData,
-  RkiDiffData,
-  RkiFeatureData,
-  RkiSummedDayData,
-  RkiTotalCasesPerDay,
-  RkiTotalRecoveredByCounty
+  RkiCountyFeatureAttributes, RkiDailyAggregatedData, RkiDailyNewCasesData, RkiDiffData,
+  RkiFeatureData, RkiSummedDayData, RkiTotalCasesPerDay, RkiTotalRecoveredByCounty
 } from './types';
 
-
 /* eslint-disable max-len */
+const AGGREGATED_DATA_URL= 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=AdmUnitId%20asc&resultOffset=0&resultRecordCount=1&resultType=standard&cacheHint=true';
 const COUNTY_DATA_URL = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&outSR=4326&f=json';
 const HISTORIC_COUNTY_DATA_URL_FACTORY = (year: number, month: number, day: number) => `http://localhost:8080/src/assets/historic-county-data/county-data-${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}.json`;
 
@@ -38,6 +33,9 @@ export function loadCountyData(): Promise<RkiFeatureData<RkiCountyFeatureAttribu
   const date = getAnimationDate();
   return date == 'today' ? loadTodaysCountyData() : loadHistoricCountyData(...date);
 }
+
+const todaysAggregatedDataLoader = new DataLoader<RkiFeatureData<RkiDailyAggregatedData>>(AGGREGATED_DATA_URL);
+export const loadTodaysAggregateData = todaysAggregatedDataLoader.createBoundLoadFunction();
 
 const todaysSummedDataLoader = new DataLoader<RkiFeatureData<RkiSummedDayData>>(TODAYS_SUMMED_DATA_URL);
 export const loadTodaysSummedData = todaysSummedDataLoader.createBoundLoadFunction();
