@@ -492,7 +492,9 @@ section.summed-section {
   flex-direction: column;
 }
 
-section.summed-section .daily-sum, section.summed-section .daily-diff {
+section.seven-day-incidence-section > span:first-of-type,
+section.summed-section .daily-sum,
+section.summed-section .daily-diff {
   font-size: 2.5rem;
   font-weight: 500;
 }
@@ -514,13 +516,14 @@ section.summed-section .no-data {
  */
 
 section.info-section {
-  grid-row: 1;
+  grid-row: 3;
+  grid-column: 3/6;
   min-width: 200px;
 }
 
 .development-graphs {
   grid-column: 3/6;
-  grid-row: 2/4;
+  grid-row: 2/3;
   display: flex;
   flex-direction: column;
 }
