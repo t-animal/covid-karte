@@ -590,7 +590,7 @@ section.info-section {
   }
   .development-graphs.navigatable {
     grid-row: 2/4;
-    grid-column: 2/4;
+    grid-column: 2/5;
   }
   section.map-section {
     grid-row: 1/3;
@@ -606,16 +606,18 @@ section.info-section {
     top: auto;
   }
   main {
-    grid-template-columns: auto 250px 250px;
+    grid-template-columns: auto 200px 200px 200px;
     grid-template-rows: 185px calc(80vh - 185px) 100px 80vh;
   }
   section.data-age {
     grid-row: 4;
     grid-column: 2;
+    height: 100px;
   }
   section.info-section {
     grid-row: 4;
-    grid-column: 3;
+    grid-column: 3/5;
+    height: 100px;
   }
   section.cases-section.summed-section {
     grid-row: 1;
@@ -632,16 +634,16 @@ section.info-section {
     font-size: 15px;
   }
   main {
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
   }
   .help {
     display: none;
   }
   section.counties {
     grid-row: 5;
-    grid-column: 1/3;
+    grid-column: 1/4;
     height: 250px;
-    height: 100vh;
+    height: 80vh;
   }
   section.cases-section.summed-section {
     grid-row: 1;
@@ -651,19 +653,23 @@ section.info-section {
     grid-row: 1;
     grid-column: 2;
   }
+  section.seven-day-incidence-section {
+    grid-row: 1;
+    grid-column: 3;
+  }
   section.map-section {
     grid-row: 2;
-    grid-column: 1/3;
+    grid-column: 1/4;
     height: 250px;
     height: 80vh;
   }
   section.animation-control {
     grid-row: 3;
-    grid-column: 1/3;
+    grid-column: 1/4;
   }
   .development-graphs.navigatable {
     grid-row: 4;
-    grid-column: 1/3;
+    grid-column: 1/4;
     height: 250px;
     height: 100vh;
   }
@@ -674,6 +680,105 @@ section.info-section {
   section.info-section {
     grid-row: 6;
     grid-column: 2;
+  }
+}
+
+
+@media (max-width: 500px) {
+  html {
+    font-size: 15px;
+  }
+  main {
+    grid-template-columns: 50% 50%;
+  }
+  .help {
+    display: none;
+  }
+  section.counties {
+    grid-row: 6;
+    grid-column: 1/3;
+    height: 250px;
+    height: 80vh;
+  }
+  section.cases-section.summed-section {
+    grid-row: 1;
+    grid-column: 1/3;
+  }
+  section.seven-day-incidence-section {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  section.deaths-section.summed-section {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  section.map-section {
+    grid-row: 3;
+    grid-column: 1/3;
+    height: 250px;
+    height: 80vh;
+  }
+  section.animation-control {
+    grid-row: 4;
+    grid-column: 1/3;
+  }
+  .development-graphs.navigatable {
+    grid-row: 5;
+    grid-column: 1/3;
+    height: 250px;
+    height: 100vh;
+  }
+  section.data-age {
+    grid-row: 7;
+    grid-column: 1;
+  }
+  section.info-section {
+    grid-row: 7;
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 320px) {
+  html {
+    font-size: 15px;
+  }
+  main {
+    display: flex;
+    flex-direction: column;;
+  }
+  .help {
+    display: none;
+  }
+  section.counties {
+    order: 8;
+    height: 250px;
+    height: 80vh;
+  }
+  section.cases-section.summed-section {
+    order: 2;
+  }
+  section.deaths-section.summed-section {
+    order: 3;
+  }
+  section.seven-day-incidence-section {
+    order: 4;
+  }
+  section.map-section {
+    order: 5;
+    height: 250px;
+    height: 80vh;
+  }
+  section.animation-control {
+    order: 6;
+  }
+  .development-graphs.navigatable {
+    order: 7;
+  }
+  section.data-age {
+    order: 9;
+  }
+  section.info-section {
+    order: 10;
   }
 }
 
