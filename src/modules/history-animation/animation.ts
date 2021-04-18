@@ -10,7 +10,9 @@ export async function runAnimation(): Promise<void> {
 
   await cacheForAnimation();
 
-  document.querySelector('body').dataset.runningAnimation = '';
+  getElementOrThrow<HTMLBodyElement>('body').dataset.runningAnimation = '';
+  const speedOption = getElementOrThrow<HTMLOptionElement>('.animation-speed option:checked');
+  const speed = parseInt(speedOption.value);
 
   const selectedDate = getAnimationDate();
   const startDate = selectedDate === 'today' ? daysSince(2020, 9, 1) : daysSince(...selectedDate);
@@ -20,14 +22,14 @@ export async function runAnimation(): Promise<void> {
     }
 
     selectAnimationDate(date);
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, speed));
   }
 
   if (!cancel) {
     selectToday();
   }
 
-  delete document.querySelector('body').dataset.runningAnimation;
+  delete getElementOrThrow<HTMLBodyElement>('body').dataset.runningAnimation;
 }
 
 async function cacheForAnimation() {

@@ -362,7 +362,9 @@ section.animation-control {
   grid-row: 3;
 }
 
-section.animation-control button, section.animation-control input {
+section.animation-control button,
+section.animation-control input,
+section.animation-control select {
   font-size: 1rem;
   background: var(--background-light);
   border: var(--lighter-border);
@@ -394,7 +396,8 @@ section.animation-control.precaching .animation-caching-hint {
   flex-shrink: 1;
 }
 
-[data-running-animation] .animation-controls-row button {
+[data-running-animation] .animation-controls-row button,
+[data-running-animation] .animation-controls-row select {
   pointer-events: none;
   opacity: 0.4;
 }
