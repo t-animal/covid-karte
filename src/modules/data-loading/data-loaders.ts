@@ -69,6 +69,8 @@ export class ParametrizedDataLoader<T, P extends AnyParameters>{
 }
 
 export class PermanentlyCachingDataLoader<T, P extends AnyParameters> {
+  private concurrentResolvers: {[url: string]: [[(resolved: T)=> void, (error: any) => void]]} = {};
+
   private constructor(
     private cache: Cache,
     private urlBuilder: UrlBuilder<P>,
@@ -81,18 +83,33 @@ export class PermanentlyCachingDataLoader<T, P extends AnyParameters> {
     return new PermanentlyCachingDataLoader(await caches.open(cacheName), urlBuilder);
   }
 
-  async load(...args: P): Promise<T> {
+  async load(...args: P): Promise<T | null> {
     const url = this.urlBuilder(...args);
 
+    if(this.concurrentResolvers[url] !== undefined) {
+      return new Promise<T>((resolve, reject) => {
+        this.concurrentResolvers[url].push([resolve, reject]);
+      });
+    }else {
+      this.concurrentResolvers[url] = [];
+    }
+
+
     const cacheValue = await this.cache.match(url);
-    if (cacheValue != undefined) {
-      return cacheValue.json();
+    if (cacheValue !== undefined) {
+      const cachedJson = await cacheValue.json();
+      this.concurrentResolvers[url]?.forEach(([resolve,]) => resolve(cachedJson));
+      delete this.concurrentResolvers[url];
+      return cachedJson;
     }
 
     const response = await fetch(url);
     if (response.ok) {
       this.cache.put(url, response.clone());
     }
-    return response.json();
+    const cachedJson = await response.json();
+    this.concurrentResolvers[url]?.forEach(([resolve,]) => resolve(cachedJson));
+    delete this.concurrentResolvers[url];
+    return cachedJson;
   }
 }
