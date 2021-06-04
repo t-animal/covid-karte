@@ -33,15 +33,16 @@ export async function runAnimation(): Promise<void> {
 }
 
 async function cacheForAnimation() {
-  const loadingPromises = [...daysSince(2020, 9, 1)].map((date) => loadHistoricCountyData(...date));
-
-  await showCachingHint(loadingPromises);
-}
-
-async function showCachingHint(promises: Promise<any>[]) {
   if (precached) {
     return;
   }
+  const loadingPromises = [...daysSince(2020, 9, 1)].map((date) => loadHistoricCountyData(...date));
+
+  await showCachingHint(loadingPromises);
+  precached = true;
+}
+
+async function showCachingHint(promises: Promise<any>[]) {
 
   const elem = getElementOrThrow('.animation-caching-hint');
 
@@ -57,7 +58,6 @@ async function showCachingHint(promises: Promise<any>[]) {
     promisesDone++;
   }
 
-  precached = true;
   elem.parentElement.classList.remove('precaching');
 }
 
