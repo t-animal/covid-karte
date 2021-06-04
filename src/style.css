@@ -37,7 +37,7 @@ body {
 main {
   flex: 1;
   display: grid;
-  grid-template-columns: 355px auto 250px 250px 250px;
+  grid-template-columns: 370px auto 250px 250px 250px;
   grid-template-rows: min-content auto min-content;
 }
 
@@ -414,6 +414,8 @@ section.animation-control.precaching .animation-caching-hint {
 
 section.animation-control .animation-controls-row {
   display: flex;
+  white-space: nowrap;
+  flex-wrap: wrap;
 }
 
 section.animation-control .animation-controls-row .spacer {
@@ -621,11 +623,28 @@ section.info-section {
   }
   section.cases-section.summed-section {
     grid-row: 1;
-    grid-column: 2;
+    grid-column: 3;
   }
   section.deaths-section.summed-section {
     grid-row: 1;
-    grid-column: 3;
+    grid-column: 4;
+  }
+  section.cases-section.seven-day-incidence-section {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  section.animation-control .animation-controls-row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  section.animation-control .animation-controls-row .spacer {
+    flex-basis: 100%;
+    flex-shrink: 0;
+  }
+  .animation-control-text::before {
+    content: '.';
+    visibility: hidden;
   }
 }
 
@@ -647,15 +666,15 @@ section.info-section {
   }
   section.cases-section.summed-section {
     grid-row: 1;
-    grid-column: 1;
+    grid-column: 2;
   }
   section.deaths-section.summed-section {
     grid-row: 1;
-    grid-column: 2;
+    grid-column: 3;
   }
   section.seven-day-incidence-section {
     grid-row: 1;
-    grid-column: 3;
+    grid-column: 1;
   }
   section.map-section {
     grid-row: 2;

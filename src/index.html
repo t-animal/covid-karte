@@ -129,26 +129,30 @@
 		<section class="animation-control">
 			<h2>
 				Animation
-				<span class="label">(lädt einmalig einige Megabyte Daten!)</span>
+				<span class="label">(lädt einmalig einige MB Daten!)</span>
 			</h2>
 			<div class="animation-controls-row">
-				<button class="animation-control-start">Animation starten</button>
-				<button class="animation-control-stop">Animation pausieren</button>
-				<div class="spacer"></div>
+        <div>
+          <button class="animation-control-start">Animation starten</button>
+          <button class="animation-control-stop">Animation pausieren</button>
+				</div>
+        <div class="spacer"></div>
 				<div class="animation-control-text"></div>
 				<div class="spacer"></div>
-        <select class="animation-speed">
-          <option value="0">maximal</option>
-          <option value="50">schneller</option>
-          <option value="100">schnell</option>
-          <option value="300">langsam</option>
-          <option value="500">langsamer</option>
-        </select>
-				<button class="animation-control-last-week">-7 Tage</button>
-				<button class="animation-control-prev">«</button>
-				<button class="animation-control-next">»</button>
-				<button class="animation-control-next-week">+7 Tage</button>
-				<button class="animation-control-today">Heute</button>
+        <div class="animation-control-buttons">
+          <select class="animation-speed">
+            <option value="0">maximal</option>
+            <option value="50">schneller</option>
+            <option value="100" selected="selected">schnell</option>
+            <option value="300">langsam</option>
+            <option value="500">langsamer</option>
+          </select>
+          <button class="animation-control-last-week">-7 Tage</button>
+          <button class="animation-control-prev">«</button>
+          <button class="animation-control-next">»</button>
+          <button class="animation-control-next-week">+7 Tage</button>
+          <button class="animation-control-today">Heute</button>
+        </div>
 			</div>
 			<div class="animation-controls-row">
 				<div class="animation-control-range"></div>
@@ -161,7 +165,7 @@
 		<section class="seven-day-incidence-section summed-section not-animatable">
 			<h2>7-Tages-Inzidenz</h2>
 			<span class="seven-day-incidence">&nbsp;</span>
-			<div class="seven-day-incidence secondary-info no-data">aus total <span>&nbsp;</span></div> 
+			<div class="seven-day-incidence secondary-info no-data">bundesweit <span>&nbsp;</span></div> 
 		</section>
 
 		<section class="cases-section summed-section not-animatable">
