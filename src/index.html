@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta
   name="description"           
@@ -9,15 +9,15 @@
   Versucht das offizielle RKI Dashboard nachzubilden aber dabei besonders schnell und 
   nutzerfreundlich zu sein.">
   <title>Corona Dashboard</title>
-	<link rel="stylesheet" href="./style.css"/>
+  <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-	<header class="page-header">
+  <header class="page-header">
     <button class="fork-me" onclick="document.location.href='https://github.com/t-animal/covid-karte'">
       <img src="assets/git-branch.svg" alt="fork me"> me on <img src="assets/logo-github.svg" alt="github logo">
     </button>
 
-		<h1>Ein schnelles COVID-19-Dashboard</h1>
+    <h1>Ein schnelles COVID-19-Dashboard</h1>
     Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://corona.rki.de">RKI-Dashboard</a>, aber schneller. |
     <a href="javascript:document.querySelector('.page-info').classList.remove('hidden');"><span class="symbol">✉</span> Kontakt und weitere Infos</a> | 
     <a href="javascript:document.querySelector('.settings').classList.remove('hidden');"><span class="symbol">⚙</span> Einstellungen</a> |
@@ -77,16 +77,16 @@
     </div>
   </aside>
 
-	<main>
-		<section class="counties not-animatable">
-			<h2>Auswahl pro Landkreis</h2>
-			<span class="label">
+  <main>
+    <section class="counties not-animatable">
+      <h2>Auswahl pro Landkreis</h2>
+      <span class="label">
         ( <span>7-Tages-Inzidenz</span> |
           <span class="label cases">Covid-19-Fälle</span> |
           <span class="label deaths">Todesfälle</span>)
-			</span>
-			<div class="scroll-container">
-				<table class="county-list">
+      </span>
+      <div class="scroll-container">
+        <table class="county-list">
           <tr class="sort-row">
             <th><span class="sort sorted sorted-desc"></span></th>
             <th><span class="sort"></span></th>
@@ -94,51 +94,51 @@
             <th><span class="sort"></span></th>
           </tr>
         </table>
-			</div>
-		</section>
+      </div>
+    </section>
 
-		<section class="data-age">
-			<h2>Datenstand</h2>
-			<span></span>
-		</section>
+    <section class="data-age">
+      <h2>Datenstand</h2>
+      <span></span>
+    </section>
 
-		<section class="map-section">
-			<h2>COVID-19-Fälle der letzten 7 Tage/100.000 Einwohner (7-Tages-Inzidenz)</h2>
-			<div class="map"></div>
-			<aside class="county-info">
-				<header><a class="label permalink">Permalink</a><div class="spacer"></div><div class="close-icon"></div></header>
-				<div>
-					<h3></h3>
-					<table>
-						<tr class="cases-row"><th>Fälle</th><td></td></tr>
-						<tr class="cases-per-100k-row"><th>Fälle/100.000 EW</th><td></td></tr>
-						<tr class="cases-per-100k-last-7d-row"><th>Fälle letzte 7 Tage/100.000 EW</th><td></td></tr>
-						<tr class="deaths-row"><th>Todesfälle</th><td></td></tr>
-						<tr class="inhabitants-row"><th>Einwohnerzahl</th><td></td></tr>
-						<tr class="data-age-row"><th>Aktualisierung</th><td></td></tr>
-					</table>
-				</div>
+    <section class="map-section">
+      <h2>COVID-19-Fälle der letzten 7 Tage/100.000 Einwohner (7-Tages-Inzidenz)</h2>
+      <div class="map"></div>
+      <aside class="county-info">
+        <header><a class="label permalink">Permalink</a><div class="spacer"></div><div class="close-icon"></div></header>
+        <div>
+          <h3></h3>
+          <table>
+            <tr class="cases-row"><th>Fälle</th><td></td></tr>
+            <tr class="cases-per-100k-row"><th>Fälle/100.000 EW</th><td></td></tr>
+            <tr class="cases-per-100k-last-7d-row"><th>Fälle letzte 7 Tage/100.000 EW</th><td></td></tr>
+            <tr class="deaths-row"><th>Todesfälle</th><td></td></tr>
+            <tr class="inhabitants-row"><th>Einwohnerzahl</th><td></td></tr>
+            <tr class="data-age-row"><th>Aktualisierung</th><td></td></tr>
+          </table>
+        </div>
       </aside>
       <aside class="map-legend collapsed" onclick="this.classList.toggle('collapsed')">
         <h3>Legende</h3>
           Fälle letzte 7 Tage/100.000 EW
           <div class="label-container"></div>
       </aside>
-		</section>
+    </section>
 
-		<section class="animation-control">
-			<h2>
-				Animation
-				<span class="label">(lädt einmalig einige MB Daten!)</span>
-			</h2>
-			<div class="animation-controls-row">
+    <section class="animation-control">
+      <h2>
+        Animation
+        <span class="label">(lädt einmalig einige MB Daten!)</span>
+      </h2>
+      <div class="animation-controls-row">
         <div>
           <button class="animation-control-start">Animation starten</button>
           <button class="animation-control-stop">Animation pausieren</button>
-				</div>
+        </div>
         <div class="spacer"></div>
-				<div class="animation-control-text"></div>
-				<div class="spacer"></div>
+        <div class="animation-control-text"></div>
+        <div class="spacer"></div>
         <div class="animation-control-buttons">
           <select class="animation-speed">
             <option value="0">maximal</option>
@@ -153,100 +153,100 @@
           <button class="animation-control-next-week">+7 Tage</button>
           <button class="animation-control-today">Heute</button>
         </div>
-			</div>
-			<div class="animation-controls-row">
-				<div class="animation-control-range"></div>
-			</div>
+      </div>
+      <div class="animation-controls-row">
+        <div class="animation-control-range"></div>
+      </div>
 
-			<div class="animation-caching-hint">&nbsp;</div>
+      <div class="animation-caching-hint">&nbsp;</div>
 
-		</section>
+    </section>
 
-		<section class="seven-day-incidence-section summed-section not-animatable">
-			<h2>7-Tages-Inzidenz</h2>
-			<span class="seven-day-incidence">&nbsp;</span>
-			<div class="seven-day-incidence secondary-info no-data">bundesweit <span>&nbsp;</span></div> 
-		</section>
+    <section class="seven-day-incidence-section summed-section not-animatable">
+      <h2>7-Tages-Inzidenz</h2>
+      <span class="seven-day-incidence">&nbsp;</span>
+      <div class="seven-day-incidence secondary-info no-data">bundesweit <span>&nbsp;</span></div> 
+    </section>
 
-		<section class="cases-section summed-section not-animatable">
-			<h2>Covid-19-Fälle</h2>
-			<span class="daily-sum cases">&nbsp;</span>
-			<div class="daily-sum secondary-info cases no-data">aus total <span>&nbsp;</span></div> 
+    <section class="cases-section summed-section not-animatable">
+      <h2>Covid-19-Fälle</h2>
+      <span class="daily-sum cases">&nbsp;</span>
+      <div class="daily-sum secondary-info cases no-data">aus total <span>&nbsp;</span></div> 
 
-			<span class="daily-diff highlight">&nbsp;</span>
-			<div class="daily-diff secondary-info highlight no-data">aus total <span>&nbsp;</span></div> 
+      <span class="daily-diff highlight">&nbsp;</span>
+      <div class="daily-diff secondary-info highlight no-data">aus total <span>&nbsp;</span></div> 
 
-			<span class="label">zum Vortag</span>
-		</section>
+      <span class="label">zum Vortag</span>
+    </section>
 
-		<section class="deaths-section summed-section not-animatable">
-			<h2>Covid-19-Todesfälle</h2>
-			<span class="daily-sum deaths">&nbsp;</span>
-			<div class="daily-sum secondary-info deaths no-data">aus total <span>&nbsp;</span></div> 
+    <section class="deaths-section summed-section not-animatable">
+      <h2>Covid-19-Todesfälle</h2>
+      <span class="daily-sum deaths">&nbsp;</span>
+      <div class="daily-sum secondary-info deaths no-data">aus total <span>&nbsp;</span></div> 
 
-			<span class="daily-diff deaths">&nbsp;</span>
-			<div class="daily-diff secondary-info deaths no-data">aus total <span>&nbsp;</span></div>
+      <span class="daily-diff deaths">&nbsp;</span>
+      <div class="daily-diff secondary-info deaths no-data">aus total <span>&nbsp;</span></div>
 
-			<span class="label">zum Vortag</span>
-		</section>
+      <span class="label">zum Vortag</span>
+    </section>
 
-		<section class="info-section">
-			<h2>Disclaimer</h2>
+    <section class="info-section">
+      <h2>Disclaimer</h2>
 
-			Dieses Projekt ist in keiner Weise mit dem RKI verbunden, aber es werden die offiziellen RKI Daten geladen.
-			Keine Garantien für Richtigkeit der hier dargestellten Daten.
-		</section>
+      Dieses Projekt ist in keiner Weise mit dem RKI verbunden, aber es werden die offiziellen RKI Daten geladen.
+      Keine Garantien für Richtigkeit der hier dargestellten Daten.
+    </section>
 
-		<div class="development-graphs navigatable not-animatable">
-			<section class="new-cases-per-day-section active">
-				<h2>COVID-19-Fälle/Tag nach Erkrankungsbeginn, ersatzweise Meldedatum*</h2>
-				<div class="canvas-resize-container">
-					<canvas></canvas>
-				</div>
+    <div class="development-graphs navigatable not-animatable">
+      <section class="new-cases-per-day-section active">
+        <h2>COVID-19-Fälle/Tag nach Erkrankungsbeginn, ersatzweise Meldedatum*</h2>
+        <div class="canvas-resize-container">
+          <canvas></canvas>
+        </div>
 
-				<div class="chart-labels">
-					<div class="chart-label by-first-sickday"></div><span class="label">Erkrankungsbeginn</span>
+        <div class="chart-labels">
+          <div class="chart-label by-first-sickday"></div><span class="label">Erkrankungsbeginn</span>
           <div class="chart-label by-notificationday"></div><span class="label">Meldedatum</span>
           <span class="label">Grafik erlaubt zoomen mit Mausrad.</span>
-				</div>
+        </div>
 
-				<span class="label">* Bei Fällen ohne Angaben zum Erkrankungsbeginn (Erkrankungsbeginn unbekannt bzw. Fälle ohne Symptome)
-				wird ersatzweise das Meldedatum verwendet.
-				Die abnehmende Fallzahl über die letzten Tage kann durch den Melde- und Übermittlungsverzug bedingt sein.</span>
-			</section>
+        <span class="label">* Bei Fällen ohne Angaben zum Erkrankungsbeginn (Erkrankungsbeginn unbekannt bzw. Fälle ohne Symptome)
+        wird ersatzweise das Meldedatum verwendet.
+        Die abnehmende Fallzahl über die letzten Tage kann durch den Melde- und Übermittlungsverzug bedingt sein.</span>
+      </section>
 
-			<section class="newly-reported-cases-per-day-section">
-				<h2>COVID-19-Fälle/Tag nach Meldedatum*</h2>
-				<div class="canvas-resize-container">
-					<canvas></canvas>
-				</div>
+      <section class="newly-reported-cases-per-day-section">
+        <h2>COVID-19-Fälle/Tag nach Meldedatum*</h2>
+        <div class="canvas-resize-container">
+          <canvas></canvas>
+        </div>
 
-				<div class="chart-labels">
-					<div class="chart-label last-reported"></div><span class="label">Stand gestern</span>
+        <div class="chart-labels">
+          <div class="chart-label last-reported"></div><span class="label">Stand gestern</span>
           <div class="chart-label newly-reported"></div><span class="label">Neu übermittelt</span>
           <span class="label">Grafik erlaubt zoomen mit Mausrad.</span>
-				</div>
+        </div>
 
-				<span class="label">* Gesamtplus der Fälle zum Vortag verteilt sich auf versch. Tage (orangene Balken) aufgrund des Übermittlungsprozesses.</span>
-			</section>
+        <span class="label">* Gesamtplus der Fälle zum Vortag verteilt sich auf versch. Tage (orangene Balken) aufgrund des Übermittlungsprozesses.</span>
+      </section>
 
-			<section class="total-reported-cases-per-day-section">
-				<h2>COVID-19-Fälle kumuliert *</h2>
-				<div class="canvas-resize-container">
-					<canvas></canvas>
-				</div>
+      <section class="total-reported-cases-per-day-section">
+        <h2>COVID-19-Fälle kumuliert *</h2>
+        <div class="canvas-resize-container">
+          <canvas></canvas>
+        </div>
 
-				<span class="label">* Gesamtplus der Fälle zum Vortag verteilt sich auf versch. Tage aufgrund des Übermittlungsprozesses.</span>
-			</section>
+        <span class="label">* Gesamtplus der Fälle zum Vortag verteilt sich auf versch. Tage aufgrund des Übermittlungsprozesses.</span>
+      </section>
 
-			<nav class="section-nav">
-				<div data-nav-group="development-graphs" data-nav-target="new-cases-per-day-section" class="active">Fälle/Tag (Erkrankung)</div>
-				<div data-nav-group="development-graphs" data-nav-target="newly-reported-cases-per-day-section">Fälle/Tag (Meldung)</div>
-				<div data-nav-group="development-graphs" data-nav-target="total-reported-cases-per-day-section">Fälle kumuliert</div>
-			</nav>
-		</div>
-	</main>
+      <nav class="section-nav">
+        <div data-nav-group="development-graphs" data-nav-target="new-cases-per-day-section" class="active">Fälle/Tag (Erkrankung)</div>
+        <div data-nav-group="development-graphs" data-nav-target="newly-reported-cases-per-day-section">Fälle/Tag (Meldung)</div>
+        <div data-nav-group="development-graphs" data-nav-target="total-reported-cases-per-day-section">Fälle kumuliert</div>
+      </nav>
+    </div>
+  </main>
 
-	<script type="module" src="main.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>
