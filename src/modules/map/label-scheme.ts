@@ -31,6 +31,16 @@ const riskLayerScheme: ColorSchemeData = [
   { max: 1000, color: '#222222' }
 ];
 
+const bundesnotbremseScheme: ColorSchemeData = [
+  { max: 0.01, color: '#228231' },
+  { max: 10,   color: '#80d38d' },
+  { max: 35,   color: '#fffc65' },
+  { max: 50,   color: '#ffc14a' },
+  { max: 100,  color: '#ef7405' },
+  { max: 165,  color: '#ff1b1b' },
+  { max: 1000, color: '#ac1316' }
+];
+
 const defaultColorSchemeEntry = {
   max: 0,
   color: '#fff',
@@ -89,6 +99,13 @@ function colorWithoutInterpolation(colorRange: ColorRange, sevenDaysInfectionsPe
 }
 
 function getSelectedColorScheme() {
+  switch(loadSettings().labelScheme) {
+    case LabelScheme.RiskLayer: return riskLayerScheme;
+    case LabelScheme.Bundesnotbremse: return bundesnotbremseScheme;
+    case LabelScheme.RKI: // fallthrough
+    default: return rkiScheme;
+
+  }
   if (loadSettings().labelScheme === LabelScheme.RiskLayer) {
     return riskLayerScheme;
   }
@@ -113,7 +130,7 @@ function getColor(scheme: ColorSchemeData, incidence: number | undefined): Color
       return {
         min,
         max: entry,
-      }
+      };
     }
     min = entry;
   }

@@ -2,7 +2,8 @@ import { getElementOrThrow } from './helpers';
 
 export const enum LabelScheme {
   RKI = 'RKI',
-  RiskLayer = 'RiskLayer'
+  RiskLayer = 'RiskLayer',
+  Bundesnotbremse = 'Bundesnotbremse'
 }
 
 export const enum Interpolation {
@@ -67,7 +68,13 @@ function updateSetting<Key extends keyof Settings>(key: Key, value: string) {
   loadSettings()[key] = defaultSettings[key];
 
   if (key === 'labelScheme') {
-    loadSettings()['labelScheme'] = value === 'RKI' ? LabelScheme.RKI : LabelScheme.RiskLayer;
+    const setScheme = (scheme: LabelScheme) => loadSettings()['labelScheme'] = scheme;
+    console.log(value);
+    switch(value){
+      case 'RKI': return setScheme(LabelScheme.RKI);
+      case 'RiskLayer': return setScheme(LabelScheme.RiskLayer);
+      case 'Bundesnotbremse': return setScheme(LabelScheme.Bundesnotbremse);
+    }
   }
 
   if (key === 'interpolate') {
