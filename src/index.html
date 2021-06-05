@@ -18,12 +18,17 @@
     </button>
 
     <h1>Ein schnelles COVID-19-Dashboard</h1>
-    Kann <s>nicht mehr</s> (derzeit?) weniger als das <a href="https://corona.rki.de">RKI-Dashboard</a>, aber schneller. |
-    <a href="javascript:document.querySelector('.page-info').classList.remove('hidden');"><span class="symbol">✉</span> Kontakt und weitere Infos</a> | 
-    <a href="javascript:document.querySelector('.settings').classList.remove('hidden');"><span class="symbol">⚙</span> Einstellungen</a> |
-    <span class="help"><span style="font-weight: bold; color: #844">Hilfe!</span> Ich suche die Daten
-    <a href="https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0">dieser API</a>
-    im zeitlichen Verlauf. Hat irgendwer diese Daten gescraped? => Mail unter "Kontakt"!</span>
+    <span class="subheadline">
+      <span>
+        Ähnlich wie das <a href="https://corona.rki.de">RKI-Dashboard</a>, aber schneller. |
+        <a href="javascript:document.querySelector('.page-info').classList.remove('hidden');"><span class="symbol">✉</span> Kontakt und weitere Infos</a> | 
+        <a href="javascript:document.querySelector('.settings').classList.remove('hidden');"><span class="symbol">⚙</span> Einstellungen</a> |
+      </span>
+      <span class="coffee desktop">
+        Ich betreibe diese Website in meiner Freizeit und arbeite am besten mit Koffein. Wenn du mir einen Kaffee kaufen willst, 
+        geht das auf <a href="https://paypal.me/tanimal">paypal</a> und <a href="https://buymeacoffee.com/t.animal">buymeacoffee.com</a>
+      </span>
+    </span>
   </header>
   
   <aside class="page-info info-overlay hidden" onclick="this.classList.add('hidden')">
@@ -256,6 +261,11 @@
         <div data-nav-group="development-graphs" data-nav-target="total-reported-cases-per-day-section">Fälle kumuliert</div>
       </nav>
     </div>
+
+    <footer class="coffee mobile">
+      Ich arbeite an dieser Website in meiner Freizeit und arbeite am besten mit Koffein. Wenn du mir einen Kaffee kaufen willst, 
+        geht das auf <a href="https://paypal.me/tanimal">paypal</a> und <a href="https://buymeacoffee.com/t.animal">buymeacoffee.com</a>
+    </footer>
   </main>
 
   <script type="module" src="main.js"></script>

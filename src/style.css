@@ -193,6 +193,16 @@ span.symbol {
   pointer-events: none;
 }
 
+.subheadline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.coffee.mobile {
+  display: none;
+}
+
 /*
  * Fork me button and page info
  */
@@ -614,12 +624,12 @@ section.info-section {
   section.data-age {
     grid-row: 4;
     grid-column: 2;
-    height: 100px;
+    height: 150px;
   }
   section.info-section {
     grid-row: 4;
-    grid-column: 3/5;
-    height: 100px;
+    grid-column: 3;
+    height: 150px;
   }
   section.cases-section.summed-section {
     grid-row: 1;
@@ -699,6 +709,18 @@ section.info-section {
   section.info-section {
     grid-row: 6;
     grid-column: 2;
+    min-width: 0px;
+  }
+
+  .coffee.desktop {
+    display: none;
+  }
+
+  .coffee.mobile {
+    display: block;
+    grid-row: 6;
+    grid-column: 3;
+    padding: 10px;
   }
 }
 
@@ -754,6 +776,11 @@ section.info-section {
   section.info-section {
     grid-row: 7;
     grid-column: 2;
+  }
+
+  .coffee.mobile {
+    grid-row: 8;
+    grid-column: 1/3;
   }
 }
 
