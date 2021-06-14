@@ -199,9 +199,6 @@ span.symbol {
   justify-content: space-between;
 }
 
-.coffee.mobile {
-  display: none;
-}
 
 /*
  * Fork me button and page info
@@ -711,17 +708,6 @@ section.info-section {
     grid-column: 2;
     min-width: 0px;
   }
-
-  .coffee.desktop {
-    display: none;
-  }
-
-  .coffee.mobile {
-    display: block;
-    grid-row: 6;
-    grid-column: 3;
-    padding: 10px;
-  }
 }
 
 
@@ -776,11 +762,6 @@ section.info-section {
   section.info-section {
     grid-row: 7;
     grid-column: 2;
-  }
-
-  .coffee.mobile {
-    grid-row: 8;
-    grid-column: 1/3;
   }
 }
 
