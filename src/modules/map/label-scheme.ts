@@ -19,7 +19,8 @@ const rkiScheme: ColorSchemeData = [
 ];
 
 const riskLayerScheme: ColorSchemeData = [
-  { max: 0.01, color: '#2c83b9' },
+  { max: 0,    color: '#2c83b9' },
+  { max: 5,    color: '#25ba94' },
   { max: 15,   color: '#80d38d' },
   { max: 25,   color: '#feffb1' },
   { max: 35,   color: '#feca81' },
@@ -32,7 +33,7 @@ const riskLayerScheme: ColorSchemeData = [
 ];
 
 const bundesnotbremseScheme: ColorSchemeData = [
-  { max: 0.01, color: '#228231' },
+  { max: 0,    color: '#228231' },
   { max: 10,   color: '#80d38d' },
   { max: 35,   color: '#fffc65' },
   { max: 50,   color: '#ffc14a' },
