@@ -3,7 +3,7 @@ import { observeCountyChanges, selectCounty, selectedCountyRkiId } from './count
 export function reactToCountySelection(): void {
   observeCountyChanges(() => {
     const countyId = selectedCountyRkiId();
-    location.hash = countyId?.toString() ?? '';
+    location.hash = countyId?.toString() ?? '-';
   });
 }
 
