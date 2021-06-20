@@ -6,6 +6,7 @@ export type TooltipLabelGenerator = (data: TooltipItem<keyof ChartTypeRegistry> 
 export function commonChartOptions(
   stacked: boolean,
   tooltipLabelGenerator: TooltipLabelGenerator,
+  limits: number | undefined,
 ): ChartOptions {
   const commonAxisSettings = {
     gridLines: {
@@ -29,7 +30,11 @@ export function commonChartOptions(
         max: nowPlus12Hours().getTime(),
         ...commonAxisSettings
       },
-      y: commonAxisSettings
+      y: {
+        min: 0,
+        max: limits,
+        ...commonAxisSettings
+      },
     },
     plugins: {
       legend: { display: false },
@@ -54,6 +59,10 @@ export function commonChartOptions(
           }
         },
         limits: {
+          y: {
+            min: limits,
+            max: limits,
+          },
           x: {
             min: new Date(2020, 2).getTime(),
             max: nowPlus12Hours().getTime()

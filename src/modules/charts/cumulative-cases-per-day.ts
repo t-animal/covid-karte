@@ -72,6 +72,7 @@ function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
     options: commonChartOptions(
       false,
       (item) =>  (typeof(item.parsed.y) == 'number') ? format(item.parsed.y) : '',
-    )
+      undefined
+    ),
   });
 }

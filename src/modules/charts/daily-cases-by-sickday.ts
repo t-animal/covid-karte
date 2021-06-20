@@ -107,6 +107,8 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         const label = dataItem.datasetIndex == 0? 'Erkrankt' : 'Gemeldet';
         const value = (typeof(dataItem.parsed.y) == 'number') ? format(dataItem.parsed.y) : '??';
         return `${label}: ${value}`;
-      })
+      },
+      30000,
+    )
   });
 }

@@ -112,7 +112,8 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         const label = item.datasetIndex == 0? 'Bis gestern übermittelt' : 'Gestern übermittelt';
         const value = (typeof(item.parsed.y) == 'number') ? format(item.parsed.y) : '??';
         return `${label}: ${value}`;
-      }
+      },
+      35000
     )
     
   });
