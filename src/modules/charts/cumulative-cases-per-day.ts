@@ -1,12 +1,16 @@
-import chartjs from 'chart.js';
+import { Chart, registerables } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 import {
-  loadTotalCasesReportedPerDay, loadTotalCasesReportedPerDayOfCounty, RkiFeatureData,
-  RkiTotalCasesPerDay
+  loadTotalCasesReportedPerDay, loadTotalCasesReportedPerDayOfCounty
 } from '../data-loading';
+import { RkiFeatureData, RkiTotalCasesPerDay } from '../data-loading/types';
 import { countyNameById, format, getElementOrThrow } from '../helpers';
 import { commonChartOptions } from './chart-options';
+
+Chart.register(...registerables);
+Chart.register(zoomPlugin);
 
 export async function loadAndRenderCumulativeCasesPerDay(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -54,7 +58,7 @@ function renderData(data: CumulativeCases[]) {
 
 type CumulativeCases = { Meldedatum: number, GesamtFaelleSeitAnfang: number };
 function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
-  return new chartjs.Chart(canvas, {
+  return new Chart(canvas, {
     type: 'line',
     data: {
       datasets: [
@@ -65,13 +69,9 @@ function renderChart(canvas: HTMLCanvasElement, values: CumulativeCases[]) {
         }
       ]
     },
-    options: {
-      tooltips: {
-        callbacks: { label:  (item) => {
-          return (typeof(item.yLabel) == 'number') ? format(item.yLabel) : ''; }
-        }
-      },
-      ...commonChartOptions(false)
-    },
+    options: commonChartOptions(
+      false,
+      (item) =>  (typeof(item.parsed.y) == 'number') ? format(item.parsed.y) : '',
+    )
   });
 }

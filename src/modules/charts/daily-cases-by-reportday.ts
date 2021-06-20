@@ -1,12 +1,16 @@
-import chartjs from 'chart.js';
+import { Chart, registerables } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
 import {
-  loadTotalCasesReportedPerDay, loadTotalCasesReportedPerDayOfCounty, RkiFeatureData,
-  RkiTotalCasesPerDay
+  loadTotalCasesReportedPerDay, loadTotalCasesReportedPerDayOfCounty
 } from '../data-loading';
+import { RkiFeatureData, RkiTotalCasesPerDay } from '../data-loading/types';
 import { countyNameById, format, getElementOrThrow } from '../helpers';
 import { commonChartOptions } from './chart-options';
+
+Chart.register(...registerables);
+Chart.register(zoomPlugin);
 
 export async function loadAndRenderDailyCasesByReportday(): Promise<void> {
   renderData(preprocessData(await loadData()));
@@ -82,7 +86,7 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
 
   const isWeekend = (value: RkiTotalCasesPerDay) => new Date(value.Meldedatum).getDay() % 6 == 0;
 
-  return new chartjs.Chart(canvas, {
+  return new Chart(canvas, {
     type: 'bar',
     data: {
       datasets: [
@@ -102,18 +106,14 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         }
       ]
     },
-    options: {
-      tooltips: {
-        mode: 'index',
-        callbacks: { label:  
-          (item) => {
-            const label = item.datasetIndex == 0? 'Bis gestern übermittelt' : 'Gestern übermittelt';
-            const value = (typeof(item.yLabel) == 'number') ? format(item.yLabel) : '??';
-            return `${label}: ${value}`;
-          }
-        },
-      },
-      ...commonChartOptions(true)
-    }
+    options: commonChartOptions(
+      true,
+      (item) => {
+        const label = item.datasetIndex == 0? 'Bis gestern übermittelt' : 'Gestern übermittelt';
+        const value = (typeof(item.parsed.y) == 'number') ? format(item.parsed.y) : '??';
+        return `${label}: ${value}`;
+      }
+    )
+    
   });
 }

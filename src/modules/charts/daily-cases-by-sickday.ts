@@ -1,15 +1,18 @@
-import 'moment';
-import 'chartjs-plugin-zoom';
 
-import chartjs, * as Chart from 'chart.js';
+
+import 'chartjs-adapter-date-fns';
+
+import { Chart, registerables } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { observeCountyChanges, selectedCountyRkiId } from '../county-selection';
-import {
-  loadDailyInfections, loadDailyInfectionsOfCounty, RkiDailyNewCasesData, RkiFeatureData
-} from '../data-loading';
+import { loadDailyInfections, loadDailyInfectionsOfCounty } from '../data-loading';
+import { RkiDailyNewCasesData, RkiFeatureData } from '../data-loading/types';
 import { countyNameById, format, getElementOrThrow } from '../helpers';
 import { commonChartOptions } from './chart-options';
 
+Chart.register(...registerables);
+Chart.register(zoomPlugin);
 export async function loadAndRenderDailyCasesBySickday(): Promise<void> {
   renderData(preprocessData(await loadData()));
 }
@@ -61,6 +64,7 @@ function renderData(data: PreprocessedData) {
   chart?.clear();
   chart?.destroy();
   chart = renderChart(canvas, data);
+  // chart.zoom({x: 1.5});
 }
 
 type PreprocessedData = {
@@ -78,7 +82,7 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
 
   const isWeekend = (value: {x: number}) => new Date(value.x).getDay() % 6 == 0;
 
-  return new chartjs.Chart(canvas, {
+  return new Chart(canvas, {
     type: 'bar',
     data: {
       datasets: [
@@ -97,18 +101,12 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         }
       ]
     },
-    options: {
-      tooltips: {
-        mode: 'index',
-        callbacks: { label: 
-          (item) => {
-            const label = item.datasetIndex == 0? 'Erkrankt' : 'Gemeldet';
-            const value = (typeof(item.yLabel) == 'number') ? format(item.yLabel) : '??';
-            return `${label}: ${value}`;
-          }
-        }
-      },
-      ...commonChartOptions(true)
-    },
+    options: commonChartOptions(
+      true,
+      (dataItem) => {
+        const label = dataItem.datasetIndex == 0? 'Erkrankt' : 'Gemeldet';
+        const value = (typeof(dataItem.parsed.y) == 'number') ? format(dataItem.parsed.y) : '??';
+        return `${label}: ${value}`;
+      })
   });
 }
