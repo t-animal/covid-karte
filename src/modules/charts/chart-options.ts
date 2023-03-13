@@ -56,7 +56,9 @@ export function commonChartOptions(
           },
           pinch: {
             enabled: true,
-          }
+          },
+          // onZoom: (...args) => console.log(args),
+          // onZoomComplete: (...args) => console.log(args),
         },
         limits: {
           y: {
@@ -71,7 +73,7 @@ export function commonChartOptions(
       }
     },
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
   };
 
 }

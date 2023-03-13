@@ -61,10 +61,19 @@ function preprocessData(data: RkiFeatureData<RkiDailyNewCasesData>) {
 let chart: Chart;
 function renderData(data: PreprocessedData) {
   const canvas = getElementOrThrow<HTMLCanvasElement>('.new-cases-per-day-section canvas');
+
+
+  const options = chart?.scales.x.options;
   chart?.clear();
   chart?.destroy();
   chart = renderChart(canvas, data);
-  // chart.zoom({x: 1.5});
+  
+  if(options) {
+    chart.zoom({x: 1});
+    chart.scales.x.options.min = options.min;
+    chart.scales.x.options.max = options.max;
+    chart.update();
+  }
 }
 
 type PreprocessedData = {
@@ -108,7 +117,7 @@ function renderChart(canvas: HTMLCanvasElement, values: PreprocessedData) {
         const value = (typeof(dataItem.parsed.y) == 'number') ? format(dataItem.parsed.y) : '??';
         return `${label}: ${value}`;
       },
-      30000,
+      undefined,
     )
   });
 }

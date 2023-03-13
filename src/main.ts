@@ -19,6 +19,7 @@ import { loadAndDisplaySums } from './modules/summed-data/summed-data.js';
 import { loadAndRenderDailyCasesBySickday } from './modules/charts/daily-cases-by-sickday';
 import { restoreCountySelectionFromUrl } from './modules/county-selection-persistence';
 import { renderColorScheme } from './modules/map/label-scheme';
+import { getElementOrThrow } from './modules/helpers';
 
 restoreCountySelectionFromUrl();
 
@@ -45,3 +46,13 @@ dailyCasesBySickday.reactToCountySelection();
 dailyCasesByReportday.reactToCountySelection();
 cumulativeCasesPerDay.reactToCountySelection();
 countySelectionPersistence.reactToCountySelection();
+
+let oldHeight = window.innerHeight;
+window.onresize = () => {
+  if(oldHeight != window.innerHeight) {
+    //TODO: also if layout was changed
+    getElementOrThrow<HTMLCanvasElement>('canvas').setAttribute('height', '0');
+    getElementOrThrow<HTMLCanvasElement>('canvas').style.height = '0';
+  }
+  oldHeight = window.innerHeight;
+};

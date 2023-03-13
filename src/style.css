@@ -119,10 +119,6 @@ a {
   flex: 1;
 }
 
-.canvas-resize-container canvas {
-  height: 100%!important;
-}
-
 .navigatable section {
   display: none;
 }
