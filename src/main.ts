@@ -20,6 +20,7 @@ import { loadAndRenderDailyCasesBySickday } from './modules/charts/daily-cases-b
 import { restoreCountySelectionFromUrl } from './modules/county-selection-persistence';
 import { renderColorScheme } from './modules/map/label-scheme';
 import { getElementOrThrow } from './modules/helpers';
+import { selectToday as selectLastInteractiveDay } from './modules/history-animation/date-selection';
 
 restoreCountySelectionFromUrl();
 
@@ -46,6 +47,8 @@ dailyCasesBySickday.reactToCountySelection();
 dailyCasesByReportday.reactToCountySelection();
 cumulativeCasesPerDay.reactToCountySelection();
 countySelectionPersistence.reactToCountySelection();
+
+selectLastInteractiveDay();
 
 let oldHeight = window.innerHeight;
 window.onresize = () => {

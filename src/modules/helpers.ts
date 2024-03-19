@@ -43,7 +43,8 @@ export function* daysSince(year: number, month: number, day: number)
   const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const now = new Date();
 
-  while (year < now.getFullYear() || month < now.getMonth() + 1 || day < now.getDate()) {
+  while (year < 2023 || month < 2 + 1 || day < 1) {
+  // while (year < now.getFullYear() || month < now.getMonth() + 1 || day < now.getDate()) {
     yield [year, month, day];
 
     day++;

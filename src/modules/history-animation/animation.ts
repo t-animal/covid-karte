@@ -1,6 +1,6 @@
 import { loadHistoricCountyData } from '../data-loading';
 import { daysSince, getElementOrThrow } from '../helpers';
-import { getAnimationDate, selectAnimationDate, selectToday } from './date-selection';
+import { getAnimationDate, selectAnimationDate, selectToday, today } from './date-selection';
 
 let cancel = false;
 let precached = false;
@@ -15,7 +15,7 @@ export async function runAnimation(): Promise<void> {
   const speed = parseInt(speedOption.value);
 
   const selectedDate = getAnimationDate();
-  const startDate = selectedDate === 'today' ? daysSince(2020, 9, 1) : daysSince(...selectedDate);
+  const startDate = selectedDate === today ? daysSince(2020, 9, 1) : daysSince(...selectedDate);
   for (const date of startDate) {
     if (cancel) {
       break;

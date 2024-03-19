@@ -12,6 +12,21 @@
   --lighter-border: 1px solid rgb(175, 175, 175);
 }
 
+.ribbon {
+  position: absolute;
+  left: calc(100vw - 690px);
+  top: 40px;
+  padding: 9px 300px;
+  transform: rotate(15deg);
+  background: #910000;
+  color: white;
+  font-weight: bold;
+  box-shadow: white 1px 0px 6px 2px;
+  font-size: 1.3em;
+  z-index: 99;
+  white-space: nowrap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -22,6 +37,7 @@ html {
   font-weight: 300;
   font-size: 13px;
   height: 100%;
+  overflow-x: hidden
 }
 
 body {
@@ -592,6 +608,12 @@ section.info-section {
 }
 
 @media (max-width: 1400px) and (min-width: 800px) {
+
+.ribbon {
+  left: calc(100vw - 440px);
+  top: 30px;
+  padding: 9px 100px;
+}
   section.counties {
     grid-row: 4;
     grid-column: 1;
@@ -714,6 +736,17 @@ section.info-section {
   html {
     font-size: 15px;
   }
+
+  .ribbon {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    padding: 9px;
+    transform: none;
+    font-size: 1.3em;
+    z-index: 99;
+  }
+
   main {
     grid-template-columns: 50% 50%;
   }
@@ -765,6 +798,7 @@ section.info-section {
 }
 
 @media (max-width: 320px) {
+
   html {
     font-size: 15px;
   }

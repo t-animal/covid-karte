@@ -2,7 +2,7 @@ import { Observable, Observer } from '../observers';
 
 export type yyyymmdd = [number, number, number];
 export type DateSelection = yyyymmdd | typeof today;
-export const today = 'today';
+export const today = [2023, 2, 28]; // data after march 2023 is disabled
 
 let currentDay: DateSelection = today;
 const dateChangeObservable = new Observable();
